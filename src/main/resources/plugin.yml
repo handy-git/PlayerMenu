@@ -1,0 +1,36 @@
+name: PlayerMenu
+main: cn.handyplus.menu.PlayerMenu
+version: 1.1.2
+author: handy
+api-version: 1.13
+website: https://ricedoc.handyplus.cn/wiki/PlayerMenu/log/
+softdepend: [ PlaceholderAPI,Vault,PlayerPoints,PlayerGuild ]
+description: 一个有点好用的玩家菜单插件
+commands:
+  playerMenu:
+    description: 玩家菜单插件
+    aliases: [ plm ]
+permissions:
+  playerMenu.*:
+    description: 玩家菜单插件
+    children:
+      playerMenu.reload: true
+      playerMenu.create: true
+      playerMenu.view: true
+      playerMenu.getMaterial: true
+      playerMenu.open: true
+  playerMenu.reload:
+    description: 重新加载配置
+    default: op
+  playerMenu.create:
+    description: 创建
+    default: op
+  playerMenu.view:
+    description: 管理员进行查看信息
+    default: op
+  playerMenu.getMaterial:
+    description: 获取材质
+    default: op
+  playerMenu.open:
+    description: 打开
+    default: op

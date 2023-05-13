@@ -1,0 +1,28 @@
+# 语言文件 [可选 中文简体:zh_CN;中文繁體:zh_TW;English:en_US]
+language: zh_CN
+
+# 是否开启更新提醒,建议开启
+isCheckUpdate: true
+
+# op登录时候是否发送更新提醒
+isCheckUpdateToOpMsg: true
+
+# 禁止打开菜单的世界
+noWorld:
+  - "notWorld"
+
+# 唯一菜单 进服发送菜单,如果没有就赠送一个
+clock:
+  # 是否开启
+  enable: true
+  name: '   &8[&c服务器菜单&8]'
+  material: clock
+  lore:
+    - "&f- &7点击打开菜单"
+    - "&f- &7也可以使用指令&a/mc&7打开菜单"
+  isEnchant: false
+  custom-model-data: 0
+  # 使用该物品打开的菜单 如果填写了该配置,menu文件下的所有openItem将会无效,只使用这个
+  menu: menu.yml
+  # 点击类型 ALL 全部 ，LEFT 左键，RIGHT 右键
+  action: ALL
