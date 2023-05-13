@@ -1,5 +1,7 @@
 ## PlayerMenu 一款有点好用的菜单插件
 
+![](https://bstats.org/signatures/bukkit/PlayerMenu.svg)
+
 ### 菜单主体配置
 
 1. title 菜单标题
