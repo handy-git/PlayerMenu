@@ -215,7 +215,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
                     return true;
                 }
                 // 判断条件
-                if (this.checkCondition(player, condition)) {
+                if (!this.checkCondition(player, condition)) {
                     MessageApi.sendMessage(player, BaseUtil.getLangMsg("noOpenCondition"));
                     return true;
                 }
@@ -243,42 +243,42 @@ public class InventoryClickEventListener implements IHandyClickEvent {
      *
      * @param player    玩家
      * @param condition 条件
-     * @return true不满足
+     * @return true 满足
      */
     private boolean checkCondition(Player player, String condition) {
         if (condition.contains(">=")) {
             List<Long> number = this.getNumber(player, condition, ">=");
-            if (number.get(0) < number.get(1)) {
+            if (number.get(0) >= number.get(1)) {
                 return true;
             }
         }
         if (condition.contains("<=")) {
             List<Long> number = this.getNumber(player, condition, "<=");
-            if (number.get(0) > number.get(1)) {
+            if (number.get(0) <= number.get(1)) {
                 return true;
             }
         }
         if (condition.contains("!=")) {
             List<String> number = this.getStr(player, condition, "!=");
-            if (number.get(0).equals(number.get(1))) {
+            if (!number.get(0).equals(number.get(1))) {
                 return true;
             }
         }
         if (condition.contains("=")) {
             List<String> number = this.getStr(player, condition, "=");
-            if (!number.get(0).equals(number.get(1))) {
+            if (number.get(0).equals(number.get(1))) {
                 return true;
             }
         }
         if (condition.contains(">")) {
             List<Long> number = this.getNumber(player, condition, ">");
-            if (number.get(0) <= number.get(1)) {
+            if (number.get(0) > number.get(1)) {
                 return true;
             }
         }
         if (condition.contains("<")) {
             List<Long> number = this.getNumber(player, condition, "<");
-            if (number.get(0) >= number.get(1)) {
+            if (number.get(0) < number.get(1)) {
                 return true;
             }
         }
