@@ -7,6 +7,7 @@ import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.inventory.MenuGui;
+import com.handy.guild.api.PlayerGuildApi;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -46,6 +47,11 @@ public class MenuUtil {
         new BukkitRunnable() {
             @Override
             public void run() {
+                // 判断是否在公会战
+                if (PlayerMenu.USE_GUILD && PlayerGuildApi.getInstance().isPvp(player)) {
+                    MessageApi.sendMessage(player, BaseUtil.getLangMsg("noOpenPvpPermission"));
+                    return;
+                }
                 String finalMenu = YmlUtil.setYml(menu);
                 // 校验权限
                 if (!checkPermission(player, finalMenu)) {
