@@ -69,7 +69,13 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         if (StrUtil.isEmpty(soundStr)) {
             return;
         }
-        Sound sound = Sound.valueOf(soundStr);
+        Sound sound;
+        try {
+            sound = Sound.valueOf(soundStr);
+        } catch (Exception e) {
+            MessageApi.sendMessage(player, "没有 " + soundStr + " 音效");
+            return;
+        }
         player.getWorld().playSound(player.getLocation(), sound, 1, 1);
     }
 

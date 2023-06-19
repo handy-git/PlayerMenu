@@ -54,6 +54,7 @@ menu:
     # 点击按钮播放的声音1.12+支持
     sound: "BLOCK_ANVIL_HIT"
     # 条件不满足播放的声音1.12+支持
+    # 音效列表 https://bukkit.windit.net/javadoc/org/bukkit/Sound.html
     failSound: "BLOCK_CHEST_CLOSE"
     commands:
       - '[command] say 你开通了vip'
