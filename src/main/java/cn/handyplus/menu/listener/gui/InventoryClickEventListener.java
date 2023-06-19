@@ -246,15 +246,27 @@ public class InventoryClickEventListener implements IHandyClickEvent {
      * @return true不满足
      */
     private boolean checkCondition(Player player, String condition) {
-        if (condition.contains("=")) {
-            List<String> number = this.getStr(player, condition, "=");
-            if (!number.get(0).equals(number.get(1))) {
+        if (condition.contains(">=")) {
+            List<Long> number = this.getNumber(player, condition, ">=");
+            if (number.get(0) < number.get(1)) {
+                return true;
+            }
+        }
+        if (condition.contains("<=")) {
+            List<Long> number = this.getNumber(player, condition, "<=");
+            if (number.get(0) > number.get(1)) {
                 return true;
             }
         }
         if (condition.contains("!=")) {
             List<String> number = this.getStr(player, condition, "!=");
             if (number.get(0).equals(number.get(1))) {
+                return true;
+            }
+        }
+        if (condition.contains("=")) {
+            List<String> number = this.getStr(player, condition, "=");
+            if (!number.get(0).equals(number.get(1))) {
                 return true;
             }
         }
@@ -269,16 +281,6 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             if (number.get(0) >= number.get(1)) {
                 return true;
             }
-        }
-        if (condition.contains(">=")) {
-            List<Long> number = this.getNumber(player, condition, ">=");
-            if (number.get(0) < number.get(1)) {
-                return true;
-            }
-        }
-        if (condition.contains("<=")) {
-            List<Long> number = this.getNumber(player, condition, "<=");
-            return number.get(0) > number.get(1);
         }
         return false;
     }
@@ -301,7 +303,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         }
         long oneNumber = BaseUtil.isNumericToLong(one);
         long twoNumber = BaseUtil.isNumericToLong(two);
-        MessageApi.sendMessage(player, "条件一 " + one + " 条件二 " + two);
+        MessageApi.sendDebugMessage(player, "条件一 " + one + " 条件二 " + two);
         return Arrays.asList(oneNumber, twoNumber);
     }
 
@@ -321,7 +323,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             one = PlaceholderApiUtil.set(player, one);
             two = PlaceholderApiUtil.set(player, two);
         }
-        MessageApi.sendMessage(player, "条件一 " + one + " 条件二 " + two);
+        MessageApi.sendDebugMessage(player, "条件一 " + one + " 条件二 " + two);
         return Arrays.asList(one, two);
     }
 
