@@ -141,10 +141,14 @@ public class InventoryClickEventListener implements IHandyClickEvent {
                 continue;
             }
             if (command.contains("[op]")) {
-                String trimCommand = command.replace("[op]", "").trim();
-                player.setOp(true);
-                player.performCommand(trimCommand);
-                player.setOp(false);
+                boolean op = player.isOp();
+                try {
+                    String trimCommand = command.replace("[op]", "").trim();
+                    player.setOp(true);
+                    player.performCommand(trimCommand);
+                } finally {
+                    player.setOp(op);
+                }
                 continue;
             }
             if (command.contains("[Console]")) {

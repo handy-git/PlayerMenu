@@ -31,8 +31,8 @@
     * [actionbar] 发送消息
     * [allActionbar] 发送消息给全服
     * [command] 执行命令
-    * [op] op身份执行命令
-    * [Console] 控制台执行命令
+    * [op] op身份执行命令(尽量不要使用这个)
+    * [Console] 控制台执行命令(推荐使用这个)
     * [close] 关闭菜单
     ```
     例:

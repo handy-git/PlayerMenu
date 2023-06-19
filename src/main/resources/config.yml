@@ -32,5 +32,5 @@ shift:
   F:
     # 是否开启
     enable: false
-    # 使用该物品打开的菜单 如果填写了该配置,menu文件下的所有openItem将会无效,只使用这个
+    # 使用Shift+F打开的菜单
     menu: menu.yml

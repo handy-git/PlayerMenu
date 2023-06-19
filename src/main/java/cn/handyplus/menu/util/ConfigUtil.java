@@ -4,6 +4,7 @@ import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.util.HandyConfigUtil;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -49,6 +50,18 @@ public class ConfigUtil {
                 ITEM_MAP.put(openItem.toLowerCase(Locale.ROOT), key);
             }
         }
+    }
+
+    /**
+     * 升级节点处理
+     *
+     * @since 1.1.3
+     */
+    public static void upConfig() {
+        // 1.1.3 添加快捷键F操作
+        HandyConfigUtil.setPathIsNotContains(CONFIG, "shift.F.enable", false, Collections.singletonList("是否开启"), "config.yml");
+        HandyConfigUtil.setPathIsNotContains(CONFIG, "shift.F.menu", "menu.yml", Collections.singletonList("使用Shift+F打开的菜单"), "config.yml");
+        CONFIG = HandyConfigUtil.load("config.yml");
     }
 
 }
