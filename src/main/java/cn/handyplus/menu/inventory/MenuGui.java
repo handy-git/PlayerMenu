@@ -147,7 +147,7 @@ public class MenuGui {
         MenuButtonParam menuButtonParam = new MenuButtonParam();
         // 基础属性
         menuButtonParam.setName(name);
-        menuButtonParam.setLoreList(PlaceholderApiUtil.set(player, loreList));
+        menuButtonParam.setLoreList(loreList);
         menuButtonParam.setIndexList(indexList);
         menuButtonParam.setMaterial(material);
         menuButtonParam.setCustomModelDataId(customModelDataId);
