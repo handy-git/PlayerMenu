@@ -33,4 +33,4 @@ permissions:
     default: op
   playerMenu.open:
     description: 打开
-    default: op
+    default: true

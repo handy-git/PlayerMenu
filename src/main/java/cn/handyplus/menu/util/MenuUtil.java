@@ -81,11 +81,11 @@ public class MenuUtil {
      * @return true 有权限操作
      */
     private static boolean checkPermission(Player player, String finalMenu) {
-        if (!ConfigUtil.PERMISSION_MAP.get(finalMenu)) {
+        if (!ConfigUtil.PERMISSION_MAP.getOrDefault(finalMenu, true)) {
             return true;
         }
         String openPermission = "playerMenu.open." + finalMenu;
-        if (!player.hasPermission("playerMenu.open") && !player.hasPermission(openPermission)) {
+        if (!player.hasPermission(openPermission)) {
             MessageApi.sendMessage(player, BaseUtil.getLangMsg("noOpenPermission", "").replace("${permission}", openPermission));
             return false;
         }
