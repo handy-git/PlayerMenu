@@ -5,10 +5,11 @@
 ### 菜单主体配置
 
 1. title 菜单标题
-2. openCommand 打开的命令
-3. openItem 打开的物品
+2. openCommand 打开命令
+3. openItem 打开物品
 4. size 菜单大小
 5. menu 菜单节点
+6. permission 打开权限
 
 ### menu支持节点说明
 

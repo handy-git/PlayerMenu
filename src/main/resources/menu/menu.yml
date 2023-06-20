@@ -4,6 +4,8 @@ title: '&7演示菜单'
 openCommand: 'mc'
 # 打开物品
 openItem: 'clock'
+# 打开权限 权限格式: playerMenu.open.menu.yml 设置false表示不需要权限
+permission: true
 # 菜单大小
 size: 54
 # 菜单 节点commands内容 支持变量

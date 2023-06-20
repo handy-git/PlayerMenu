@@ -35,6 +35,7 @@ helps:
 
 succeedMsg: "&a命令执行成功."
 failureMsg: "&c命令执行失败."
+versionFailureMsg: "&8[&c✘&8] &4服务端版本小于1.14,无法使用该指令"
 paramFailureMsg: "&8[&c✘&8] &4参数错误"
 noPlayerFailureMsg: "&c该命令只能玩家执行."
 noMenu: "&8[&c✘&8] &7参数异常,没有名为 &a${menu} &7的菜单"
