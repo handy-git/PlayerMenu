@@ -1,7 +1,6 @@
 package cn.handyplus.menu.hook;
 
 import cn.handyplus.lib.core.CollUtil;
-import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.menu.PlayerMenu;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
@@ -23,7 +22,11 @@ public class PlaceholderApiUtil {
      * @return 新字符串
      */
     public static String set(Player player, String str) {
-        if (PlayerMenu.USE_PAPI && player != null && StrUtil.isNotEmpty(str)) {
+        if (!PlayerMenu.USE_PAPI || player == null) {
+            return str;
+        }
+        // 是否包含变量
+        if (PlaceholderAPI.containsPlaceholders(str)) {
             return PlaceholderAPI.setPlaceholders(player, str);
         }
         return str;
@@ -37,10 +40,10 @@ public class PlaceholderApiUtil {
      * @return 新字符串集合
      */
     public static List<String> set(Player player, List<String> strList) {
-        if (PlayerMenu.USE_PAPI && player != null && CollUtil.isNotEmpty(strList)) {
-            return PlaceholderAPI.setPlaceholders(player, strList);
+        if (!PlayerMenu.USE_PAPI || player == null || CollUtil.isEmpty(strList)) {
+            return strList;
         }
-        return strList;
+        return PlaceholderAPI.setPlaceholders(player, strList);
     }
 
 }

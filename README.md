@@ -5,10 +5,11 @@
 ### 菜单主体配置
 
 1. title 菜单标题
-2. openCommand 打开的命令
-3. openItem 打开的物品
+2. openCommand 打开命令
+3. openItem 打开物品
 4. size 菜单大小
 5. menu 菜单节点
+6. permission 打开权限
 
 ### menu支持节点说明
 
@@ -31,8 +32,8 @@
     * [actionbar] 发送消息
     * [allActionbar] 发送消息给全服
     * [command] 执行命令
-    * [op] op身份执行命令
-    * [Console] 控制台执行命令
+    * [op] op身份执行命令(尽量不要使用这个)
+    * [Console] 控制台执行命令(推荐使用这个)
     * [close] 关闭菜单
     ```
     例:

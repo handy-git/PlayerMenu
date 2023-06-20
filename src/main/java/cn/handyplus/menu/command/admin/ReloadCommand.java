@@ -2,7 +2,6 @@ package cn.handyplus.menu.command.admin;
 
 import cn.handyplus.lib.api.MessageApi;
 import cn.handyplus.lib.command.IHandyCommandEvent;
-import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.util.ConfigUtil;
 import org.bukkit.command.Command;
@@ -32,7 +31,7 @@ public class ReloadCommand implements IHandyCommandEvent {
             @Override
             public void run() {
                 ConfigUtil.init();
-                MessageApi.sendMessage(sender, BaseUtil.getLangMsg("reloadMsg"));
+                MessageApi.sendMessage(sender, ConfigUtil.LANG_CONFIG.getString("reloadMsg"));
             }
         }.runTaskAsynchronously(PlayerMenu.getInstance());
     }

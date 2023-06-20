@@ -1,14 +1,10 @@
 package cn.handyplus.menu.listener;
 
 import cn.handyplus.lib.annotation.HandyListener;
-import cn.handyplus.lib.api.MessageApi;
 import cn.handyplus.lib.core.StrUtil;
-import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
-import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.MenuUtil;
-import com.handy.guild.api.PlayerGuildApi;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -75,11 +71,6 @@ public class PlayerInteractEventListener implements Listener {
                 return;
             }
             clockMenu = menu;
-        }
-        // 判断是否在公会战
-        if (PlayerMenu.USE_GUILD && PlayerGuildApi.getInstance().isPvp(player)) {
-            MessageApi.sendMessage(player, BaseUtil.getLangMsg("noOpenPvpPermission"));
-            return;
         }
         MenuUtil.openGui(player, clockMenu);
     }

@@ -26,3 +26,11 @@ clock:
   menu: menu.yml
   # 点击类型 ALL 全部 ，LEFT 左键，RIGHT 右键
   action: ALL
+
+# 动作打开菜单
+shift:
+  F:
+    # 是否开启
+    enable: false
+    # 使用Shift+F打开的菜单
+    menu: menu.yml
