@@ -28,7 +28,7 @@ public class PlayerSwapHandItemsEventListener implements Listener {
         if (!player.isSneaking()) {
             return;
         }
-        boolean shiftF = ConfigUtil.CONFIG.getBoolean("shift.F");
+        boolean shiftF = ConfigUtil.CONFIG.getBoolean("shift.F.enable");
         if (!shiftF) {
             return;
         }
