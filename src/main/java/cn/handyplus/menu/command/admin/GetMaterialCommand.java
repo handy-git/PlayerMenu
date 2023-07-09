@@ -1,9 +1,9 @@
 package cn.handyplus.menu.command.admin;
 
-import cn.handyplus.lib.api.MessageApi;
 import cn.handyplus.lib.command.IHandyCommandEvent;
 import cn.handyplus.lib.util.AssertUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
+import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.util.ConfigUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -34,8 +34,8 @@ public class GetMaterialCommand implements IHandyCommandEvent {
         // 物品
         ItemStack itemInMainHand = ItemStackUtil.getItemInMainHand(player.getInventory());
         String name = itemInMainHand.getType().name();
-        MessageApi.sendMessage(sender, name);
-        MessageApi.sendConsoleMessage(name);
+        MessageUtil.sendMessage(sender, name);
+        MessageUtil.sendConsoleMessage(name);
     }
 
 }

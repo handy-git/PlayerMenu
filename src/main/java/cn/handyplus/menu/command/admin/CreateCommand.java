@@ -1,9 +1,9 @@
 package cn.handyplus.menu.command.admin;
 
-import cn.handyplus.lib.api.MessageApi;
 import cn.handyplus.lib.command.IHandyCommandEvent;
 import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.util.AssertUtil;
+import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.inventory.CreateGui;
 import cn.handyplus.menu.util.ConfigUtil;
@@ -36,7 +36,7 @@ public class CreateCommand implements IHandyCommandEvent {
         if (args.length > 1) {
             size = AssertUtil.isNumericToInt(args[1], sender, ConfigUtil.LANG_CONFIG.getString("noSize"));
             if (!MenuConstants.GUI_SIZE.contains(size)) {
-                MessageApi.sendMessage(player, ConfigUtil.LANG_CONFIG.getString("noSize"));
+                MessageUtil.sendMessage(player, ConfigUtil.LANG_CONFIG.getString("noSize"));
                 return;
             }
         }

@@ -1,11 +1,11 @@
 package cn.handyplus.menu.listener.gui;
 
-import cn.handyplus.lib.api.MessageApi;
 import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.inventory.IHandyClickEvent;
 import cn.handyplus.lib.util.BaseUtil;
+import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.GuiTypeEnum;
 import cn.handyplus.menu.enter.MenuLimit;
@@ -73,7 +73,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         try {
             sound = Sound.valueOf(soundStr);
         } catch (Exception e) {
-            MessageApi.sendMessage(player, "没有 " + soundStr + " 音效");
+            MessageUtil.sendMessage(player, "没有 " + soundStr + " 音效");
             return;
         }
         player.getWorld().playSound(player.getLocation(), sound, 1, 1);
@@ -93,12 +93,12 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             command = PlaceholderApiUtil.set(player, command);
             if (command.contains("[message]")) {
                 String trimMessage = command.replace("[message]", "").trim();
-                MessageApi.sendMessage(player, trimMessage);
+                MessageUtil.sendMessage(player, trimMessage);
                 continue;
             }
             if (command.contains("[allMessage]")) {
                 String trimMessage = command.replace("[allMessage]", "").trim();
-                MessageApi.sendAllMessage(trimMessage);
+                MessageUtil.sendAllMessage(trimMessage);
                 continue;
             }
             if (command.contains("[title]")) {
@@ -110,7 +110,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
                 if (split.length > 1) {
                     subTitle = split[1];
                 }
-                MessageApi.sendTitle(player, title, subTitle);
+                MessageUtil.sendTitle(player, title, subTitle);
                 continue;
             }
             if (command.contains("[allTitle]")) {
@@ -122,17 +122,17 @@ public class InventoryClickEventListener implements IHandyClickEvent {
                 if (split.length > 1) {
                     subTitle = split[1];
                 }
-                MessageApi.sendAllTitle(title, subTitle);
+                MessageUtil.sendAllTitle(title, subTitle);
                 continue;
             }
             if (command.contains("[actionbar]")) {
                 String trimMessage = command.replace("[actionbar]", "").trim();
-                MessageApi.sendActionbar(player, trimMessage);
+                MessageUtil.sendActionbar(player, trimMessage);
                 continue;
             }
             if (command.contains("[allActionbar]")) {
                 String trimMessage = command.replace("[allActionbar]", "").trim();
-                MessageApi.sendAllActionbar(trimMessage);
+                MessageUtil.sendAllActionbar(trimMessage);
                 continue;
             }
             if (command.contains("[command]")) {
@@ -194,20 +194,20 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         if (limit > 0) {
             Integer count = MenuLimitService.getInstance().findCountByPlayerName(player.getName(), menuButtonParam.getId());
             if (count >= limit) {
-                MessageApi.sendMessage(player, BaseUtil.getLangMsg("noLimit"));
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noLimit"));
                 return true;
             }
         }
         // 判断点击金钱是否满足
         int money = menuButtonParam.getMoney();
         if (money > 0 && VaultUtil.getPlayerVault(player) < money) {
-            MessageApi.sendMessage(player, BaseUtil.getLangMsg("noMoney"));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMoney"));
             return true;
         }
         // 判断点击点券是否满足
         int point = menuButtonParam.getPoint();
         if (point > 0 && PlayerPointsUtil.getPlayerPoints(player) < point) {
-            MessageApi.sendMessage(player, BaseUtil.getLangMsg("noPoint"));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noPoint"));
             return true;
         }
         // 判断点击自定义条件是否满足
@@ -215,12 +215,12 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             for (String condition : menuButtonParam.getConditions()) {
                 if (!condition.contains("=") && !condition.contains(">") && !condition.contains("<") &&
                         !condition.contains("!=") && !condition.contains(">=") && !condition.contains("<=")) {
-                    MessageApi.sendMessage(player, BaseUtil.getLangMsg("errorCondition"));
+                    MessageUtil.sendMessage(player, BaseUtil.getLangMsg("errorCondition"));
                     return true;
                 }
                 // 判断条件
                 if (!this.checkCondition(player, condition)) {
-                    MessageApi.sendMessage(player, BaseUtil.getLangMsg("noOpenCondition"));
+                    MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noOpenCondition"));
                     return true;
                 }
             }
@@ -228,14 +228,14 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         // 金币扣除处理
         if (money > 0) {
             if (!VaultUtil.buy(player, money)) {
-                MessageApi.sendMessage(player, BaseUtil.getLangMsg("noMoney"));
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMoney"));
                 return true;
             }
         }
         // 点券扣除处理
         if (point > 0) {
             if (!PlayerPointsUtil.buy(player, point)) {
-                MessageApi.sendMessage(player, BaseUtil.getLangMsg("noPoint"));
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noPoint"));
                 return true;
             }
         }
@@ -307,7 +307,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         }
         long oneNumber = BaseUtil.isNumericToLong(one);
         long twoNumber = BaseUtil.isNumericToLong(two);
-        MessageApi.sendDebugMessage(player, "条件一 " + one + " 条件二 " + two);
+        MessageUtil.sendDebugMessage(player, "条件一 " + one + " 条件二 " + two);
         return Arrays.asList(oneNumber, twoNumber);
     }
 
@@ -327,7 +327,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             one = PlaceholderApiUtil.set(player, one);
             two = PlaceholderApiUtil.set(player, two);
         }
-        MessageApi.sendDebugMessage(player, "条件一 " + one + " 条件二 " + two);
+        MessageUtil.sendDebugMessage(player, "条件一 " + one + " 条件二 " + two);
         return Arrays.asList(one, two);
     }
 

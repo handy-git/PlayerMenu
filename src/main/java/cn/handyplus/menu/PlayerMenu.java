@@ -1,11 +1,11 @@
 package cn.handyplus.menu;
 
 import cn.handyplus.lib.InitApi;
-import cn.handyplus.lib.api.MessageApi;
 import cn.handyplus.lib.constants.BaseConstants;
+import cn.handyplus.lib.db.SqlManagerUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.util.BaseUtil;
-import cn.handyplus.lib.util.SqlManagerUtil;
+import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.util.ConfigUtil;
 import net.milkbowl.vault.economy.Economy;
@@ -59,7 +59,7 @@ public class PlayerMenu extends JavaPlugin {
                 "                |___/                                   "
         );
         for (String lord : lordList) {
-            MessageApi.sendConsoleMessage(ChatColor.DARK_AQUA + lord);
+            MessageUtil.sendConsoleMessage(ChatColor.DARK_AQUA + lord);
         }
         initApi.initCommand("cn.handyplus.menu.command")
                 .initListener("cn.handyplus.menu.listener")
@@ -67,8 +67,8 @@ public class PlayerMenu extends JavaPlugin {
                 .enableSql("cn.handyplus.menu.enter")
                 .addMetrics(14034)
                 .checkVersion(ConfigUtil.CONFIG.getBoolean(BaseConstants.IS_CHECK_UPDATE), MenuConstants.PLUGIN_VERSION_URL);
-        MessageApi.sendConsoleMessage(ChatColor.GREEN + "已成功载入服务器！");
-        MessageApi.sendConsoleMessage(ChatColor.GREEN + "Author:handy QQ群:1064982471");
+        MessageUtil.sendConsoleMessage(ChatColor.GREEN + "已成功载入服务器！");
+        MessageUtil.sendConsoleMessage(ChatColor.GREEN + "Author:handy QQ群:1064982471");
     }
 
     @Override
@@ -83,8 +83,8 @@ public class PlayerMenu extends JavaPlugin {
         }
         // 关闭数据源
         SqlManagerUtil.getInstance().close();
-        MessageApi.sendConsoleMessage("§a已成功卸载！");
-        MessageApi.sendConsoleMessage("§aAuthor:handy QQ群:1064982471");
+        MessageUtil.sendConsoleMessage("§a已成功卸载！");
+        MessageUtil.sendConsoleMessage("§aAuthor:handy QQ群:1064982471");
     }
 
     public static PlayerMenu getInstance() {
@@ -104,16 +104,16 @@ public class PlayerMenu extends JavaPlugin {
      */
     public void loadEconomy() {
         if (getServer().getPluginManager().getPlugin(BaseConstants.VAULT) == null) {
-            MessageApi.sendConsoleMessage(BaseUtil.getLangMsg("vaultFailureMsg"));
+            MessageUtil.sendConsoleMessage(BaseUtil.getLangMsg("vaultFailureMsg"));
             return;
         }
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
-            MessageApi.sendConsoleMessage(BaseUtil.getLangMsg("vaultFailureMsg"));
+            MessageUtil.sendConsoleMessage(BaseUtil.getLangMsg("vaultFailureMsg"));
             return;
         }
         ECON = rsp.getProvider();
-        MessageApi.sendConsoleMessage(BaseUtil.getLangMsg("vaultSucceedMsg"));
+        MessageUtil.sendConsoleMessage(BaseUtil.getLangMsg("vaultSucceedMsg"));
     }
 
     /**
@@ -123,10 +123,10 @@ public class PlayerMenu extends JavaPlugin {
         if (Bukkit.getPluginManager().getPlugin(BaseConstants.PLAYER_POINTS) != null) {
             final Plugin plugin = this.getServer().getPluginManager().getPlugin(BaseConstants.PLAYER_POINTS);
             PLAYER_POINTS = (PlayerPoints) plugin;
-            MessageApi.sendConsoleMessage(BaseUtil.getLangMsg("playerPointsSucceedMsg"));
+            MessageUtil.sendConsoleMessage(BaseUtil.getLangMsg("playerPointsSucceedMsg"));
             return;
         }
-        MessageApi.sendConsoleMessage(BaseUtil.getLangMsg("playerPointsFailureMsg"));
+        MessageUtil.sendConsoleMessage(BaseUtil.getLangMsg("playerPointsFailureMsg"));
     }
 
 }

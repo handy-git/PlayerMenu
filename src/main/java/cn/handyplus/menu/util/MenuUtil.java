@@ -1,10 +1,10 @@
 package cn.handyplus.menu.util;
 
-import cn.handyplus.lib.api.MessageApi;
 import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.core.YmlUtil;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
+import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.inventory.MenuGui;
 import com.handy.guild.api.PlayerGuildApi;
@@ -49,7 +49,7 @@ public class MenuUtil {
             public void run() {
                 // 判断是否在公会战
                 if (PlayerMenu.USE_GUILD && PlayerGuildApi.getInstance().isPvp(player)) {
-                    MessageApi.sendMessage(player, BaseUtil.getLangMsg("noOpenPvpPermission"));
+                    MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noOpenPvpPermission"));
                     return;
                 }
                 String finalMenu = YmlUtil.setYml(menu);
@@ -64,7 +64,7 @@ public class MenuUtil {
                 // 生成菜单
                 Inventory inventory = MenuGui.getInstance().createGui(player, finalMenu);
                 if (inventory == null) {
-                    MessageApi.sendMessage(player, BaseUtil.getLangMsg("noMenu", "").replace("${menu}", menu));
+                    MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMenu", "").replace("${menu}", menu));
                     return;
                 }
                 // 打开菜单
@@ -86,7 +86,7 @@ public class MenuUtil {
         }
         String openPermission = "playerMenu.open." + finalMenu;
         if (!player.hasPermission(openPermission)) {
-            MessageApi.sendMessage(player, BaseUtil.getLangMsg("noOpenPermission", "").replace("${permission}", openPermission));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noOpenPermission", "").replace("${permission}", openPermission));
             return false;
         }
         return true;
@@ -100,7 +100,7 @@ public class MenuUtil {
     private static boolean checkWorld(Player player) {
         List<String> noWorld = ConfigUtil.CONFIG.getStringList("noWorld");
         if (CollUtil.isNotEmpty(noWorld) && noWorld.contains(player.getWorld().getName())) {
-            MessageApi.sendMessage(player, BaseUtil.getLangMsg("noOpenWorldPermission"));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noOpenWorldPermission"));
             return false;
         }
         return true;

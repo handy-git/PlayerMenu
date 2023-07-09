@@ -27,7 +27,11 @@ public class PlaceholderApiUtil {
         }
         // 是否包含变量
         if (PlaceholderAPI.containsPlaceholders(str)) {
-            return PlaceholderAPI.setPlaceholders(player, str);
+            str = PlaceholderAPI.setPlaceholders(player, str);
+        }
+        // 双重解析,处理变量嵌套变量
+        if (PlaceholderAPI.containsPlaceholders(str)) {
+            str = PlaceholderAPI.setPlaceholders(player, str);
         }
         return str;
     }
