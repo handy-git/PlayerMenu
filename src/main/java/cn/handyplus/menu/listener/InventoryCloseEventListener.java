@@ -137,7 +137,7 @@ public class InventoryCloseEventListener implements Listener {
                 int menuItemId = MenuItemService.getInstance().add(menuItem);
                 createMenuItem.put("id", menuItemId);
             }
-            createMenuItemMap.put(i + "", createMenuItem);
+            createMenuItemMap.put(String.valueOf(i), createMenuItem);
         }
         String fileName = handyInventory.getSearchType();
         File file = new File(fileName);
@@ -154,6 +154,9 @@ public class InventoryCloseEventListener implements Listener {
         }
         if (StrUtil.isEmpty(yamlConfiguration.getString("openItem"))) {
             yamlConfiguration.set("openItem", "");
+        }
+        if (StrUtil.isEmpty(yamlConfiguration.getString("permission"))) {
+            yamlConfiguration.set("permission", true);
         }
         yamlConfiguration.set("size", size);
         yamlConfiguration.set("menu", createMenuItemMap);
