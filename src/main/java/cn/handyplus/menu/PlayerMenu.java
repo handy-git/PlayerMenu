@@ -65,6 +65,7 @@ public class PlayerMenu extends JavaPlugin {
                 .initListener("cn.handyplus.menu.listener")
                 .initClickEvent("cn.handyplus.menu.listener.gui")
                 .enableSql("cn.handyplus.menu.enter")
+                .enableBc()
                 .addMetrics(14034)
                 .checkVersion(ConfigUtil.CONFIG.getBoolean(BaseConstants.IS_CHECK_UPDATE), MenuConstants.PLUGIN_VERSION_URL);
         MessageUtil.sendConsoleMessage(ChatColor.GREEN + "已成功载入服务器！");

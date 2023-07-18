@@ -5,6 +5,7 @@ import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.inventory.IHandyClickEvent;
 import cn.handyplus.lib.util.BaseUtil;
+import cn.handyplus.lib.util.BcUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.GuiTypeEnum;
@@ -158,6 +159,10 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             }
             if (command.contains("[close]")) {
                 player.closeInventory();
+            }
+            if (command.contains("[server]")) {
+                String trimCommand = command.replace("[server]", "").trim();
+                BcUtil.tpConnect(player, trimCommand);
             }
         }
     }
