@@ -22,6 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 生成gui
@@ -176,10 +177,11 @@ public class MenuGui {
         if (menuButtonParam.getId() < 1) {
             return itemStack;
         }
-        MenuItem menuItem = MenuItemService.getInstance().findById(menuButtonParam.getId());
-        if (menuItem == null) {
+        Optional<MenuItem> menuItemOptional = MenuItemService.getInstance().findById(menuButtonParam.getId());
+        if (!menuItemOptional.isPresent()) {
             return itemStack;
         }
+        MenuItem menuItem = menuItemOptional.get();
         ItemStack item = ItemStackUtil.itemStackDeserialize(menuItem.getItemStack());
         ItemMeta newItemMeta = ItemStackUtil.getItemMeta(item);
         ItemMeta oldItemMeta = ItemStackUtil.getItemMeta(itemStack);

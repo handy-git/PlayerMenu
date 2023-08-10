@@ -3,6 +3,8 @@ package cn.handyplus.menu.service;
 import cn.handyplus.lib.db.Db;
 import cn.handyplus.menu.enter.MenuLimit;
 
+import java.util.Optional;
+
 /**
  * 菜单点击限制
  *
@@ -36,12 +38,12 @@ public class MenuLimitService {
      * @param menuLimit 入参
      */
     public void set(MenuLimit menuLimit) {
-        MenuLimit limit = this.findByPlayerName(menuLimit.getPlayerName(), menuLimit.getMenuItemId());
-        if (limit == null) {
+        Optional<MenuLimit> limitOptional = this.findByPlayerName(menuLimit.getPlayerName(), menuLimit.getMenuItemId());
+        if (!limitOptional.isPresent()) {
             this.add(menuLimit);
             return;
         }
-        this.addNumberById(limit.getId());
+        this.addNumberById(limitOptional.get().getId());
     }
 
     /**
@@ -61,7 +63,7 @@ public class MenuLimitService {
      * @param playerName item
      * @return MenuLimit
      */
-    public MenuLimit findByPlayerName(String playerName, Integer menuItemId) {
+    public Optional<MenuLimit> findByPlayerName(String playerName, Integer menuItemId) {
         Db<MenuLimit> use = Db.use(MenuLimit.class);
         use.where().eq(MenuLimit::getPlayerName, playerName)
                 .eq(MenuLimit::getMenuItemId, menuItemId);
@@ -78,11 +80,11 @@ public class MenuLimitService {
         if (menuItemId == null || menuItemId < 1) {
             return 0;
         }
-        MenuLimit menuLimit = this.findByPlayerName(playerName, menuItemId);
-        if (menuLimit == null) {
+        Optional<MenuLimit> menuLimitOptional = this.findByPlayerName(playerName, menuItemId);
+        if (!menuLimitOptional.isPresent()) {
             return 0;
         }
-        return menuLimit.getNumber();
+        return menuLimitOptional.get().getNumber();
     }
 
 }

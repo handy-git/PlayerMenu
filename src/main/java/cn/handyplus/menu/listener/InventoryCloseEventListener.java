@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 关闭编辑菜单保存数据
@@ -83,9 +84,9 @@ public class InventoryCloseEventListener implements Listener {
             }
             createMenuItem.put("hideFlag", true);
             createMenuItem.put("hideEnchant", true);
-            String persistentData = ItemStackUtil.getPersistentData(item, MenuConstants.PREFIX);
-            if (StrUtil.isNotEmpty(persistentData)) {
-                MenuButtonParam menuButtonParam = JsonUtil.toBean(persistentData, MenuButtonParam.class);
+            Optional<String> persistentDataOpt = ItemStackUtil.getPersistentData(item, MenuConstants.PREFIX);
+            if (persistentDataOpt.isPresent()) {
+                MenuButtonParam menuButtonParam = JsonUtil.toBean(persistentDataOpt.get(), MenuButtonParam.class);
                 int money = menuButtonParam.getMoney();
                 if (money > 0) {
                     createMenuItem.put("money", money);

@@ -3,6 +3,8 @@ package cn.handyplus.menu.service;
 import cn.handyplus.lib.db.Db;
 import cn.handyplus.menu.enter.MenuItem;
 
+import java.util.Optional;
+
 /**
  * 菜单物品
  *
@@ -37,7 +39,7 @@ public class MenuItemService {
      * @param id id
      * @return 成功
      */
-    public MenuItem findById(Integer id) {
+    public Optional<MenuItem> findById(Integer id) {
         return Db.use(MenuItem.class).execution().selectById(id);
     }
 
