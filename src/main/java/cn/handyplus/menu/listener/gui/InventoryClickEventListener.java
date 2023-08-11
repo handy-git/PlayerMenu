@@ -1,6 +1,7 @@
 package cn.handyplus.menu.listener.gui;
 
 import cn.handyplus.lib.core.CollUtil;
+import cn.handyplus.lib.core.DateUtil;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.inventory.IHandyClickEvent;
@@ -21,6 +22,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -52,8 +55,10 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             this.playSound(player, StrUtil.isNotEmpty(menuButtonParam.getFailSound()) ? menuButtonParam.getFailSound() : menuButtonParam.getSound());
             return;
         }
-        // 记录点击事件
-        this.setManuLimit(player, menuButtonParam);
+        // 记录点击时间
+        this.setManuTimeLimit(player, menuButtonParam);
+        // 记录点击次数
+        this.setManuNumberLimit(player, menuButtonParam);
         // 执行命令
         this.extractedCommand(player, menuButtonParam.getCommands());
         // 播放声音
@@ -168,12 +173,32 @@ public class InventoryClickEventListener implements IHandyClickEvent {
     }
 
     /**
-     * 记录点击事件
+     * 记录点击时间
      *
      * @param player          玩家
      * @param menuButtonParam 菜单
      */
-    private void setManuLimit(Player player, MenuButtonParam menuButtonParam) {
+    private void setManuTimeLimit(Player player, MenuButtonParam menuButtonParam) {
+        if (menuButtonParam.getId() == null || menuButtonParam.getId() < 1 || menuButtonParam.getCd() < 1) {
+            return;
+        }
+        MenuLimit menuLimit = new MenuLimit();
+        menuLimit.setPlayerName(player.getName());
+        menuLimit.setPlayerUuid(player.getUniqueId().toString());
+        menuLimit.setMenuItemId(menuButtonParam.getId());
+        menuLimit.setNumber(0);
+        menuLimit.setClickTime(new Date());
+        // 保存数据
+        MenuLimitService.getInstance().setClickTimeById(menuLimit);
+    }
+
+    /**
+     * 记录点击次数
+     *
+     * @param player          玩家
+     * @param menuButtonParam 菜单
+     */
+    private void setManuNumberLimit(Player player, MenuButtonParam menuButtonParam) {
         if (menuButtonParam.getId() == null || menuButtonParam.getId() < 1 || menuButtonParam.getLimit() < 1) {
             return;
         }
@@ -182,8 +207,9 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         menuLimit.setPlayerUuid(player.getUniqueId().toString());
         menuLimit.setMenuItemId(menuButtonParam.getId());
         menuLimit.setNumber(1);
+        menuLimit.setClickTime(new Date());
         // 异步保存数据
-        Bukkit.getScheduler().runTaskAsynchronously(PlayerMenu.getInstance(), () -> MenuLimitService.getInstance().set(menuLimit));
+        MenuLimitService.getInstance().setClickTimeById(menuLimit);
     }
 
     /**
@@ -197,8 +223,17 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         // 判断点击次数处理
         int limit = menuButtonParam.getLimit();
         if (limit > 0) {
-            Integer count = MenuLimitService.getInstance().findCountByPlayerName(player.getName(), menuButtonParam.getId());
+            Integer count = MenuLimitService.getInstance().findCountByPlayerUuid(player.getUniqueId(), menuButtonParam.getId());
             if (count >= limit) {
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noLimit"));
+                return true;
+            }
+        }
+        // 判断点击时间
+        int cd = menuButtonParam.getCd();
+        if (cd > 0) {
+            Date clickTime = MenuLimitService.getInstance().findTimeByPlayerUuid(player.getUniqueId(), menuButtonParam.getId());
+            if (clickTime != null && DateUtil.offset(clickTime, Calendar.SECOND, cd).getTime() < System.currentTimeMillis()) {
                 MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noLimit"));
                 return true;
             }

@@ -53,6 +53,11 @@ public class MenuButtonParam {
     private int limit;
 
     /**
+     * 限制点击时间 (秒)
+     */
+    private int cd;
+
+    /**
      * 自定义点击条件
      */
     private List<String> conditions;

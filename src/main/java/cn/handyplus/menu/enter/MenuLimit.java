@@ -5,6 +5,8 @@ import cn.handyplus.lib.annotation.TableName;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 /**
  * 菜单点击限制
  *
@@ -29,5 +31,8 @@ public class MenuLimit {
 
     @TableField(value = "number", comment = "点击次数", notNull = true)
     private Integer number;
+
+    @TableField(value = "click_time", comment = "点击时间")
+    private Date clickTime;
 
 }

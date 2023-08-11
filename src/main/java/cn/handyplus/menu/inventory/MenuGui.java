@@ -143,6 +143,7 @@ public class MenuGui {
         int point = memorySection.getInt("point");
         int money = memorySection.getInt("money");
         int limit = memorySection.getInt("limit");
+        int cd = memorySection.getInt("cd");
         int id = memorySection.getInt("id");
         // 构建类型
         MenuButtonParam menuButtonParam = new MenuButtonParam();
@@ -163,6 +164,7 @@ public class MenuGui {
         menuButtonParam.setPoint(point);
         menuButtonParam.setMoney(money);
         menuButtonParam.setLimit(limit);
+        menuButtonParam.setCd(cd);
         menuButtonParam.setId(id);
         return menuButtonParam;
     }

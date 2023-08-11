@@ -99,6 +99,10 @@ public class InventoryCloseEventListener implements Listener {
                 if (limit > 0) {
                     createMenuItem.put("limit", limit);
                 }
+                int cd = menuButtonParam.getCd();
+                if (cd > 0) {
+                    createMenuItem.put("cd", cd);
+                }
                 List<String> commands = menuButtonParam.getCommands();
                 if (CollUtil.isNotEmpty(commands)) {
                     createMenuItem.put("commands", commands);

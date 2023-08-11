@@ -69,6 +69,9 @@ public class ConfigUtil {
         HandyConfigUtil.setPathIsNotContains(CONFIG, "shift.F.enable", false, Collections.singletonList("是否开启"), "config.yml");
         HandyConfigUtil.setPathIsNotContains(CONFIG, "shift.F.menu", "menu.yml", Collections.singletonList("使用Shift+F打开的菜单"), "config.yml");
         CONFIG = HandyConfigUtil.load("config.yml");
+        // 1.1.7
+        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "noTimeLimit", "&8[&c✘&8] &7时间不足,无法使用", null, "languages/" + CONFIG.getString("language") + ".yml");
+        LANG_CONFIG = HandyConfigUtil.loadLangConfig(CONFIG.getString("language"), true);
     }
 
 }
