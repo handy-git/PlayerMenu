@@ -8,6 +8,7 @@ import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
+import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.constants.GuiTypeEnum;
 import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.enter.MenuItem;
@@ -167,7 +168,7 @@ public class InventoryCloseEventListener implements Listener {
         yamlConfiguration.set("menu", createMenuItemMap);
         yamlConfiguration.save(new File(fileName));
         ConfigUtil.init();
-        player.sendMessage(BaseUtil.getLangMsg("createMsg"));
+        MessageUtil.sendMessage(player, ConfigUtil.LANG_CONFIG.getString("createMsg"));
     }
 
 }

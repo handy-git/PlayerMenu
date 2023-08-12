@@ -54,8 +54,6 @@ public class MenuGui {
         String title = fileConfiguration.getString("title", menu);
         title = PlaceholderApiUtil.set(player, title);
         HandyInventory handyInventory = new HandyInventory(GuiTypeEnum.MENU.getType(), BaseUtil.replaceChatColor(title), fileConfiguration.getInt("size", BaseConstants.GUI_SIZE_54));
-        // 设置数据
-        handyInventory.setPageNum(1);
         handyInventory.setPlayer(player);
         handyInventory.setObj(fileConfiguration);
         this.setInventoryDate(handyInventory);
@@ -144,7 +142,7 @@ public class MenuGui {
         int money = memorySection.getInt("money");
         int limit = memorySection.getInt("limit");
         int cd = memorySection.getInt("cd");
-        int id = memorySection.getInt("id");
+        int id = memorySection.getInt("id", 0);
         // 构建类型
         MenuButtonParam menuButtonParam = new MenuButtonParam();
         // 基础属性
@@ -165,7 +163,7 @@ public class MenuGui {
         menuButtonParam.setMoney(money);
         menuButtonParam.setLimit(limit);
         menuButtonParam.setCd(cd);
-        menuButtonParam.setId(id);
+        menuButtonParam.setId(id != 0 ? id : null);
         return menuButtonParam;
     }
 
@@ -176,7 +174,7 @@ public class MenuGui {
      * @param itemStack       菜单
      */
     public static ItemStack getItemStackById(MenuButtonParam menuButtonParam, ItemStack itemStack) {
-        if (menuButtonParam.getId() < 1) {
+        if (menuButtonParam.getId() == null || menuButtonParam.getId() < 1) {
             return itemStack;
         }
         Optional<MenuItem> menuItemOptional = MenuItemService.getInstance().findById(menuButtonParam.getId());

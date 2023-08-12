@@ -16,6 +16,7 @@ import cn.handyplus.menu.hook.PlayerPointsUtil;
 import cn.handyplus.menu.hook.VaultUtil;
 import cn.handyplus.menu.param.MenuButtonParam;
 import cn.handyplus.menu.service.MenuLimitService;
+import cn.handyplus.menu.util.ConfigUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -179,7 +180,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
      * @param menuButtonParam 菜单
      */
     private void setManuTimeLimit(Player player, MenuButtonParam menuButtonParam) {
-        if (menuButtonParam.getId() == null || menuButtonParam.getId() < 1 || menuButtonParam.getCd() < 1) {
+        if (menuButtonParam.getId() == null || menuButtonParam.getCd() < 1) {
             return;
         }
         MenuLimit menuLimit = new MenuLimit();
@@ -199,7 +200,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
      * @param menuButtonParam 菜单
      */
     private void setManuNumberLimit(Player player, MenuButtonParam menuButtonParam) {
-        if (menuButtonParam.getId() == null || menuButtonParam.getId() < 1 || menuButtonParam.getLimit() < 1) {
+        if (menuButtonParam.getId() == null || menuButtonParam.getLimit() < 1) {
             return;
         }
         MenuLimit menuLimit = new MenuLimit();
@@ -209,7 +210,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         menuLimit.setNumber(1);
         menuLimit.setClickTime(new Date());
         // 异步保存数据
-        MenuLimitService.getInstance().setClickTimeById(menuLimit);
+        MenuLimitService.getInstance().addNumberById(menuLimit);
     }
 
     /**
@@ -233,9 +234,13 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         int cd = menuButtonParam.getCd();
         if (cd > 0) {
             Date clickTime = MenuLimitService.getInstance().findTimeByPlayerUuid(player.getUniqueId(), menuButtonParam.getId());
-            if (clickTime != null && DateUtil.offset(clickTime, Calendar.SECOND, cd).getTime() < System.currentTimeMillis()) {
-                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noLimit"));
-                return true;
+            if (clickTime != null) {
+                long time = DateUtil.offset(clickTime, Calendar.SECOND, cd).getTime() - System.currentTimeMillis();
+                if (time > 0) {
+                    String noTimeLimit = ConfigUtil.LANG_CONFIG.getString("noTimeLimit", "");
+                    MessageUtil.sendMessage(player, StrUtil.replace(noTimeLimit, "time", String.valueOf((int) time / 1000)));
+                    return true;
+                }
             }
         }
         // 判断点击金钱是否满足

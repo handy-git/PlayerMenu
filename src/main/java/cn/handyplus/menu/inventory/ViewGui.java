@@ -52,8 +52,6 @@ public class ViewGui {
         title = PlaceholderApiUtil.set(player, title);
         int size = fileConfiguration.getInt("size", BaseConstants.GUI_SIZE_54);
         HandyInventory handyInventory = new HandyInventory(GuiTypeEnum.CREATE.getType(), BaseUtil.replaceChatColor(title), size);
-        // 设置数据
-        handyInventory.setPageNum(1);
         handyInventory.setPlayer(player);
         handyInventory.setSearchType(PlayerMenu.getInstance().getDataFolder() + "/menu/" + menu);
         handyInventory.setObj(fileConfiguration);

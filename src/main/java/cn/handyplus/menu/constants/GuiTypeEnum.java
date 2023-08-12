@@ -15,8 +15,8 @@ public enum GuiTypeEnum {
     /**
      * gui类型
      */
-    CREATE("create", BaseUtil.replaceChatColor("&a创建菜单")),
-    MENU("menu", BaseUtil.replaceChatColor("&a查看菜单")),
+    CREATE("create", BaseUtil.replaceChatColor("创建菜单")),
+    MENU("menu", BaseUtil.replaceChatColor("查看菜单")),
     ;
 
     private final String type;

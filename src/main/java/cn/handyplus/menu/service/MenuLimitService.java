@@ -46,7 +46,7 @@ public class MenuLimitService {
             return;
         }
         MenuLimit limit = limitOptional.get();
-        this.setClickTimeById(limit.getId(), limit.getClickTime());
+        this.setClickTimeById(limit.getId(), new Date());
     }
 
     /**
@@ -108,7 +108,7 @@ public class MenuLimitService {
      * @return MenuLimit
      */
     public Integer findCountByPlayerUuid(UUID playerUuid, Integer menuItemId) {
-        if (menuItemId == null || menuItemId < 1) {
+        if (menuItemId == null) {
             return 0;
         }
         Optional<MenuLimit> menuLimitOptional = this.findByPlayerUuid(playerUuid, menuItemId);
@@ -126,7 +126,7 @@ public class MenuLimitService {
      * @return MenuLimit
      */
     public Date findTimeByPlayerUuid(UUID playerUuid, Integer menuItemId) {
-        if (menuItemId == null || menuItemId < 1) {
+        if (menuItemId == null) {
             return null;
         }
         Optional<MenuLimit> menuLimitOptional = this.findByPlayerUuid(playerUuid, menuItemId);

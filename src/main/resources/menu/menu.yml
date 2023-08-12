@@ -1,5 +1,5 @@
 # 标题
-title: '&7演示菜单'
+title: '&e演示菜单'
 # 打开命令
 openCommand: 'mc'
 # 打开物品
@@ -76,7 +76,7 @@ menu:
       - '[command] say 你开通了金币vip'
       - '[allMessage] 恭喜 %player_name% 开通了金币vip'
   '29':
-    index: 29
+    index: 24
     name: '   &8[&c只能购买3次&8]'
     material: ARROW
     lore:
@@ -86,13 +86,15 @@ menu:
     custom-model-data: 0
     # 需要花费100金币才能点击
     money: 100
+    # 标识作用(请使用复数,不能重复,有id才能判断cd和limit)
+    id: -1
     # 限制只能使用三次本按钮
     limit: 3
     commands:
       - '[command] say 你开通了金币vip'
       - '[allMessage] 恭喜 %player_name% 开通了金币vip'
   '30':
-    index: 30
+    index: 29
     name: '   &8[&c变量条件&8]'
     material: ARROW
     lore:
@@ -109,13 +111,16 @@ menu:
     commands:
       - '[message] say 你点击了该按钮'
   '31':
-    index: 31
+    index: 30
     name: '   &8[&c时间条件&8]'
     material: ARROW
     lore:
-      - "间隔多久才能继续点击"
+      - "&f- &7点击使用"
+      - "&f- &7限制每10秒使用一次"
     isEnchant: false
     custom-model-data: 0
+    # 标识作用(请使用复数,不能重复,有id才能判断cd和limit)
+    id: -2
     # 单位秒
     cd: 10
     commands:
