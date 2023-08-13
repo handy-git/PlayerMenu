@@ -75,7 +75,7 @@ menu:
     commands:
       - '[command] say 你开通了金币vip'
       - '[allMessage] 恭喜 %player_name% 开通了金币vip'
-  '29':
+  '24':
     index: 24
     name: '   &8[&c只能购买3次&8]'
     material: ARROW
@@ -93,7 +93,7 @@ menu:
     commands:
       - '[command] say 你开通了金币vip'
       - '[allMessage] 恭喜 %player_name% 开通了金币vip'
-  '30':
+  '29':
     index: 29
     name: '   &8[&c变量条件&8]'
     material: ARROW
@@ -110,7 +110,7 @@ menu:
       - '%player_money% > 100'
     commands:
       - '[message] say 你点击了该按钮'
-  '31':
+  '30':
     index: 30
     name: '   &8[&c时间条件&8]'
     material: ARROW
@@ -125,6 +125,20 @@ menu:
     cd: 10
     commands:
       - '[message] say 你点击了该按钮'
+  '31':
+    index: 31
+    name: '   &8[&c头颅按钮&8]'
+    material: PLAYER_HEAD
+    lore:
+      - "&f- &7头颅按钮"
+      - "&f- &7可使用指定玩家名例如: menu"
+      - "&f- &7也可使用玩家变量%player_name%"
+    isEnchant: false
+    # 头颅材质
+    head: '%player_name%'
+    custom-model-data: 0
+    commands:
+      - '[message] say 帅气的头颅'
   # 分隔板 index你可以多写坐标
   pane:
     enable: true

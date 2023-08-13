@@ -1,6 +1,7 @@
 package cn.handyplus.menu.hook;
 
 import cn.handyplus.lib.core.CollUtil;
+import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.menu.PlayerMenu;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
@@ -22,7 +23,7 @@ public class PlaceholderApiUtil {
      * @return 新字符串
      */
     public static String set(Player player, String str) {
-        if (!PlayerMenu.USE_PAPI || player == null) {
+        if (!PlayerMenu.USE_PAPI || player == null || StrUtil.isEmpty(str)) {
             return str;
         }
         // 是否包含变量

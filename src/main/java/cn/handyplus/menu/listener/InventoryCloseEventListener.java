@@ -100,10 +100,6 @@ public class InventoryCloseEventListener implements Listener {
                 if (limit > 0) {
                     createMenuItem.put("limit", limit);
                 }
-                int cd = menuButtonParam.getCd();
-                if (cd > 0) {
-                    createMenuItem.put("cd", cd);
-                }
                 List<String> commands = menuButtonParam.getCommands();
                 if (CollUtil.isNotEmpty(commands)) {
                     createMenuItem.put("commands", commands);
@@ -135,6 +131,14 @@ public class InventoryCloseEventListener implements Listener {
                 Boolean hideFlag = menuButtonParam.getHideFlag();
                 if (hideFlag != null) {
                     createMenuItem.put("hideFlag", hideFlag);
+                }
+                int cd = menuButtonParam.getCd();
+                if (cd > 0) {
+                    createMenuItem.put("cd", cd);
+                }
+                String head = menuButtonParam.getHead();
+                if (StrUtil.isNotEmpty(head)) {
+                    createMenuItem.put("head", head);
                 }
             }
             if (createMenuItem.get("id") == null) {

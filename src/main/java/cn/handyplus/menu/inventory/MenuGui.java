@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.List;
 import java.util.Map;
@@ -106,6 +107,8 @@ public class MenuGui {
                         null, menuButtonParam.getHideEnchant());
                 // 根据id进行特殊处理
                 itemStack = getItemStackById(menuButtonParam, itemStack);
+                // 处理头颅物品
+                setHead(menuButtonParam, itemStack);
                 inventory.setItem(index, itemStack);
                 objMap.put(index, menuButtonParam);
             }
@@ -122,10 +125,12 @@ public class MenuGui {
     public static MenuButtonParam getMenuButtonParam(MemorySection memorySection, Player player) {
         String name = memorySection.getString("name");
         List<String> loreList = memorySection.getStringList("lore");
+        String head = memorySection.getString("head");
         // 变量处理
         if (player != null) {
             name = PlaceholderApiUtil.set(player, name);
             loreList = PlaceholderApiUtil.set(player, loreList);
+            head = PlaceholderApiUtil.set(player, head);
         }
         String indexStrList = memorySection.getString("index");
         List<Integer> indexList = StrUtil.strToIntList(indexStrList);
@@ -164,6 +169,7 @@ public class MenuGui {
         menuButtonParam.setLimit(limit);
         menuButtonParam.setCd(cd);
         menuButtonParam.setId(id != 0 ? id : null);
+        menuButtonParam.setHead(head);
         return menuButtonParam;
     }
 
@@ -201,6 +207,22 @@ public class MenuGui {
         }
         item.setItemMeta(newItemMeta);
         return item;
+    }
+
+    /**
+     * 设置头颅
+     *
+     * @param menuButtonParam 菜单参数
+     * @param itemStack       菜单
+     */
+    public static void setHead(MenuButtonParam menuButtonParam, ItemStack itemStack) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        if (!(itemMeta instanceof SkullMeta) || StrUtil.isEmpty(menuButtonParam.getHead())) {
+            return;
+        }
+        SkullMeta skullMeta = (SkullMeta) itemMeta;
+        skullMeta.setOwner(menuButtonParam.getHead());
+        itemStack.setItemMeta(skullMeta);
     }
 
 }

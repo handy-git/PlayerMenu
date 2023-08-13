@@ -92,4 +92,10 @@ public class MenuButtonParam {
      * 坐标
      */
     private List<Integer> indexList;
+
+    /**
+     * 头颅材质
+     * @since 1.1.8
+     */
+    private String head;
 }

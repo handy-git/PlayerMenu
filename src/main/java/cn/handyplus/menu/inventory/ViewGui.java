@@ -105,6 +105,8 @@ public class ViewGui {
                         null, menuButtonParam.getHideEnchant());
                 // 根据id进行特殊处理
                 itemStack = MenuGui.getItemStackById(menuButtonParam, itemStack);
+                // 处理头颅物品
+                MenuGui.setHead(menuButtonParam, itemStack);
                 ItemStackUtil.setPersistentData(itemStack, JsonUtil.toJson(menuButtonParam), MenuConstants.PREFIX);
                 inventory.setItem(index, itemStack);
             }
