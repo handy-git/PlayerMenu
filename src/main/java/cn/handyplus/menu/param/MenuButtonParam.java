@@ -95,7 +95,15 @@ public class MenuButtonParam {
 
     /**
      * 头颅材质
+     *
      * @since 1.1.8
      */
     private String head;
+
+    /**
+     * 显示按钮的权限
+     *
+     * @since 1.1.9
+     */
+    private String permission;
 }

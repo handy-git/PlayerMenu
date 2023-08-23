@@ -99,6 +99,10 @@ public class MenuGui {
                 continue;
             }
             MenuButtonParam menuButtonParam = getMenuButtonParam(memorySection, player);
+            // 判断是否有按钮权限
+            if (StrUtil.isNotEmpty(menuButtonParam.getPermission()) && !player.hasPermission(menuButtonParam.getPermission())) {
+                continue;
+            }
             for (Integer index : menuButtonParam.getIndexList()) {
                 ItemStack itemStack = ItemStackUtil.getItemStack(
                         menuButtonParam.getMaterial(), menuButtonParam.getName(),
@@ -148,6 +152,7 @@ public class MenuGui {
         int limit = memorySection.getInt("limit");
         int cd = memorySection.getInt("cd");
         int id = memorySection.getInt("id", 0);
+        String permission = memorySection.getString("permission");
         // 构建类型
         MenuButtonParam menuButtonParam = new MenuButtonParam();
         // 基础属性
@@ -170,6 +175,7 @@ public class MenuGui {
         menuButtonParam.setCd(cd);
         menuButtonParam.setId(id != 0 ? id : null);
         menuButtonParam.setHead(head);
+        menuButtonParam.setPermission(permission);
         return menuButtonParam;
     }
 

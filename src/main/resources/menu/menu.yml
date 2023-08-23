@@ -139,6 +139,19 @@ menu:
     custom-model-data: 0
     commands:
       - '[message] say 帅气的头颅'
+  '33':
+    index: 33
+    name: '   &8[&c权限按钮&8]'
+    material: PLAYER_HEAD
+    lore:
+      - "&f- &7权限按钮"
+      - "&f- &7玩家需要有权限: abc才能看见该按钮"
+    isEnchant: false
+    # 头颅材质
+    permission: 'abc'
+    custom-model-data: 0
+    commands:
+      - '[message] say 恭喜你发现了权限按钮'
   # 分隔板 index你可以多写坐标
   pane:
     enable: true

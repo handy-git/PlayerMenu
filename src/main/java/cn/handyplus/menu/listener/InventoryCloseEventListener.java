@@ -140,6 +140,11 @@ public class InventoryCloseEventListener implements Listener {
                 if (StrUtil.isNotEmpty(head)) {
                     createMenuItem.put("head", head);
                 }
+                // 1.1.9 新增按钮权限
+                String permission = menuButtonParam.getPermission();
+                if (StrUtil.isNotEmpty(permission)) {
+                    createMenuItem.put("permission", permission);
+                }
             }
             if (createMenuItem.get("id") == null) {
                 MenuItem menuItem = new MenuItem();
