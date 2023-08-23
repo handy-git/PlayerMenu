@@ -147,7 +147,7 @@ menu:
       - "&f- &7权限按钮"
       - "&f- &7玩家需要有权限: abc才能看见该按钮"
     isEnchant: false
-    # 头颅材质
+    # 权限节点
     permission: 'abc'
     custom-model-data: 0
     commands:
