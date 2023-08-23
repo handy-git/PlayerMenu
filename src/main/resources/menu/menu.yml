@@ -139,8 +139,8 @@ menu:
     custom-model-data: 0
     commands:
       - '[message] say 帅气的头颅'
-  '33':
-    index: 33
+  '32':
+    index: 32
     name: '   &8[&c权限按钮&8]'
     material: PLAYER_HEAD
     lore:
