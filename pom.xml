@@ -18,8 +18,32 @@
         <HandyLib.version>3.7.3</HandyLib.version>
         <VaultAPI.vesion>1.7</VaultAPI.vesion>
         <PlayerPoints.version>3.2.6</PlayerPoints.version>
-        <PlayerGuild.version>1.5.4</PlayerGuild.version>
+        <PlayerGuild.version>1.10.0</PlayerGuild.version>
     </properties>
+
+    <repositories>
+        <!-- This adds the Spigot Maven repository to the build -->
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
+            <id>rosewood-repo</id>
+            <url>https://repo.rosewooddev.io/repository/public/</url>
+        </repository>
+        <repository>
+            <id>handy-maven</id>
+            <url>https://maven.handyplus.cn/repository/maven-public/</url>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>
@@ -46,14 +70,14 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>net.milkbowl.vault</groupId>
+            <groupId>com.github.MilkBowl</groupId>
             <artifactId>VaultAPI</artifactId>
             <version>${VaultAPI.vesion}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.black_ixx</groupId>
-            <artifactId>PlayerPoints</artifactId>
+            <artifactId>playerpoints</artifactId>
             <version>${PlayerPoints.version}</version>
             <scope>provided</scope>
         </dependency>
