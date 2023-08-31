@@ -153,6 +153,11 @@ public class MenuGui {
         int cd = memorySection.getInt("cd");
         int id = memorySection.getInt("id", 0);
         String permission = memorySection.getString("permission");
+        // 商店配置
+        String shopType = memorySection.getString("shopType");
+        String shopMaterial = memorySection.getString("shopMaterial");
+        int shopMoney = memorySection.getInt("shopMoney");
+        int shopPoint = memorySection.getInt("shopPoint");
         // 构建类型
         MenuButtonParam menuButtonParam = new MenuButtonParam();
         // 基础属性
@@ -176,6 +181,11 @@ public class MenuGui {
         menuButtonParam.setId(id != 0 ? id : null);
         menuButtonParam.setHead(head);
         menuButtonParam.setPermission(permission);
+        // 扩展商店属性
+        menuButtonParam.setShopType(shopType);
+        menuButtonParam.setShopMaterial(shopMaterial);
+        menuButtonParam.setShopMoney(shopMoney);
+        menuButtonParam.setShopPoint(shopPoint);
         return menuButtonParam;
     }
 

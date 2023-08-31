@@ -71,6 +71,10 @@ public class ConfigUtil {
         CONFIG = HandyConfigUtil.load("config.yml");
         // 1.1.7
         HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "noTimeLimit", "&7需等待&a${time}&7秒,才可使用", null, "languages/" + CONFIG.getString("language") + ".yml");
+        // 1.2.0
+        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "noItem", "&8[&c✘&8] &7物品不足,出售失败", null, "languages/" + CONFIG.getString("language") + ".yml");
+        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "sellMsg", "&8[&a✔&8] &7出售成功", null, "languages/" + CONFIG.getString("language") + ".yml");
+        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "buyMsg", "&8[&a✔&8] &7购买成功", null, "languages/" + CONFIG.getString("language") + ".yml");
         LANG_CONFIG = HandyConfigUtil.loadLangConfig(CONFIG.getString("language"), true);
     }
 

@@ -106,4 +106,32 @@ public class MenuButtonParam {
      * @since 1.1.9
      */
     private String permission;
+
+    /**
+     * 商店类型 sell 出售 buy 收购
+     *
+     * @since 1.2.0
+     */
+    private String shopType;
+
+    /**
+     * 商店物品 格式 物品材质:数量
+     *
+     * @since 1.2.0
+     */
+    private String shopMaterial;
+
+    /**
+     * 商店金币价格
+     *
+     * @since 1.2.0
+     */
+    private int shopMoney;
+
+    /**
+     * 商店金币价格
+     *
+     * @since 1.2.0
+     */
+    private int shopPoint;
 }

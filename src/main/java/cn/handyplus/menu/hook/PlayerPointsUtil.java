@@ -27,6 +27,26 @@ public class PlayerPointsUtil {
         return PlayerMenu.getPlayerPoints().getAPI().take(player.getUniqueId(), price);
     }
 
+
+    /**
+     * 点击给予
+     *
+     * @param player 玩家
+     * @param price  价格
+     */
+    public static void give(Player player, int price) {
+        if (price == 0) {
+            return;
+        }
+        // 点券是否加载
+        if (PlayerMenu.getPlayerPoints() == null) {
+            player.sendMessage(BaseUtil.getLangMsg("playerPointsFailureMsg"));
+            return;
+        }
+        // 给予点券
+        PlayerMenu.getPlayerPoints().getAPI().give(player.getUniqueId(), price);
+    }
+
     /**
      * 查询玩家点券
      *

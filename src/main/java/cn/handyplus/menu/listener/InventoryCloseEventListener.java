@@ -145,6 +145,23 @@ public class InventoryCloseEventListener implements Listener {
                 if (StrUtil.isNotEmpty(permission)) {
                     createMenuItem.put("permission", permission);
                 }
+                // 1.2.0 扩展商店配置
+                String shopType = menuButtonParam.getShopType();
+                if (StrUtil.isNotEmpty(shopType)) {
+                    createMenuItem.put("shopType", shopType);
+                }
+                String shopMaterial = menuButtonParam.getShopMaterial();
+                if (StrUtil.isNotEmpty(shopMaterial)) {
+                    createMenuItem.put("shopMaterial", shopMaterial);
+                }
+                long shopMoney = menuButtonParam.getShopMoney();
+                if (shopMoney > 0) {
+                    createMenuItem.put("shopMoney", shopMoney);
+                }
+                long shopPoint = menuButtonParam.getShopPoint();
+                if (shopPoint > 0) {
+                    createMenuItem.put("shopType", shopPoint);
+                }
             }
             if (createMenuItem.get("id") == null) {
                 MenuItem menuItem = new MenuItem();

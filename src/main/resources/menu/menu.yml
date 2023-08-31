@@ -142,7 +142,7 @@ menu:
   '32':
     index: 32
     name: '   &8[&c权限按钮&8]'
-    material: PLAYER_HEAD
+    material: REDSTONE
     lore:
       - "&f- &7权限按钮"
       - "&f- &7玩家需要有权限: abc才能看见该按钮"
@@ -152,6 +152,66 @@ menu:
     custom-model-data: 0
     commands:
       - '[message] say 恭喜你发现了权限按钮'
+  '38':
+    index: 38
+    name: '   &8[&c金币出售物品&8]'
+    material: APPLE
+    lore:
+      - "&f- &7点击出售物品"
+      - "&f- &7出售64个苹果获得100金币"
+    isEnchant: false
+    custom-model-data: 0
+    # 商店类型 sell 是出售 buy 是购买
+    shopType: 'sell'
+    # 出售的商品 格式 物品材质:数量
+    shopMaterial: "APPLE:64"
+    # 商店金币价格
+    shopMoney: 100
+  '39':
+    index: 39
+    name: '   &8[&c金币购买物品&8]'
+    material: APPLE
+    lore:
+      - "&f- &7点击购买物品"
+      - "&f- &7100金币购买64个苹果"
+    isEnchant: false
+    custom-model-data: 0
+    # 商店类型 sell 是出售 buy 是购买
+    shopType: 'buy'
+    # 出售的商品 格式 物品材质:数量
+    shopMaterial: "APPLE:64"
+    # 商店金币价格
+    shopMoney: 100
+  '40':
+    index: 40
+    name: '   &8[&c点券出售物品&8]'
+    material: POTATO
+    lore:
+      - "&f- &7点击出售物品"
+      - "&f- &7出售64个土豆获得100点券"
+    isEnchant: false
+    custom-model-data: 0
+    # 商店类型 sell 是出售 buy 是购买
+    shopType: 'sell'
+    # 出售的商品 格式 物品材质:数量
+    shopMaterial: "POTATO:64"
+    # 商店点券价格
+    shopPoint: 100
+  '41':
+    index: 41
+    name: '   &8[&c点券购买物品&8]'
+    material: POTATO
+    lore:
+      - "&f- &7点击收购物品"
+      - "&f- &7100点券购买64个土豆"
+    isEnchant: false
+    custom-model-data: 0
+    # 商店类型 sell 是出售 buy 是购买
+    shopType: 'buy'
+    # 出售的商品 格式 物品材质:数量
+    shopMaterial: "POTATO:64"
+    # 商店金币价格
+    shopPoint: 100
   # 分隔板 index你可以多写坐标
   pane:
     enable: true

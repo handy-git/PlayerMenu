@@ -32,6 +32,25 @@ public class VaultUtil {
     }
 
     /**
+     * 点击给予
+     *
+     * @param player 玩家
+     * @param price  价格
+     */
+    public static boolean give(Player player, int price) {
+        if (price == 0) {
+            return true;
+        }
+        // 查询是否开启经济系统
+        if (PlayerMenu.getEconomy() == null) {
+            player.sendMessage(BaseUtil.getLangMsg("vaultFailureMsg"));
+            return false;
+        }
+        PlayerMenu.getEconomy().depositPlayer(player, price);
+        return true;
+    }
+
+    /**
      * 查询玩家金币
      *
      * @param player 玩家

@@ -7,6 +7,7 @@ import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.inventory.IHandyClickEvent;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.BcUtil;
+import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.GuiTypeEnum;
@@ -21,6 +22,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -52,6 +54,12 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         MenuButtonParam menuButtonParam = (MenuButtonParam) obj;
         // 检查点击条件是否满足
         if (this.check(player, menuButtonParam)) {
+            // 播放未满足条件的声音
+            this.playSound(player, StrUtil.isNotEmpty(menuButtonParam.getFailSound()) ? menuButtonParam.getFailSound() : menuButtonParam.getSound());
+            return;
+        }
+        // 处理商店类型
+        if (this.shopCheck(player, menuButtonParam)) {
             // 播放未满足条件的声音
             this.playSound(player, StrUtil.isNotEmpty(menuButtonParam.getFailSound()) ? menuButtonParam.getFailSound() : menuButtonParam.getSound());
             return;
@@ -283,6 +291,77 @@ public class InventoryClickEventListener implements IHandyClickEvent {
                 MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noPoint"));
                 return true;
             }
+        }
+        // 商店判断
+        return false;
+    }
+
+    /**
+     * 商店判断
+     *
+     * @param player          玩家
+     * @param menuButtonParam 菜单
+     * @return true 不满足
+     * @since 1.2.0
+     */
+    public boolean shopCheck(Player player, MenuButtonParam menuButtonParam) {
+        String shopType = menuButtonParam.getShopType();
+        String shopMaterial = menuButtonParam.getShopMaterial();
+        if (StrUtil.isEmpty(shopType) || StrUtil.isEmpty(shopMaterial)) {
+            return false;
+        }
+        // 玩家购买物品
+        if ("buy".equalsIgnoreCase(shopType)) {
+            // 判断点击金钱是否满足
+            int shopMoney = menuButtonParam.getShopMoney();
+            if (shopMoney > 0 && VaultUtil.getPlayerVault(player) < shopMoney) {
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMoney"));
+                return true;
+            }
+            // 判断点击点券是否满足
+            int shopPoint = menuButtonParam.getShopPoint();
+            if (shopPoint > 0 && PlayerPointsUtil.getPlayerPoints(player) < shopPoint) {
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noPoint"));
+                return true;
+            }
+            // 金币扣除处理
+            if (shopMoney > 0) {
+                if (!VaultUtil.buy(player, shopMoney)) {
+                    MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMoney"));
+                    return true;
+                }
+            }
+            // 点券扣除处理
+            if (shopPoint > 0) {
+                if (!PlayerPointsUtil.buy(player, shopPoint)) {
+                    MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noPoint"));
+                    return true;
+                }
+            }
+            // 发送物品
+            String[] shopMaterialStr = shopMaterial.split(":");
+            String material = shopMaterialStr[0];
+            String number = shopMaterialStr[1];
+            ItemStack itemStack = new ItemStack(ItemStackUtil.getMaterial(material));
+            ItemStackUtil.addItem(player.getInventory(), itemStack, Integer.parseInt(number));
+            MessageUtil.sendMessage(player, ConfigUtil.LANG_CONFIG.getString("buyMsg"));
+            return false;
+        }
+        // 玩家出售物品
+        if ("sell".equalsIgnoreCase(shopType)) {
+            String[] shopMaterialStr = shopMaterial.split(":");
+            String material = shopMaterialStr[0];
+            String number = shopMaterialStr[1];
+            Boolean rst = ItemStackUtil.removeItem(player.getInventory(), new ItemStack(ItemStackUtil.getMaterial(material)), Integer.valueOf(number));
+            if (!rst) {
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noItem"));
+                return true;
+            }
+            int shopMoney = menuButtonParam.getShopMoney();
+            int shopPoint = menuButtonParam.getShopPoint();
+            VaultUtil.give(player, shopMoney);
+            PlayerPointsUtil.give(player, shopPoint);
+            MessageUtil.sendMessage(player, ConfigUtil.LANG_CONFIG.getString("sellMsg"));
         }
         return false;
     }
