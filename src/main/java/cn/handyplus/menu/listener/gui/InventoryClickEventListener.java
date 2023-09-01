@@ -18,6 +18,7 @@ import cn.handyplus.menu.hook.VaultUtil;
 import cn.handyplus.menu.param.MenuButtonParam;
 import cn.handyplus.menu.service.MenuLimitService;
 import cn.handyplus.menu.util.ConfigUtil;
+import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -177,6 +178,10 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             if (command.contains("[server]")) {
                 String trimCommand = command.replace("[server]", "").trim();
                 BcUtil.tpConnect(player, trimCommand);
+            }
+            if (command.contains("[open]")) {
+                String menu = command.replace("[open]", "").trim();
+                MenuUtil.openGui(player, menu);
             }
         }
     }
