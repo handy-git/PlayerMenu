@@ -2,6 +2,7 @@ package cn.handyplus.menu.listener.gui;
 
 import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.core.DateUtil;
+import cn.handyplus.lib.core.NumberUtil;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.inventory.IHandyClickEvent;
@@ -120,7 +121,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             if (command.contains("[title]")) {
                 String trimMessage = command.replace("[title]", "").trim();
                 String[] split = trimMessage.split(":");
-                String title = "";
+                String title;
                 String subTitle = "";
                 title = split[0];
                 if (split.length > 1) {
@@ -132,7 +133,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             if (command.contains("[allTitle]")) {
                 String trimMessage = command.replace("[allTitle]", "").trim();
                 String[] split = trimMessage.split(":");
-                String title = "";
+                String title;
                 String subTitle = "";
                 title = split[0];
                 if (split.length > 1) {
@@ -411,9 +412,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         }
         if (condition.contains("<")) {
             List<Long> number = this.getNumber(player, condition, "<");
-            if (number.get(0) < number.get(1)) {
-                return true;
-            }
+            return number.get(0) < number.get(1);
         }
         return false;
     }
@@ -434,8 +433,8 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             one = PlaceholderApiUtil.set(player, one);
             two = PlaceholderApiUtil.set(player, two);
         }
-        long oneNumber = BaseUtil.isNumericToLong(one);
-        long twoNumber = BaseUtil.isNumericToLong(two);
+        long oneNumber = NumberUtil.isNumericToLong(one);
+        long twoNumber = NumberUtil.isNumericToLong(two);
         MessageUtil.sendDebugMessage(player, "条件一 " + one + " 条件二 " + two);
         return Arrays.asList(oneNumber, twoNumber);
     }

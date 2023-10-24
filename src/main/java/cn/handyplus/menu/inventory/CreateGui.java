@@ -26,7 +26,7 @@ public class CreateGui {
      * 创建gui
      *
      * @param player 玩家
-     * @param menu   菜单
+     * @param size   大小
      * @return gui
      */
     public Inventory createGui(Player player, Integer size) {

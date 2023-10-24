@@ -28,10 +28,9 @@ public class MenuLimitService {
      * 新增
      *
      * @param menuLimit 入参
-     * @return 成功
      */
-    public int add(MenuLimit menuLimit) {
-        return Db.use(MenuLimit.class).execution().insert(menuLimit);
+    public void add(MenuLimit menuLimit) {
+        Db.use(MenuLimit.class).execution().insert(menuLimit);
     }
 
     /**
