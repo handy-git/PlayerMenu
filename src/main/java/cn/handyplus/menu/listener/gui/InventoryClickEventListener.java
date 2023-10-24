@@ -154,7 +154,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             }
             if (command.contains("[command]")) {
                 String trimCommand = command.replace("[command]", "").trim();
-                player.performCommand(trimCommand);
+                player.chat("/" + trimCommand);
                 continue;
             }
             if (command.contains("[op]")) {
@@ -162,7 +162,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
                 try {
                     String trimCommand = command.replace("[op]", "").trim();
                     player.setOp(true);
-                    player.performCommand(trimCommand);
+                    player.chat("/" + trimCommand);
                 } finally {
                     player.setOp(op);
                 }
