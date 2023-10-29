@@ -19,7 +19,7 @@ public enum TabListEnum {
     /**
      * 第一层提醒
      */
-    FIRST(Arrays.asList("reload", "open", "getMaterial", "create", "view"), 0, null, 1),
+    FIRST(Arrays.asList("reload", "open", "getMaterial", "create", "view", "close"), 0, null, 1),
 
     CREATE_TWO(Arrays.asList("9", "18", "27", "36", "45", "54"), 1, "create", 2),
 
