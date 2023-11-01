@@ -9,7 +9,8 @@ permission: true
 # 菜单大小
 size: 54
 # 打开本菜单播放的声音1.12+支持
-sound: "BLOCK_ANVIL_HIT"
+# 音效列表 https://bukkit.windit.net/javadoc/org/bukkit/Sound.html
+sound: ""
 # 菜单 节点commands内容 支持变量
 # [message] 发送消息 [allMessage] 发送消息给全服
 # [title] 发送消息 [allTitle] 发送消息给全服  格式 title:subTitle
