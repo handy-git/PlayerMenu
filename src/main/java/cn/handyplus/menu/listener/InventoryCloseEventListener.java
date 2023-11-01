@@ -190,6 +190,9 @@ public class InventoryCloseEventListener implements Listener {
         if (StrUtil.isEmpty(yamlConfiguration.getString("permission"))) {
             yamlConfiguration.set("permission", true);
         }
+        if (StrUtil.isEmpty(yamlConfiguration.getString("sound"))) {
+            yamlConfiguration.set("sound", "");
+        }
         yamlConfiguration.set("size", size);
         yamlConfiguration.set("menu", createMenuItemMap);
         yamlConfiguration.save(new File(fileName));

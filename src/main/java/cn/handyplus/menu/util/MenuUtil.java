@@ -1,6 +1,7 @@
 package cn.handyplus.menu.util;
 
 import cn.handyplus.lib.core.CollUtil;
+import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.core.YmlUtil;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
@@ -9,6 +10,7 @@ import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.inventory.MenuGui;
 import com.handy.guild.api.PlayerGuildApi;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -71,6 +73,26 @@ public class MenuUtil {
                 Bukkit.getScheduler().runTask(PlayerMenu.getInstance(), () -> player.openInventory(inventory));
             }
         }.runTaskAsynchronously(PlayerMenu.getInstance());
+    }
+
+    /**
+     * 播放声音
+     *
+     * @param player   玩家
+     * @param soundStr 声音
+     */
+    public static void playSound(Player player, String soundStr) {
+        if (StrUtil.isEmpty(soundStr)) {
+            return;
+        }
+        Sound sound;
+        try {
+            sound = Sound.valueOf(soundStr);
+        } catch (Exception e) {
+            MessageUtil.sendMessage(player, "没有 " + soundStr + " 音效");
+            return;
+        }
+        player.getWorld().playSound(player.getLocation(), sound, 1, 1);
     }
 
     /**

@@ -21,7 +21,6 @@ import cn.handyplus.menu.service.MenuLimitService;
 import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -57,13 +56,13 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         // 检查点击条件是否满足
         if (this.check(player, menuButtonParam)) {
             // 播放未满足条件的声音
-            this.playSound(player, StrUtil.isNotEmpty(menuButtonParam.getFailSound()) ? menuButtonParam.getFailSound() : menuButtonParam.getSound());
+            MenuUtil.playSound(player, StrUtil.isNotEmpty(menuButtonParam.getFailSound()) ? menuButtonParam.getFailSound() : menuButtonParam.getSound());
             return;
         }
         // 处理商店类型
         if (this.shopCheck(player, menuButtonParam)) {
             // 播放未满足条件的声音
-            this.playSound(player, StrUtil.isNotEmpty(menuButtonParam.getFailSound()) ? menuButtonParam.getFailSound() : menuButtonParam.getSound());
+            MenuUtil.playSound(player, StrUtil.isNotEmpty(menuButtonParam.getFailSound()) ? menuButtonParam.getFailSound() : menuButtonParam.getSound());
             return;
         }
         // 记录点击时间
@@ -73,27 +72,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         // 执行命令
         this.extractedCommand(player, menuButtonParam.getCommands());
         // 播放声音
-        playSound(player, menuButtonParam.getSound());
-    }
-
-    /**
-     * 播放声音
-     *
-     * @param player   玩家
-     * @param soundStr 声音
-     */
-    private void playSound(Player player, String soundStr) {
-        if (StrUtil.isEmpty(soundStr)) {
-            return;
-        }
-        Sound sound;
-        try {
-            sound = Sound.valueOf(soundStr);
-        } catch (Exception e) {
-            MessageUtil.sendMessage(player, "没有 " + soundStr + " 音效");
-            return;
-        }
-        player.getWorld().playSound(player.getLocation(), sound, 1, 1);
+        MenuUtil.playSound(player, menuButtonParam.getSound());
     }
 
     /**

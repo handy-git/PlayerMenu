@@ -12,6 +12,7 @@ import cn.handyplus.menu.hook.PlaceholderApiUtil;
 import cn.handyplus.menu.param.MenuButtonParam;
 import cn.handyplus.menu.service.MenuItemService;
 import cn.handyplus.menu.util.ConfigUtil;
+import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -58,6 +59,8 @@ public class MenuGui {
         handyInventory.setPlayer(player);
         handyInventory.setObj(fileConfiguration);
         this.setInventoryDate(handyInventory);
+        // 播放打开菜单音效
+        MenuUtil.playSound(player,  fileConfiguration.getString("sound"));
         return handyInventory.getInventory();
     }
 
