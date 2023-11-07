@@ -2,6 +2,7 @@ package cn.handyplus.menu.hook;
 
 import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.core.StrUtil;
+import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.PlayerMenu;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
@@ -45,10 +46,18 @@ public class PlaceholderApiUtil {
      * @return 新字符串集合
      */
     public static List<String> set(Player player, List<String> strList) {
-        if (!PlayerMenu.USE_PAPI || player == null || CollUtil.isEmpty(strList)) {
+        try {
+            if (!PlayerMenu.USE_PAPI || player == null || CollUtil.isEmpty(strList)) {
+                return strList;
+            }
+            return PlaceholderAPI.setPlaceholders(player, strList);
+        } catch (Exception ignored) {
+            MessageUtil.sendConsoleMessage("PlaceholderAPI解析变量发生异常");
+            for (String str : strList) {
+                MessageUtil.sendConsoleMessage("异常Lore数据:" + str);
+            }
             return strList;
         }
-        return PlaceholderAPI.setPlaceholders(player, strList);
     }
 
 }
