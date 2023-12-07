@@ -32,6 +32,7 @@ public class PlayerSwapHandItemsEventListener implements Listener {
         if (!shiftF) {
             return;
         }
+        event.setCancelled(true);
         String clockMenu = ConfigUtil.CONFIG.getString("shift.F.menu", "");
         MenuUtil.openGui(player, clockMenu);
     }
