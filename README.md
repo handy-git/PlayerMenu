@@ -8,6 +8,8 @@ MCBBS: [点击查看](https://www.mcbbs.net/thread-1443667-1-1.html)
 使用教程: [点击查看](https://ricedoc.handyplus.cn/wiki/PlayerMenu/README/)  
 购买地址: [点击查看](https://afdian.net/item/1e545a30aacd11edbe4a52540025c377)
 
+购买后可获得售后服务，作者会指导使用，如未购买请自行查阅wiki了解如何使用
+
 [![Security Status](https://www.murphysec.com/platform3/v31/badge/1718461691222163456.svg)](https://www.murphysec.com/console/report/1718461691184414720/1718461691222163456)
 
 ### 使用统计
