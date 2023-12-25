@@ -138,7 +138,7 @@ public class MenuButtonParam {
     /**
      * 显示数量
      */
-    private Integer amount;
+    private int amount;
 
     /**
      * 动态显示数量

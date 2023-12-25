@@ -4,7 +4,7 @@ import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.core.DateUtil;
 import cn.handyplus.lib.core.NumberUtil;
 import cn.handyplus.lib.core.StrUtil;
-import cn.handyplus.lib.expand.adapter.HandySchedulerUtil;
+import cn.handyplus.lib.expand.adapter.PlayerSchedulerUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.inventory.IHandyClickEvent;
 import cn.handyplus.lib.util.BaseUtil;
@@ -133,24 +133,15 @@ public class InventoryClickEventListener implements IHandyClickEvent {
                 continue;
             }
             if (command.contains("[command]")) {
-                String trimCommand = command.replace("[command]", "").trim();
-                HandySchedulerUtil.performCommand(player, trimCommand);
+                PlayerSchedulerUtil.performCommand(player, command.replace("[command]", ""));
                 continue;
             }
             if (command.contains("[op]")) {
-                boolean op = player.isOp();
-                try {
-                    String trimCommand = command.replace("[op]", "").trim();
-                    player.setOp(true);
-                    HandySchedulerUtil.performCommand(player, trimCommand);
-                } finally {
-                    player.setOp(op);
-                }
+                PlayerSchedulerUtil.performOpCommand(player, command.replace("[op]", ""));
                 continue;
             }
             if (command.contains("[Console]")) {
-                String trimCommand = command.replace("[Console]", "").trim();
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), trimCommand);
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("[Console]", ""));
                 continue;
             }
             if (command.contains("[close]")) {

@@ -108,7 +108,7 @@ public class MenuGui {
                 continue;
             }
             // 物品显示数量
-            int amount = menuButtonParam.getAmount() != null ? menuButtonParam.getAmount() : 1;
+            int amount = menuButtonParam.getAmount() > 0 ? menuButtonParam.getAmount() : 1;
             if (StrUtil.isNotEmpty(menuButtonParam.getDynamicAmount())) {
                 String dynamicAmount = PlaceholderApiUtil.set(player, menuButtonParam.getDynamicAmount());
                 amount = NumberUtil.isNumericToInt(dynamicAmount, amount);
@@ -169,6 +169,8 @@ public class MenuGui {
         String shopMaterial = memorySection.getString("shopMaterial");
         int shopMoney = memorySection.getInt("shopMoney");
         int shopPoint = memorySection.getInt("shopPoint");
+        int amount = memorySection.getInt("amount");
+        String dynamicAmount = memorySection.getString("dynamicAmount");
         // 构建类型
         MenuButtonParam menuButtonParam = new MenuButtonParam();
         // 基础属性
@@ -192,6 +194,8 @@ public class MenuGui {
         menuButtonParam.setId(id != 0 ? id : null);
         menuButtonParam.setHead(head);
         menuButtonParam.setPermission(permission);
+        menuButtonParam.setAmount(amount);
+        menuButtonParam.setDynamicAmount(dynamicAmount);
         // 扩展商店属性
         menuButtonParam.setShopType(shopType);
         menuButtonParam.setShopMaterial(shopMaterial);
