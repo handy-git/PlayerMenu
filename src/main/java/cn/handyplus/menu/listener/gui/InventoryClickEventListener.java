@@ -141,7 +141,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
                 continue;
             }
             if (command.contains("[Console]")) {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("[Console]", ""));
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("[Console]", "").trim());
                 continue;
             }
             if (command.contains("[close]")) {
