@@ -162,6 +162,14 @@ public class InventoryCloseEventListener implements Listener {
                 if (shopPoint > 0) {
                     createMenuItem.put("shopType", shopPoint);
                 }
+                Integer amount = menuButtonParam.getAmount();
+                if (amount != null) {
+                    createMenuItem.put("amount", amount);
+                }
+                String dynamicAmount = menuButtonParam.getDynamicAmount();
+                if (StrUtil.isNotEmpty(dynamicAmount)) {
+                    createMenuItem.put("dynamicAmount", dynamicAmount);
+                }
             }
             if (createMenuItem.get("id") == null) {
                 MenuItem menuItem = new MenuItem();

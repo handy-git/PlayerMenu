@@ -3,6 +3,7 @@ package cn.handyplus.menu.command;
 import cn.handyplus.lib.annotation.HandyCommand;
 import cn.handyplus.lib.command.HandyCommandFactory;
 import cn.handyplus.lib.util.BaseUtil;
+import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.constants.TabListEnum;
 import cn.handyplus.menu.util.ConfigUtil;
 import org.bukkit.command.Command;
@@ -29,7 +30,7 @@ public class PlayerMenuCommand implements TabExecutor {
         if (args.length < 1) {
             return sendHelp(sender);
         }
-        boolean rst = HandyCommandFactory.getInstance().onCommand(sender, cmd, label, args, BaseUtil.getLangMsg("noPermission"));
+        boolean rst = HandyCommandFactory.getInstance().onCommand(sender, cmd, label, args, BaseUtil.getMsgNotColor("noPermission"));
         if (!rst) {
             return sendHelp(sender);
         }
@@ -61,7 +62,7 @@ public class PlayerMenuCommand implements TabExecutor {
         }
         List<String> helps = ConfigUtil.LANG_CONFIG.getStringList("helps");
         for (String help : helps) {
-            sender.sendMessage(BaseUtil.replaceChatColor(help));
+            MessageUtil.sendMessage(sender, help);
         }
         return true;
     }

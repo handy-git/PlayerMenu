@@ -4,12 +4,11 @@ import cn.handyplus.lib.command.IHandyCommandEvent;
 import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.constants.VersionCheckEnum;
 import cn.handyplus.lib.core.YmlUtil;
+import cn.handyplus.lib.expand.adapter.HandySchedulerUtil;
 import cn.handyplus.lib.util.AssertUtil;
 import cn.handyplus.lib.util.MessageUtil;
-import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.inventory.ViewGui;
 import cn.handyplus.menu.util.ConfigUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -53,7 +52,7 @@ public class ViewCommand implements IHandyCommandEvent {
             MessageUtil.sendMessage(player, ConfigUtil.LANG_CONFIG.getString("noMenu", "").replace("${menu}", args[1]));
             return;
         }
-        Bukkit.getScheduler().runTask(PlayerMenu.getInstance(), () -> player.openInventory(inventory));
+        HandySchedulerUtil.runTask(() -> player.openInventory(inventory));
     }
 
 }

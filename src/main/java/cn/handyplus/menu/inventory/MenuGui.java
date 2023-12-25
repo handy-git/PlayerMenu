@@ -1,6 +1,7 @@
 package cn.handyplus.menu.inventory;
 
 import cn.handyplus.lib.constants.BaseConstants;
+import cn.handyplus.lib.core.NumberUtil;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.inventory.HandyInventoryUtil;
@@ -60,7 +61,7 @@ public class MenuGui {
         handyInventory.setObj(fileConfiguration);
         this.setInventoryDate(handyInventory);
         // 播放打开菜单音效
-        MenuUtil.playSound(player,  fileConfiguration.getString("sound"));
+        MenuUtil.playSound(player, fileConfiguration.getString("sound"));
         return handyInventory.getInventory();
     }
 
@@ -106,6 +107,12 @@ public class MenuGui {
             if (StrUtil.isNotEmpty(menuButtonParam.getPermission()) && !player.hasPermission(menuButtonParam.getPermission())) {
                 continue;
             }
+            // 物品显示数量
+            int amount = menuButtonParam.getAmount() != null ? menuButtonParam.getAmount() : 1;
+            if (StrUtil.isNotEmpty(menuButtonParam.getDynamicAmount())) {
+                String dynamicAmount = PlaceholderApiUtil.set(player, menuButtonParam.getDynamicAmount());
+                amount = NumberUtil.isNumericToInt(dynamicAmount, amount);
+            }
             for (Integer index : menuButtonParam.getIndexList()) {
                 ItemStack itemStack = ItemStackUtil.getItemStack(
                         menuButtonParam.getMaterial(), menuButtonParam.getName(),
@@ -114,6 +121,7 @@ public class MenuGui {
                         null, menuButtonParam.getHideEnchant());
                 // 根据id进行特殊处理
                 itemStack = getItemStackById(menuButtonParam, itemStack);
+                itemStack.setAmount(amount);
                 // 处理头颅物品
                 setHead(menuButtonParam, itemStack);
                 inventory.setItem(index, itemStack);

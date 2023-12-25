@@ -1,6 +1,7 @@
 package cn.handyplus.menu.hook;
 
 import cn.handyplus.lib.util.BaseUtil;
+import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.PlayerMenu;
 import org.bukkit.entity.Player;
 
@@ -20,7 +21,7 @@ public class PlayerPointsUtil {
     public static boolean buy(Player player, int price) {
         // 点券是否加载
         if (PlayerMenu.getPlayerPoints() == null) {
-            player.sendMessage(BaseUtil.getLangMsg("playerPointsFailureMsg"));
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("playerPointsFailureMsg"));
             return false;
         }
         // 扣除点券
@@ -40,7 +41,7 @@ public class PlayerPointsUtil {
         }
         // 点券是否加载
         if (PlayerMenu.getPlayerPoints() == null) {
-            player.sendMessage(BaseUtil.getLangMsg("playerPointsFailureMsg"));
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("playerPointsFailureMsg"));
             return;
         }
         // 给予点券

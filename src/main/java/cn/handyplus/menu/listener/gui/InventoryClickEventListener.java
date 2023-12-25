@@ -4,6 +4,7 @@ import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.core.DateUtil;
 import cn.handyplus.lib.core.NumberUtil;
 import cn.handyplus.lib.core.StrUtil;
+import cn.handyplus.lib.expand.adapter.HandySchedulerUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.inventory.IHandyClickEvent;
 import cn.handyplus.lib.util.BaseUtil;
@@ -133,7 +134,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             }
             if (command.contains("[command]")) {
                 String trimCommand = command.replace("[command]", "").trim();
-                player.chat("/" + trimCommand);
+                HandySchedulerUtil.performCommand(player, trimCommand);
                 continue;
             }
             if (command.contains("[op]")) {
@@ -141,7 +142,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
                 try {
                     String trimCommand = command.replace("[op]", "").trim();
                     player.setOp(true);
-                    player.chat("/" + trimCommand);
+                    HandySchedulerUtil.performCommand(player, trimCommand);
                 } finally {
                     player.setOp(op);
                 }
@@ -219,7 +220,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         if (limit > 0) {
             Integer count = MenuLimitService.getInstance().findCountByPlayerUuid(player.getUniqueId(), menuButtonParam.getId());
             if (count >= limit) {
-                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noLimit"));
+                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noLimit"));
                 return true;
             }
         }
@@ -239,13 +240,13 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         // 判断点击金钱是否满足
         int money = menuButtonParam.getMoney();
         if (money > 0 && VaultUtil.getPlayerVault(player) < money) {
-            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMoney"));
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMoney"));
             return true;
         }
         // 判断点击点券是否满足
         int point = menuButtonParam.getPoint();
         if (point > 0 && PlayerPointsUtil.getPlayerPoints(player) < point) {
-            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noPoint"));
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noPoint"));
             return true;
         }
         // 判断点击自定义条件是否满足
@@ -253,12 +254,12 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             for (String condition : menuButtonParam.getConditions()) {
                 if (!condition.contains("=") && !condition.contains(">") && !condition.contains("<") &&
                         !condition.contains("!=") && !condition.contains(">=") && !condition.contains("<=")) {
-                    MessageUtil.sendMessage(player, BaseUtil.getLangMsg("errorCondition"));
+                    MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("errorCondition"));
                     return true;
                 }
                 // 判断条件
                 if (!this.checkCondition(player, condition)) {
-                    MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noOpenCondition"));
+                    MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noOpenCondition"));
                     return true;
                 }
             }
@@ -266,14 +267,14 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         // 金币扣除处理
         if (money > 0) {
             if (!VaultUtil.buy(player, money)) {
-                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMoney"));
+                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMoney"));
                 return true;
             }
         }
         // 点券扣除处理
         if (point > 0) {
             if (!PlayerPointsUtil.buy(player, point)) {
-                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noPoint"));
+                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noPoint"));
                 return true;
             }
         }
@@ -300,26 +301,26 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             // 判断点击金钱是否满足
             int shopMoney = menuButtonParam.getShopMoney();
             if (shopMoney > 0 && VaultUtil.getPlayerVault(player) < shopMoney) {
-                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMoney"));
+                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMoney"));
                 return true;
             }
             // 判断点击点券是否满足
             int shopPoint = menuButtonParam.getShopPoint();
             if (shopPoint > 0 && PlayerPointsUtil.getPlayerPoints(player) < shopPoint) {
-                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noPoint"));
+                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noPoint"));
                 return true;
             }
             // 金币扣除处理
             if (shopMoney > 0) {
                 if (!VaultUtil.buy(player, shopMoney)) {
-                    MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMoney"));
+                    MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMoney"));
                     return true;
                 }
             }
             // 点券扣除处理
             if (shopPoint > 0) {
                 if (!PlayerPointsUtil.buy(player, shopPoint)) {
-                    MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noPoint"));
+                    MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noPoint"));
                     return true;
                 }
             }
@@ -339,7 +340,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             String number = shopMaterialStr[1];
             Boolean rst = ItemStackUtil.removeItem(player.getInventory(), new ItemStack(ItemStackUtil.getMaterial(material)), Integer.valueOf(number));
             if (!rst) {
-                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noItem"));
+                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noItem"));
                 return true;
             }
             int shopMoney = menuButtonParam.getShopMoney();

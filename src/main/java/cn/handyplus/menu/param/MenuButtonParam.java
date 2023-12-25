@@ -134,4 +134,14 @@ public class MenuButtonParam {
      * @since 1.2.0
      */
     private int shopPoint;
+
+    /**
+     * 显示数量
+     */
+    private Integer amount;
+
+    /**
+     * 动态显示数量
+     */
+    private String dynamicAmount;
 }

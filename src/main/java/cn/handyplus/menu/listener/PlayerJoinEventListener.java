@@ -2,8 +2,8 @@ package cn.handyplus.menu.listener;
 
 import cn.handyplus.lib.annotation.HandyListener;
 import cn.handyplus.lib.constants.BaseConstants;
+import cn.handyplus.lib.expand.adapter.HandySchedulerUtil;
 import cn.handyplus.lib.util.HandyHttpUtil;
-import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.MenuUtil;
@@ -14,7 +14,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * 登录事件
@@ -31,21 +30,18 @@ public class PlayerJoinEventListener implements Listener {
      */
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (!ConfigUtil.CONFIG.getBoolean("clock.enable")) {
-                    return;
-                }
-                Player player = event.getPlayer();
-                PlayerInventory inventory = player.getInventory();
-                ItemStack itemStack = MenuUtil.getClock();
-                if (inventory.contains(itemStack)) {
-                    return;
-                }
-                inventory.addItem(itemStack);
+        HandySchedulerUtil.runTaskAsynchronously(() -> {
+            if (!ConfigUtil.CONFIG.getBoolean("clock.enable")) {
+                return;
             }
-        }.runTaskAsynchronously(PlayerMenu.getInstance());
+            Player player = event.getPlayer();
+            PlayerInventory inventory = player.getInventory();
+            ItemStack itemStack = MenuUtil.getClock();
+            if (inventory.contains(itemStack)) {
+                return;
+            }
+            inventory.addItem(itemStack);
+        });
     }
 
     /**

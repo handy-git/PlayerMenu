@@ -1,6 +1,7 @@
 package cn.handyplus.menu.hook;
 
 import cn.handyplus.lib.util.BaseUtil;
+import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.PlayerMenu;
 import org.bukkit.entity.Player;
 
@@ -20,7 +21,7 @@ public class VaultUtil {
     public static boolean buy(Player player, int price) {
         // 查询是否开启经济系统
         if (PlayerMenu.getEconomy() == null) {
-            player.sendMessage(BaseUtil.getLangMsg("vaultFailureMsg"));
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("vaultFailureMsg"));
             return false;
         }
         // 查询玩家余额是否够
@@ -43,7 +44,7 @@ public class VaultUtil {
         }
         // 查询是否开启经济系统
         if (PlayerMenu.getEconomy() == null) {
-            player.sendMessage(BaseUtil.getLangMsg("vaultFailureMsg"));
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("vaultFailureMsg"));
             return;
         }
         PlayerMenu.getEconomy().depositPlayer(player, price);
