@@ -146,10 +146,12 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             }
             if (command.contains("[close]")) {
                 player.closeInventory();
+                continue;
             }
             if (command.contains("[server]")) {
                 String trimCommand = command.replace("[server]", "").trim();
                 BcUtil.tpConnect(player, trimCommand);
+                continue;
             }
             if (command.contains("[open]")) {
                 String menu = command.replace("[open]", "").trim();
