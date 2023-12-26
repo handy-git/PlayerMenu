@@ -107,6 +107,10 @@ public class MenuGui {
             if (StrUtil.isNotEmpty(menuButtonParam.getPermission()) && !player.hasPermission(menuButtonParam.getPermission())) {
                 continue;
             }
+            // 没有对应权限才能显示按钮
+            if (StrUtil.isNotEmpty(menuButtonParam.getNotPermission()) && player.hasPermission(menuButtonParam.getPermission())) {
+                continue;
+            }
             // 物品显示数量
             int amount = menuButtonParam.getAmount() > 0 ? menuButtonParam.getAmount() : 1;
             if (StrUtil.isNotEmpty(menuButtonParam.getDynamicAmount())) {
@@ -164,6 +168,7 @@ public class MenuGui {
         int cd = memorySection.getInt("cd");
         int id = memorySection.getInt("id", 0);
         String permission = memorySection.getString("permission");
+        String notPermission = memorySection.getString("notPermission");
         // 商店配置
         String shopType = memorySection.getString("shopType");
         String shopMaterial = memorySection.getString("shopMaterial");
@@ -196,6 +201,7 @@ public class MenuGui {
         menuButtonParam.setPermission(permission);
         menuButtonParam.setAmount(amount);
         menuButtonParam.setDynamicAmount(dynamicAmount);
+        menuButtonParam.setNotPermission(notPermission);
         // 扩展商店属性
         menuButtonParam.setShopType(shopType);
         menuButtonParam.setShopMaterial(shopMaterial);

@@ -137,11 +137,22 @@ public class MenuButtonParam {
 
     /**
      * 显示数量
+     *
+     * @since 1.2.4
      */
     private int amount;
 
     /**
      * 动态显示数量
+     *
+     * @since 1.2.4
      */
     private String dynamicAmount;
+
+    /**
+     * 没有对应权限才能显示按钮
+     *
+     * @since 1.2.4
+     */
+    private String notPermission;
 }
