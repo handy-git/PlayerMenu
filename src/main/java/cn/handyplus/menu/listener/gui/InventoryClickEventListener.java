@@ -355,33 +355,23 @@ public class InventoryClickEventListener implements IHandyClickEvent {
     private boolean checkCondition(Player player, String condition) {
         if (condition.contains(">=")) {
             List<Long> number = this.getNumber(player, condition, ">=");
-            if (number.get(0) >= number.get(1)) {
-                return true;
-            }
+            return number.get(0) >= number.get(1);
         }
         if (condition.contains("<=")) {
             List<Long> number = this.getNumber(player, condition, "<=");
-            if (number.get(0) <= number.get(1)) {
-                return true;
-            }
+            return number.get(0) <= number.get(1);
         }
         if (condition.contains("!=")) {
             List<String> number = this.getStr(player, condition, "!=");
-            if (!number.get(0).equals(number.get(1))) {
-                return true;
-            }
+            return !number.get(0).equals(number.get(1));
         }
         if (condition.contains("=")) {
             List<String> number = this.getStr(player, condition, "=");
-            if (number.get(0).equals(number.get(1))) {
-                return true;
-            }
+            return number.get(0).equals(number.get(1));
         }
         if (condition.contains(">")) {
             List<Long> number = this.getNumber(player, condition, ">");
-            if (number.get(0) > number.get(1)) {
-                return true;
-            }
+            return number.get(0) > number.get(1);
         }
         if (condition.contains("<")) {
             List<Long> number = this.getNumber(player, condition, "<");
@@ -406,8 +396,8 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             one = PlaceholderApiUtil.set(player, one);
             two = PlaceholderApiUtil.set(player, two);
         }
-        long oneNumber = NumberUtil.isNumericToLong(one);
-        long twoNumber = NumberUtil.isNumericToLong(two);
+        Long oneNumber = NumberUtil.isNumericToLong(one);
+        Long twoNumber = NumberUtil.isNumericToLong(two);
         MessageUtil.sendDebugMessage(player, "条件一 " + one + " 条件二 " + two);
         return Arrays.asList(oneNumber, twoNumber);
     }
