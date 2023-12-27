@@ -39,7 +39,7 @@ public class ConfigUtil {
         MENU_CONFIG_MAP = HandyConfigUtil.loadDirectory("menu/");
         // 没有文件就加载示例
         if (MENU_CONFIG_MAP.isEmpty()) {
-            HandyConfigUtil.load("menu/menu.yml");
+            MENU_CONFIG_MAP.put("menu.yml", HandyConfigUtil.load("menu/menu.yml"));
         }
         for (String key : MENU_CONFIG_MAP.keySet()) {
             FileConfiguration fileConfiguration = MENU_CONFIG_MAP.get(key);
