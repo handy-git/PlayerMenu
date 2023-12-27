@@ -35,11 +35,12 @@ public class ConfigUtil {
         ITEM_MAP = new HashMap<>();
         PERMISSION_MAP = new HashMap<>();
 
-        // 加载示例
-        HandyConfigUtil.load("menu/menu.yml");
-
-        // 缓存菜单数据
+        // 读取目录下菜单文件
         MENU_CONFIG_MAP = HandyConfigUtil.loadDirectory("menu/");
+        // 没有文件就加载示例
+        if (MENU_CONFIG_MAP.isEmpty()) {
+            HandyConfigUtil.load("menu/menu.yml");
+        }
         for (String key : MENU_CONFIG_MAP.keySet()) {
             FileConfiguration fileConfiguration = MENU_CONFIG_MAP.get(key);
             // 命令
@@ -55,6 +56,7 @@ public class ConfigUtil {
             // 权限
             PERMISSION_MAP.put(key, fileConfiguration.getBoolean("permission"));
         }
+
         // 升级节点处理
         upConfig();
     }
