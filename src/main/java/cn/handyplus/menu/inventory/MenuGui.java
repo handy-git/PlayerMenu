@@ -108,7 +108,7 @@ public class MenuGui {
                 continue;
             }
             // 没有对应权限才能显示按钮
-            if (StrUtil.isNotEmpty(menuButtonParam.getNotPermission()) && player.hasPermission(menuButtonParam.getPermission())) {
+            if (StrUtil.isNotEmpty(menuButtonParam.getNotPermission()) && player.hasPermission(menuButtonParam.getNotPermission())) {
                 continue;
             }
             // 物品显示数量
