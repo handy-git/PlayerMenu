@@ -116,6 +116,7 @@ public class MenuGui {
             if (StrUtil.isNotEmpty(menuButtonParam.getDynamicAmount())) {
                 String dynamicAmount = PlaceholderApiUtil.set(player, menuButtonParam.getDynamicAmount());
                 amount = NumberUtil.isNumericToInt(dynamicAmount, amount);
+                amount = amount > 0 ? amount : 1;
             }
             for (Integer index : menuButtonParam.getIndexList()) {
                 ItemStack itemStack = ItemStackUtil.getItemStack(
