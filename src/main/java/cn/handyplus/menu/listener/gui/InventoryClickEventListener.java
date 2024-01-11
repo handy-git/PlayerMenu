@@ -17,6 +17,7 @@ import cn.handyplus.menu.enter.MenuLimit;
 import cn.handyplus.menu.hook.PlaceholderApiUtil;
 import cn.handyplus.menu.hook.PlayerPointsUtil;
 import cn.handyplus.menu.hook.VaultUtil;
+import cn.handyplus.menu.inventory.MenuGui;
 import cn.handyplus.menu.param.MenuButtonParam;
 import cn.handyplus.menu.service.MenuLimitService;
 import cn.handyplus.menu.util.ConfigUtil;
@@ -70,19 +71,20 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         this.setManuTimeLimit(player, menuButtonParam);
         // 记录点击次数
         this.setManuNumberLimit(player, menuButtonParam);
-        // 执行命令
-        this.extractedCommand(player, menuButtonParam.getCommands());
         // 播放声音
         MenuUtil.playSound(player, menuButtonParam.getSound());
+        // 执行命令
+        this.extractedCommand(player, menuButtonParam.getCommands(), handyInventory);
     }
 
     /**
      * 执行命令
      *
-     * @param player   玩家
-     * @param commands 命令
+     * @param player         玩家
+     * @param commands       命令
+     * @param handyInventory gui
      */
-    private void extractedCommand(Player player, List<String> commands) {
+    private void extractedCommand(Player player, List<String> commands, HandyInventory handyInventory) {
         if (CollUtil.isEmpty(commands)) {
             return;
         }
@@ -144,6 +146,10 @@ public class InventoryClickEventListener implements IHandyClickEvent {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("[Console]", "").trim());
                 continue;
             }
+            if (command.contains("[console]")) {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("[console]", "").trim());
+                continue;
+            }
             if (command.contains("[close]")) {
                 player.closeInventory();
                 continue;
@@ -156,6 +162,11 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             if (command.contains("[open]")) {
                 String menu = command.replace("[open]", "").trim();
                 MenuUtil.openGui(player, menu);
+                continue;
+            }
+            // 1.2.5 添加刷新gui节点
+            if (command.contains("[refresh]")) {
+                MenuGui.getInstance().setInventoryDate(handyInventory);
             }
         }
     }
