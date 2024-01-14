@@ -7,7 +7,7 @@
     <groupId>cn.handyplus.menu</groupId>
     <name>PlayerMenu</name>
     <artifactId>PlayerMenu</artifactId>
-    <version>1.2.5</version>
+    <version>1.2.6</version>
     <description>一个有点好用的玩家菜单插件</description>
 
     <properties>

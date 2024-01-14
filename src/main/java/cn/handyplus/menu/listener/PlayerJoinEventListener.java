@@ -4,6 +4,7 @@ import cn.handyplus.lib.annotation.HandyListener;
 import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.expand.adapter.HandySchedulerUtil;
 import cn.handyplus.lib.util.HandyHttpUtil;
+import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.MenuUtil;
@@ -37,8 +38,10 @@ public class PlayerJoinEventListener implements Listener {
             Player player = event.getPlayer();
             PlayerInventory inventory = player.getInventory();
             ItemStack itemStack = MenuUtil.getClock();
-            if (inventory.contains(itemStack)) {
-                return;
+            for (ItemStack stack : inventory) {
+                if (ItemStackUtil.isSimilar(itemStack, stack)) {
+                    return;
+                }
             }
             inventory.addItem(itemStack);
         });
