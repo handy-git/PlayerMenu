@@ -4,6 +4,7 @@ import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.core.YmlUtil;
 import cn.handyplus.lib.expand.adapter.HandySchedulerUtil;
+import cn.handyplus.lib.expand.adapter.PlayerSchedulerUtil;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.lib.util.MessageUtil;
@@ -88,7 +89,7 @@ public class MenuUtil {
             MessageUtil.sendMessage(player, "没有 " + soundStr + " 音效");
             return;
         }
-        player.getWorld().playSound(player.getLocation(), sound, 1, 1);
+        PlayerSchedulerUtil.syncPlaySound(player, sound, 1, 1);
     }
 
     /**
