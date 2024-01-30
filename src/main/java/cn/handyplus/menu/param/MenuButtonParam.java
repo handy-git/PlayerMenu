@@ -108,6 +108,13 @@ public class MenuButtonParam {
     private String headBase;
 
     /**
+     * 优先级
+     *
+     * @since 1.2.8
+     */
+    private Integer priority;
+
+    /**
      * 显示按钮的权限
      *
      * @since 1.1.9

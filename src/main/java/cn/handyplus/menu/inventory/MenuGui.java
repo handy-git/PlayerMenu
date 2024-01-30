@@ -120,6 +120,14 @@ public class MenuGui {
                 amount = amount != 0 ? amount : 1;
             }
             for (Integer index : menuButtonParam.getIndexList()) {
+                // 判断优先级
+                if (objMap.containsKey(index)) {
+                    MenuButtonParam menuParam = (MenuButtonParam) objMap.get(index);
+                    if (menuParam.getPriority() != null && menuButtonParam.getPriority() != null &&
+                            menuParam.getPriority() > menuButtonParam.getPriority()) {
+                        continue;
+                    }
+                }
                 ItemStack itemStack = ItemStackUtil.getItemStack(
                         menuButtonParam.getMaterial(), menuButtonParam.getName(),
                         menuButtonParam.getLoreList(), menuButtonParam.getIsEnchant(),
@@ -158,6 +166,7 @@ public class MenuGui {
         List<Integer> indexList = StrUtil.strToIntList(indexStrList);
         String material = memorySection.getString("material");
         int customModelDataId = memorySection.getInt("custom-model-data");
+        int priority = memorySection.getInt("priority");
         List<String> commands = memorySection.getStringList("commands");
         List<String> conditions = memorySection.getStringList("conditions");
         String sound = memorySection.getString("sound");
@@ -206,6 +215,7 @@ public class MenuGui {
         menuButtonParam.setAmount(amount);
         menuButtonParam.setDynamicAmount(dynamicAmount);
         menuButtonParam.setNotPermission(notPermission);
+        menuButtonParam.setPriority(priority);
         // 扩展商店属性
         menuButtonParam.setShopType(shopType);
         menuButtonParam.setShopMaterial(shopMaterial);
