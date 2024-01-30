@@ -279,6 +279,7 @@ public class MenuGui {
         }
         if (StrUtil.isNotEmpty(menuButtonParam.getHeadBase())) {
             ItemMetaUtil.setSkull(skullMeta, menuButtonParam.getHeadBase());
+            itemStack.setItemMeta(skullMeta);
         }
     }
 
