@@ -53,3 +53,4 @@ noOpenPermission: "&8[&c✘&8] &7无法打开该菜单,你没有权限 ${permiss
 noOpenCondition: "&8[&c✘&8] &7无法打开该菜单,你没有满足要求"
 noOpenWorldPermission: "&8[&c✘&8] &7这个世界无法打开该菜单"
 noOpenPvpPermission: "&8[&c✘&8] &7正在进行公会战无法打开该菜单"
+addItemMsg: "&8[&a!&8] &a背包不足，多余物品已掉落在地上请尽快捡起"

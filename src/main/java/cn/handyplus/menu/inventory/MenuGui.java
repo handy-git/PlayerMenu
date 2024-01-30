@@ -6,6 +6,7 @@ import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.inventory.HandyInventoryUtil;
 import cn.handyplus.lib.util.BaseUtil;
+import cn.handyplus.lib.util.ItemMetaUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.menu.constants.GuiTypeEnum;
 import cn.handyplus.menu.enter.MenuItem;
@@ -146,6 +147,7 @@ public class MenuGui {
         String name = memorySection.getString("name");
         List<String> loreList = memorySection.getStringList("lore");
         String head = memorySection.getString("head");
+        String headBase = memorySection.getString("headBase");
         // 变量处理
         if (player != null) {
             name = PlaceholderApiUtil.set(player, name);
@@ -199,6 +201,7 @@ public class MenuGui {
         menuButtonParam.setCd(cd);
         menuButtonParam.setId(id != 0 ? id : null);
         menuButtonParam.setHead(head);
+        menuButtonParam.setHeadBase(headBase);
         menuButtonParam.setPermission(permission);
         menuButtonParam.setAmount(amount);
         menuButtonParam.setDynamicAmount(dynamicAmount);
@@ -255,12 +258,18 @@ public class MenuGui {
      */
     public static void setHead(MenuButtonParam menuButtonParam, ItemStack itemStack) {
         ItemMeta itemMeta = itemStack.getItemMeta();
-        if (!(itemMeta instanceof SkullMeta) || StrUtil.isEmpty(menuButtonParam.getHead())) {
+        if (!(itemMeta instanceof SkullMeta)) {
             return;
         }
         SkullMeta skullMeta = (SkullMeta) itemMeta;
-        skullMeta.setOwner(menuButtonParam.getHead());
-        itemStack.setItemMeta(skullMeta);
+        if (StrUtil.isNotEmpty(menuButtonParam.getHead())) {
+            skullMeta.setOwner(menuButtonParam.getHead());
+            itemStack.setItemMeta(skullMeta);
+            return;
+        }
+        if (StrUtil.isNotEmpty(menuButtonParam.getHeadBase())) {
+            ItemMetaUtil.setSkull(skullMeta, menuButtonParam.getHeadBase());
+        }
     }
 
 }

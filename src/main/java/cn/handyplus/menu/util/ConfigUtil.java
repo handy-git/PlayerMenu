@@ -34,13 +34,12 @@ public class ConfigUtil {
         COMMAND_MAP = new HashMap<>();
         ITEM_MAP = new HashMap<>();
         PERMISSION_MAP = new HashMap<>();
-
+        // 读取目录下菜单文件
+        if (!HandyConfigUtil.exists("menu/")) {
+            HandyConfigUtil.load("menu/menu.yml");
+        }
         // 读取目录下菜单文件
         MENU_CONFIG_MAP = HandyConfigUtil.loadDirectory("menu/");
-        // 没有文件就加载示例
-        if (MENU_CONFIG_MAP.isEmpty()) {
-            MENU_CONFIG_MAP.put("menu.yml", HandyConfigUtil.load("menu/menu.yml"));
-        }
         for (String key : MENU_CONFIG_MAP.keySet()) {
             FileConfiguration fileConfiguration = MENU_CONFIG_MAP.get(key);
             // 命令
@@ -66,7 +65,7 @@ public class ConfigUtil {
      *
      * @since 1.1.3
      */
-    public static void upConfig() {
+    private static void upConfig() {
         // 1.1.3 添加快捷键F操作
         HandyConfigUtil.setPathIsNotContains(CONFIG, "shift.F.enable", false, Collections.singletonList("是否开启"), "config.yml");
         HandyConfigUtil.setPathIsNotContains(CONFIG, "shift.F.menu", "menu.yml", Collections.singletonList("使用Shift+F打开的菜单"), "config.yml");
@@ -77,6 +76,8 @@ public class ConfigUtil {
         HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "noItem", "&8[&c✘&8] &7物品不足,出售失败", null, "languages/" + CONFIG.getString("language") + ".yml");
         HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "sellMsg", "&8[&a✔&8] &7出售成功", null, "languages/" + CONFIG.getString("language") + ".yml");
         HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "buyMsg", "&8[&a✔&8] &7购买成功", null, "languages/" + CONFIG.getString("language") + ".yml");
+        // 1.2.8
+        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "addItemMsg", "&8[&a!&8] &a背包不足，多余物品已掉落在地上请尽快捡起", null, "languages/" + CONFIG.getString("language") + ".yml");
         LANG_CONFIG = HandyConfigUtil.loadLangConfig(CONFIG.getString("language"), true);
     }
 

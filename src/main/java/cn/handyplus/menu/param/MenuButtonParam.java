@@ -101,6 +101,13 @@ public class MenuButtonParam {
     private String head;
 
     /**
+     * 头颅材质
+     *
+     * @since 1.2.8
+     */
+    private String headBase;
+
+    /**
      * 显示按钮的权限
      *
      * @since 1.1.9

@@ -333,7 +333,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             String material = shopMaterialStr[0];
             String number = shopMaterialStr[1];
             ItemStack itemStack = new ItemStack(ItemStackUtil.getMaterial(material));
-            ItemStackUtil.addItem(player.getInventory(), itemStack, Integer.parseInt(number));
+            ItemStackUtil.addItem(player, itemStack, Integer.parseInt(number), BaseUtil.getMsgNotColor("addItemMsg"));
             MessageUtil.sendMessage(player, ConfigUtil.LANG_CONFIG.getString("buyMsg"));
             return false;
         }

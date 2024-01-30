@@ -20,14 +20,13 @@ public class PlayerPointsUtil {
      */
     public static boolean buy(Player player, int price) {
         // 点券是否加载
-        if (PlayerMenu.getPlayerPoints() == null) {
+        if (PlayerMenu.PLAYER_POINTS == null) {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("playerPointsFailureMsg"));
             return false;
         }
         // 扣除点券
-        return PlayerMenu.getPlayerPoints().getAPI().take(player.getUniqueId(), price);
+        return PlayerMenu.PLAYER_POINTS.getAPI().take(player.getUniqueId(), price);
     }
-
 
     /**
      * 点击给予
@@ -40,12 +39,12 @@ public class PlayerPointsUtil {
             return;
         }
         // 点券是否加载
-        if (PlayerMenu.getPlayerPoints() == null) {
+        if (PlayerMenu.PLAYER_POINTS == null) {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("playerPointsFailureMsg"));
             return;
         }
         // 给予点券
-        PlayerMenu.getPlayerPoints().getAPI().give(player.getUniqueId(), price);
+        PlayerMenu.PLAYER_POINTS.getAPI().give(player.getUniqueId(), price);
     }
 
     /**
@@ -55,10 +54,10 @@ public class PlayerPointsUtil {
      * @return 玩家点券
      */
     public static int getPlayerPoints(Player player) {
-        if (PlayerMenu.getPlayerPoints() == null || player == null) {
+        if (PlayerMenu.PLAYER_POINTS == null || player == null) {
             return 0;
         }
-        return PlayerMenu.getPlayerPoints().getAPI().look(player.getUniqueId());
+        return PlayerMenu.PLAYER_POINTS.getAPI().look(player.getUniqueId());
     }
 
 }

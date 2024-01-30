@@ -35,7 +35,7 @@ public class CreateGui {
         handyInventory.setPlayer(player);
         handyInventory.setId(size);
         handyInventory.setToCancel(false);
-        handyInventory.setSearchType(PlayerMenu.getInstance().getDataFolder() + "/menu/" + System.currentTimeMillis() + ".yml");
+        handyInventory.setSearchType(PlayerMenu.INSTANCE.getDataFolder() + "/menu/" + System.currentTimeMillis() + ".yml");
         return handyInventory.getInventory();
     }
 

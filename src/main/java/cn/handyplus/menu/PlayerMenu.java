@@ -2,8 +2,6 @@ package cn.handyplus.menu;
 
 import cn.handyplus.lib.InitApi;
 import cn.handyplus.lib.constants.BaseConstants;
-import cn.handyplus.lib.db.SqlManagerUtil;
-import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.constants.MenuConstants;
@@ -12,9 +10,6 @@ import net.milkbowl.vault.economy.Economy;
 import org.black_ixx.playerpoints.PlayerPoints;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,7 +23,7 @@ import java.util.List;
  * @author handy
  */
 public class PlayerMenu extends JavaPlugin {
-    private static PlayerMenu INSTANCE;
+    public static PlayerMenu INSTANCE;
     public static boolean USE_PAPI;
     public static Economy ECON;
     public static PlayerPoints PLAYER_POINTS;
@@ -69,41 +64,18 @@ public class PlayerMenu extends JavaPlugin {
                 .addMetrics(14034)
                 .checkVersion(ConfigUtil.CONFIG.getBoolean(BaseConstants.IS_CHECK_UPDATE), MenuConstants.PLUGIN_VERSION_URL);
         MessageUtil.sendConsoleMessage(ChatColor.GREEN + "已成功载入服务器！");
-        MessageUtil.sendConsoleMessage(ChatColor.GREEN + "Author:handy QQ群:1064982471");
+        MessageUtil.sendConsoleMessage(ChatColor.GREEN + "Author:handy MCBBS: https://www.mcbbs.net/thread-1443667-1-1.html");
     }
 
     @Override
     public void onDisable() {
-        // 关闭gui
-        for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-            InventoryView openInventory = onlinePlayer.getOpenInventory();
-            InventoryHolder holder = openInventory.getTopInventory().getHolder();
-            if (holder instanceof HandyInventory) {
-                onlinePlayer.closeInventory();
-            }
-        }
-        // 关闭数据源
-        SqlManagerUtil.getInstance().close();
-        MessageUtil.sendConsoleMessage("§a已成功卸载！");
-        MessageUtil.sendConsoleMessage("§aAuthor:handy QQ群:1064982471");
-    }
-
-    public static PlayerMenu getInstance() {
-        return INSTANCE;
-    }
-
-    public static Economy getEconomy() {
-        return ECON;
-    }
-
-    public static PlayerPoints getPlayerPoints() {
-        return PLAYER_POINTS;
+        InitApi.disable();
     }
 
     /**
      * 加载Vault
      */
-    public void loadEconomy() {
+    private void loadEconomy() {
         if (getServer().getPluginManager().getPlugin(BaseConstants.VAULT) == null) {
             MessageUtil.sendConsoleMessage(BaseUtil.getMsgNotColor("vaultFailureMsg"));
             return;

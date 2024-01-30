@@ -53,7 +53,7 @@ public class ViewGui {
         int size = fileConfiguration.getInt("size", BaseConstants.GUI_SIZE_54);
         HandyInventory handyInventory = new HandyInventory(GuiTypeEnum.CREATE.getType(), BaseUtil.replaceChatColor(title), size);
         handyInventory.setPlayer(player);
-        handyInventory.setSearchType(PlayerMenu.getInstance().getDataFolder() + "/menu/" + menu);
+        handyInventory.setSearchType(PlayerMenu.INSTANCE.getDataFolder() + "/menu/" + menu);
         handyInventory.setObj(fileConfiguration);
         handyInventory.setToCancel(false);
         handyInventory.setId(size);

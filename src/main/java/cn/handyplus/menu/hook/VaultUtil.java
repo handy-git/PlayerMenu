@@ -20,15 +20,15 @@ public class VaultUtil {
      */
     public static boolean buy(Player player, int price) {
         // 查询是否开启经济系统
-        if (PlayerMenu.getEconomy() == null) {
+        if (PlayerMenu.ECON == null) {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("vaultFailureMsg"));
             return false;
         }
         // 查询玩家余额是否够
-        if (!PlayerMenu.getEconomy().has(player, price)) {
+        if (!PlayerMenu.ECON.has(player, price)) {
             return false;
         }
-        PlayerMenu.getEconomy().withdrawPlayer(player, price);
+        PlayerMenu.ECON.withdrawPlayer(player, price);
         return true;
     }
 
@@ -43,11 +43,11 @@ public class VaultUtil {
             return;
         }
         // 查询是否开启经济系统
-        if (PlayerMenu.getEconomy() == null) {
+        if (PlayerMenu.ECON == null) {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("vaultFailureMsg"));
             return;
         }
-        PlayerMenu.getEconomy().depositPlayer(player, price);
+        PlayerMenu.ECON.depositPlayer(player, price);
     }
 
     /**
@@ -57,10 +57,10 @@ public class VaultUtil {
      * @return 玩家金币
      */
     public static double getPlayerVault(Player player) {
-        if (PlayerMenu.getEconomy() == null || player == null) {
+        if (PlayerMenu.ECON == null || player == null) {
             return 0.0;
         }
-        return PlayerMenu.getEconomy().getBalance(player);
+        return PlayerMenu.ECON.getBalance(player);
     }
 
 }
