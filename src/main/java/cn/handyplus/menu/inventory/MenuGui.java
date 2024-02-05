@@ -245,16 +245,16 @@ public class MenuGui {
         // 基础属性
         newItemMeta.setDisplayName(oldItemMeta.getDisplayName());
         newItemMeta.setLore(oldItemMeta.getLore());
-        ItemStackUtil.setCustomModelData(newItemMeta, menuButtonParam.getCustomModelDataId());
+        ItemMetaUtil.setCustomModelData(newItemMeta, menuButtonParam.getCustomModelDataId());
         // 扩展属性
         if (menuButtonParam.getIsEnchant()) {
-            ItemStackUtil.setEnchant(newItemMeta);
+            ItemMetaUtil.setEnchant(newItemMeta);
         }
         if (menuButtonParam.getHideFlag()) {
-            ItemStackUtil.hideAttributes(newItemMeta);
+            ItemMetaUtil.hideAttributes(newItemMeta);
         }
         if (menuButtonParam.getHideEnchant()) {
-            ItemStackUtil.hideEnchant(newItemMeta);
+            ItemMetaUtil.hideEnchant(newItemMeta);
         }
         item.setItemMeta(newItemMeta);
         return item;
