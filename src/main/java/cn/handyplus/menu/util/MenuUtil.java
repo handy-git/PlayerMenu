@@ -17,6 +17,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 工具类
@@ -82,14 +83,12 @@ public class MenuUtil {
         if (StrUtil.isEmpty(soundStr)) {
             return;
         }
-        Sound sound;
-        try {
-            sound = Sound.valueOf(soundStr);
-        } catch (Exception e) {
+        Optional<Sound> soundOpt = BaseUtil.getSound(soundStr);
+        if (!soundOpt.isPresent()) {
             MessageUtil.sendMessage(player, "没有 " + soundStr + " 音效");
             return;
         }
-        PlayerSchedulerUtil.syncPlaySound(player, sound, 1, 1);
+        PlayerSchedulerUtil.playSound(player, soundOpt.get(), 1, 1);
     }
 
     /**

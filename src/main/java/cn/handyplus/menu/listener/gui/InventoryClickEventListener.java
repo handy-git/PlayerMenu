@@ -236,7 +236,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
                 long time = DateUtil.offset(clickTime, Calendar.SECOND, cd).getTime() - System.currentTimeMillis();
                 if (time > 0) {
                     String noTimeLimit = ConfigUtil.LANG_CONFIG.getString("noTimeLimit", "");
-                    MessageUtil.sendMessage(player, StrUtil.replace(noTimeLimit, "time", String.valueOf((int) time / 1000)));
+                    MessageUtil.sendMessage(player, StrUtil.replace(noTimeLimit, "time", String.valueOf(time / 1000)));
                     return true;
                 }
             }
