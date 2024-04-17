@@ -1,4 +1,4 @@
-### PlayerMenu
+# PlayerMenu
 
 一款有点好用的菜单插件  
 
@@ -10,13 +10,11 @@
 
 购买后可获得售后服务，作者会指导使用，如未购买请自行查阅wiki了解如何使用
 
-[![Security Status](https://www.murphysec.com/platform3/v31/badge/1718461691222163456.svg)](https://www.murphysec.com/console/report/1718461691184414720/1718461691222163456)
-
-### 使用统计
+## 使用统计
 
 ![](https://bstats.org/signatures/bukkit/PlayerMenu.svg)
 
-### Star History
+## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=handy-git/PlayerMenu&type=Date)](https://star-history.com/#handy-git/PlayerMenu&Date)
 
