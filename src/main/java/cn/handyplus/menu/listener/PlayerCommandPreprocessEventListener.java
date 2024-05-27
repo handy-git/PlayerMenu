@@ -28,13 +28,14 @@ public class PlayerCommandPreprocessEventListener implements Listener {
         if (event.isCancelled()) {
             return;
         }
-        String menu = ConfigUtil.COMMAND_MAP.get(event.getMessage().replace("/", ""));
+        String[] param = event.getMessage().split(" ");
+        String menu = ConfigUtil.COMMAND_MAP.get(param[0].replace("/", ""));
         if (StrUtil.isEmpty(menu)) {
             return;
         }
         Player player = event.getPlayer();
         event.setCancelled(true);
-        MenuUtil.openGui(player, menu);
+        MenuUtil.openGui(player, menu, param.length > 1 ? param[1] : null);
     }
 
 }

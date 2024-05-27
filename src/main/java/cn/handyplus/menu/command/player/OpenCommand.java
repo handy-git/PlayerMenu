@@ -31,7 +31,7 @@ public class OpenCommand implements IHandyCommandEvent {
         AssertUtil.notTrue(args.length < 2, sender, ConfigUtil.LANG_CONFIG.getString("paramFailureMsg"));
         // 是否为玩家
         Player player = AssertUtil.notPlayer(sender, ConfigUtil.LANG_CONFIG.getString("noPlayerFailureMsg"));
-        MenuUtil.openGui(player, args[1]);
+        MenuUtil.openGui(player, args[1], args.length > 2 ? args[2] : null);
     }
 
 }

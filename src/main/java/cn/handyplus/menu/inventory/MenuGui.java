@@ -15,6 +15,7 @@ import cn.handyplus.menu.param.MenuButtonParam;
 import cn.handyplus.menu.service.MenuItemService;
 import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.MenuUtil;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -46,11 +47,12 @@ public class MenuGui {
     /**
      * 创建gui
      *
-     * @param player 玩家
-     * @param menu   菜单
+     * @param player   玩家
+     * @param menu     菜单
+     * @param papiName 变量玩家
      * @return gui
      */
-    public Inventory createGui(Player player, String menu) {
+    public Inventory createGui(Player player, String menu, String papiName) {
         FileConfiguration fileConfiguration = ConfigUtil.MENU_CONFIG_MAP.get(menu);
         if (fileConfiguration == null) {
             return null;
@@ -60,6 +62,7 @@ public class MenuGui {
         HandyInventory handyInventory = new HandyInventory(GuiTypeEnum.MENU.getType(), BaseUtil.replaceChatColor(title), fileConfiguration.getInt("size", BaseConstants.GUI_SIZE_54));
         handyInventory.setPlayer(player);
         handyInventory.setObj(fileConfiguration);
+        handyInventory.setSearchType(papiName);
         this.setInventoryDate(handyInventory);
         // 播放打开菜单音效
         MenuUtil.playSound(player, fileConfiguration.getString("sound"));
@@ -89,6 +92,8 @@ public class MenuGui {
         Inventory inventory = handyInventory.getInventory();
         Map<Integer, Object> objMap = handyInventory.getObjMap();
         Player player = handyInventory.getPlayer();
+        String papiName = handyInventory.getSearchType();
+        OfflinePlayer papiPlayer = StrUtil.isNotEmpty(papiName) ? BaseUtil.getOfflinePlayer(papiName) : null;
         FileConfiguration fileConfiguration = (FileConfiguration) handyInventory.getObj();
         // 获取菜单
         ConfigurationSection configurationSection = fileConfiguration.getConfigurationSection("menu");
@@ -103,7 +108,7 @@ public class MenuGui {
             if (memorySection == null) {
                 continue;
             }
-            MenuButtonParam menuButtonParam = getMenuButtonParam(memorySection, player);
+            MenuButtonParam menuButtonParam = getMenuButtonParam(memorySection, papiPlayer != null ? papiPlayer : player);
             // 判断是否有按钮权限
             if (StrUtil.isNotEmpty(menuButtonParam.getPermission()) && !player.hasPermission(menuButtonParam.getPermission())) {
                 continue;
@@ -151,7 +156,7 @@ public class MenuGui {
      * @param player        玩家
      * @return 按钮参数
      */
-    public static MenuButtonParam getMenuButtonParam(MemorySection memorySection, Player player) {
+    public static MenuButtonParam getMenuButtonParam(MemorySection memorySection, OfflinePlayer player) {
         String name = memorySection.getString("name");
         List<String> loreList = memorySection.getStringList("lore");
         String head = memorySection.getString("head");

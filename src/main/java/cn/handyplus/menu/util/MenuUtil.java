@@ -47,6 +47,18 @@ public class MenuUtil {
      * @param menu   菜单
      */
     public static void openGui(Player player, String menu) {
+        openGui(player, menu, null);
+    }
+
+    /**
+     * 打开菜单
+     *
+     * @param player   玩家
+     * @param menu     菜单
+     * @param papiName 变量玩家
+     * @since 1.3.0
+     */
+    public static void openGui(Player player, String menu, String papiName) {
         HandySchedulerUtil.runTaskAsynchronously(() -> {
             // 判断是否在公会战
             if (PlayerMenu.USE_GUILD && PlayerGuildApi.getInstance().isPvp(player)) {
@@ -63,7 +75,7 @@ public class MenuUtil {
                 return;
             }
             // 生成菜单
-            Inventory inventory = MenuGui.getInstance().createGui(player, finalMenu);
+            Inventory inventory = MenuGui.getInstance().createGui(player, finalMenu, papiName);
             if (inventory == null) {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMenu", "").replace("${menu}", menu));
                 return;
