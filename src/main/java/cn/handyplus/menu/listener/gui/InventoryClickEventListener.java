@@ -22,7 +22,6 @@ import cn.handyplus.menu.param.MenuButtonParam;
 import cn.handyplus.menu.service.MenuLimitService;
 import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.MenuUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -143,11 +142,11 @@ public class InventoryClickEventListener implements IHandyClickEvent {
                 continue;
             }
             if (command.contains("[Console]")) {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("[Console]", "").trim());
+                PlayerSchedulerUtil.dispatchCommand(command.replace("[Console]", "").trim());
                 continue;
             }
             if (command.contains("[console]")) {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("[console]", "").trim());
+                PlayerSchedulerUtil.dispatchCommand(command.replace("[console]", "").trim());
                 continue;
             }
             if (command.contains("[close]")) {

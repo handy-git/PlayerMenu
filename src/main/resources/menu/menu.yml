@@ -18,6 +18,7 @@ sound: ""
 # [command] 执行命令 [op] op身份执行命令(尽量不要使用这个,使用Console替代执行) [Console] 控制台执行命令
 # [close] 关闭菜单 [server] 跨服 [open] 打开子菜单
 # id 如果存在该节点, 配置中做修改请先删除id节点在进行修改
+# %player_name% 玩家papi变量 记得先安装PAPI的扩展组件 /papi ecloud download player
 menu:
   '20':
     # 按钮坐标

@@ -3,7 +3,8 @@
 ![适用核心](https://img.shields.io/badge/适用核心-Spigot|Folia-blue)
 ![适用版本](https://img.shields.io/badge/适用版本-1.7.x--1.20.x-blue)
 ![是否付费](https://img.shields.io/badge/是否付费-开源付费-blue)
-![最新版本](https://img.shields.io/github/v/release/handy-git/PlayerMenu)
+![购买价格](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fafdian.net%2Fapi%2Fcreator%2Fget-plan-skus%3Fplan_id%3D1e545a30aacd11edbe4a52540025c377&query=%24.data.plan.show_price&suffix=CNY&label=%E8%B4%AD%E4%B9%B0%E4%BB%B7%E6%A0%BC)
+![最新版本](https://img.shields.io/github/v/release/handy-git/PlayerMenu?label=%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC)  
 
 一款有点好用的菜单插件
 
@@ -17,7 +18,7 @@
 
 ## 使用统计
 
-![](https://bstats.org/signatures/bukkit/PlayerMenu.svg)
+![使用统计](https://bstats.org/signatures/bukkit/PlayerMenu.svg)
 
 ## Star History
 
