@@ -1,6 +1,6 @@
 name: PlayerMenu
 main: cn.handyplus.menu.PlayerMenu
-version: 1.3.0
+version: 1.3.1
 author: handy
 api-version: 1.13
 website: https://ricedoc.handyplus.cn/wiki/PlayerMenu/log/
@@ -19,6 +19,7 @@ permissions:
       playerMenu.create: true
       playerMenu.view: true
       playerMenu.getMaterial: true
+      playerMenu.adminOpen: true
       playerMenu.open: true
       playerMenu.close: true
   playerMenu.reload:
@@ -32,6 +33,9 @@ permissions:
     default: op
   playerMenu.getMaterial:
     description: 获取材质
+    default: op
+  playerMenu.adminOpen:
+    description: 打开
     default: op
   playerMenu.open:
     description: 打开

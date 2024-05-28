@@ -218,7 +218,7 @@ public class InventoryCloseEventListener implements Listener {
         yamlConfiguration.set("menu", createMenuItemMap);
         yamlConfiguration.save(new File(fileName));
         ConfigUtil.init();
-        MessageUtil.sendMessage(player, ConfigUtil.LANG_CONFIG.getString("createMsg"));
+        MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("createMsg"));
     }
 
 }

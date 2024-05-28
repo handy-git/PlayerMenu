@@ -71,13 +71,16 @@ public class ConfigUtil {
         HandyConfigUtil.setPathIsNotContains(CONFIG, "shift.F.menu", "menu.yml", Collections.singletonList("使用Shift+F打开的菜单"), "config.yml");
         CONFIG = HandyConfigUtil.load("config.yml");
         // 1.1.7
-        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "noTimeLimit", "&7需等待&a${time}&7秒,才可使用", null, "languages/" + CONFIG.getString("language") + ".yml");
+        String language = "languages/" + CONFIG.getString("language") + ".yml";
+        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "noTimeLimit", "&7需等待&a${time}&7秒,才可使用", null, language);
         // 1.2.0
-        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "noItem", "&8[&c✘&8] &7物品不足,出售失败", null, "languages/" + CONFIG.getString("language") + ".yml");
-        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "sellMsg", "&8[&a✔&8] &7出售成功", null, "languages/" + CONFIG.getString("language") + ".yml");
-        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "buyMsg", "&8[&a✔&8] &7购买成功", null, "languages/" + CONFIG.getString("language") + ".yml");
+        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "noItem", "&8[&c✘&8] &7物品不足,出售失败", null, language);
+        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "sellMsg", "&8[&a✔&8] &7出售成功", null, language);
+        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "buyMsg", "&8[&a✔&8] &7购买成功", null, language);
         // 1.2.8
-        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "addItemMsg", "&8[&a!&8] &a背包不足，多余物品已掉落在地上请尽快捡起", null, "languages/" + CONFIG.getString("language") + ".yml");
+        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "addItemMsg", "&8[&a!&8] &a背包不足，多余物品已掉落在地上请尽快捡起", null, language);
+        // 1.3.1
+        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "playerNotOnline", "&8[&c✘&8] &7玩家 &a${player} &7不在线", null, language);
         LANG_CONFIG = HandyConfigUtil.loadLangConfig(CONFIG.getString("language"), true);
     }
 

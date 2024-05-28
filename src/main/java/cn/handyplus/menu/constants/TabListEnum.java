@@ -19,12 +19,17 @@ public enum TabListEnum {
     /**
      * 第一层提醒
      */
-    FIRST(Arrays.asList("reload", "open", "getMaterial", "create", "view", "close"), 0, null, 1),
+    FIRST(Arrays.asList("reload", "open", "getMaterial", "create", "view", "close", "adminOpen"), 0, null, 1),
 
     CREATE_TWO(Arrays.asList("9", "18", "27", "36", "45", "54"), 1, "create", 2),
 
-    OPEN_TWO(new ArrayList<>(ConfigUtil.MENU_CONFIG_MAP.keySet()), 1, "open", 2),
-    VIEW_TWO(new ArrayList<>(ConfigUtil.MENU_CONFIG_MAP.keySet()), 1, "view", 2),
+    OPEN_TWO(new ArrayList<>(), 1, "open", 2),
+    OPEN_THREE(null, 1, "open", 3),
+    VIEW_TWO(new ArrayList<>(), 1, "view", 2),
+
+    ADMIN_OPEN_TWO(new ArrayList<>(), 1, "adminOpen", 2),
+    ADMIN_OPEN_THREE(null, 1, "adminOpen", 3),
+    ADMIN_OPEN_FOUR(null, 1, "adminOpen", 4),
     ;
 
     /**
@@ -53,19 +58,24 @@ public enum TabListEnum {
      */
     public static List<String> returnList(String[] args, int argsLength) {
         List<String> completions = new ArrayList<>();
-
-        // open和view参数特殊处理
-        if (argsLength == 2 && ("open".equalsIgnoreCase(args[0]) || "view".equalsIgnoreCase(args[0]))) {
-            return new ArrayList<>(ConfigUtil.MENU_CONFIG_MAP.keySet());
-        }
-
         for (TabListEnum tabListEnum : TabListEnum.values()) {
+            // 过滤掉参数长度不满足要求的情况
             if (tabListEnum.getBefPos() - 1 >= args.length) {
                 continue;
             }
-            if ((tabListEnum.getBef() == null || tabListEnum.getBef().equalsIgnoreCase(args[tabListEnum.getBefPos() - 1])) && tabListEnum.getNum() == argsLength) {
-                completions = tabListEnum.getList();
+            // 过滤掉前置参数不匹配的情况
+            if (tabListEnum.getBef() != null && !tabListEnum.getBef().equalsIgnoreCase(args[tabListEnum.getBefPos() - 1])) {
+                continue;
             }
+            // 过滤掉参数长度不匹配的情况
+            if (tabListEnum.getNum() != argsLength) {
+                continue;
+            }
+            // 特殊处理
+            if (tabListEnum.equals(OPEN_TWO) || tabListEnum.equals(ADMIN_OPEN_TWO) || tabListEnum.equals(VIEW_TWO)) {
+                return new ArrayList<>(ConfigUtil.MENU_CONFIG_MAP.keySet());
+            }
+            return tabListEnum.getList();
         }
         return completions;
     }

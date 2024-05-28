@@ -12,6 +12,7 @@ import cn.handyplus.lib.util.BcUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.PlayerMenu;
+import cn.handyplus.menu.constants.CommandTypeEnum;
 import cn.handyplus.menu.constants.GuiTypeEnum;
 import cn.handyplus.menu.enter.MenuLimit;
 import cn.handyplus.menu.hook.PlaceholderApiUtil;
@@ -20,7 +21,6 @@ import cn.handyplus.menu.hook.VaultUtil;
 import cn.handyplus.menu.inventory.MenuGui;
 import cn.handyplus.menu.param.MenuButtonParam;
 import cn.handyplus.menu.service.MenuLimitService;
-import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -73,7 +73,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         // 播放声音
         MenuUtil.playSound(player, menuButtonParam.getSound());
         // 执行命令
-        this.extractedCommand(player, menuButtonParam.getCommands(), handyInventory);
+        this.executeCommand(player, menuButtonParam.getCommands(), handyInventory);
     }
 
     /**
@@ -83,89 +83,64 @@ public class InventoryClickEventListener implements IHandyClickEvent {
      * @param commands       命令
      * @param handyInventory gui
      */
-    private void extractedCommand(Player player, List<String> commands, HandyInventory handyInventory) {
+    private void executeCommand(Player player, List<String> commands, HandyInventory handyInventory) {
         if (CollUtil.isEmpty(commands)) {
             return;
         }
         for (String command : commands) {
+            if (StrUtil.isEmpty(command)) {
+                continue;
+            }
             command = PlaceholderApiUtil.set(player, command);
-            if (command.contains("[message]")) {
-                String trimMessage = command.replace("[message]", "").trim();
-                MessageUtil.sendMessage(player, trimMessage);
+            CommandTypeEnum commandTypeEnum = CommandTypeEnum.contains(command);
+            if (commandTypeEnum == null) {
                 continue;
             }
-            if (command.contains("[allMessage]")) {
-                String trimMessage = command.replace("[allMessage]", "").trim();
-                MessageUtil.sendAllMessage(trimMessage);
-                continue;
-            }
-            if (command.contains("[title]")) {
-                String trimMessage = command.replace("[title]", "").trim();
-                String[] split = trimMessage.split(":");
-                String title;
-                String subTitle = "";
-                title = split[0];
-                if (split.length > 1) {
-                    subTitle = split[1];
-                }
-                MessageUtil.sendTitle(player, title, subTitle);
-                continue;
-            }
-            if (command.contains("[allTitle]")) {
-                String trimMessage = command.replace("[allTitle]", "").trim();
-                String[] split = trimMessage.split(":");
-                String title;
-                String subTitle = "";
-                title = split[0];
-                if (split.length > 1) {
-                    subTitle = split[1];
-                }
-                MessageUtil.sendAllTitle(title, subTitle);
-                continue;
-            }
-            if (command.contains("[actionbar]")) {
-                String trimMessage = command.replace("[actionbar]", "").trim();
-                MessageUtil.sendActionbar(player, trimMessage);
-                continue;
-            }
-            if (command.contains("[allActionbar]")) {
-                String trimMessage = command.replace("[allActionbar]", "").trim();
-                MessageUtil.sendAllActionbar(trimMessage);
-                continue;
-            }
-            if (command.contains("[command]")) {
-                PlayerSchedulerUtil.performCommand(player, command.replace("[command]", ""));
-                continue;
-            }
-            if (command.contains("[op]")) {
-                PlayerSchedulerUtil.performOpCommand(player, command.replace("[op]", ""));
-                continue;
-            }
-            if (command.contains("[Console]")) {
-                PlayerSchedulerUtil.dispatchCommand(command.replace("[Console]", "").trim());
-                continue;
-            }
-            if (command.contains("[console]")) {
-                PlayerSchedulerUtil.dispatchCommand(command.replace("[console]", "").trim());
-                continue;
-            }
-            if (command.contains("[close]")) {
-                player.closeInventory();
-                continue;
-            }
-            if (command.contains("[server]")) {
-                String trimCommand = command.replace("[server]", "").trim();
-                BcUtil.tpConnect(player, trimCommand);
-                continue;
-            }
-            if (command.contains("[open]")) {
-                String menu = command.replace("[open]", "").trim();
-                MenuUtil.openGui(player, menu);
-                continue;
-            }
-            // 1.2.5 添加刷新gui节点
-            if (command.contains("[refresh]")) {
-                MenuGui.getInstance().setInventoryDate(handyInventory);
+            String content = CommandTypeEnum.replaceFirst(command, commandTypeEnum);
+            switch (commandTypeEnum) {
+                case MESSAGE:
+                    MessageUtil.sendMessage(player, content);
+                    break;
+                case ALL_MESSAGE:
+                    MessageUtil.sendAllMessage(content);
+                    break;
+                case TITLE:
+                    String[] split = content.split(":");
+                    MessageUtil.sendTitle(player, split[0], split.length > 1 ? split[1] : "");
+                    break;
+                case ALL_TITLE:
+                    String[] allSplit = content.split(":");
+                    MessageUtil.sendAllTitle(allSplit[0], allSplit.length > 1 ? allSplit[1] : "");
+                    break;
+                case ACTIONBAR:
+                    MessageUtil.sendActionbar(player, content);
+                    break;
+                case ALL_ACTIONBAR:
+                    MessageUtil.sendAllActionbar(content);
+                    break;
+                case COMMAND:
+                    PlayerSchedulerUtil.performCommand(player, content);
+                    break;
+                case OP:
+                    PlayerSchedulerUtil.performOpCommand(player, content);
+                    break;
+                case CONSOLE:
+                    PlayerSchedulerUtil.dispatchCommand(content);
+                    break;
+                case CLOSE:
+                    player.closeInventory();
+                    break;
+                case SERVER:
+                    BcUtil.tpConnect(player, content);
+                    break;
+                case OPEN:
+                    MenuUtil.openGui(player, content);
+                    break;
+                case REFRESH:
+                    MenuGui.getInstance().setInventoryDate(handyInventory);
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -234,7 +209,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             if (clickTime != null) {
                 long time = DateUtil.offset(clickTime, Calendar.SECOND, cd).getTime() - System.currentTimeMillis();
                 if (time > 0) {
-                    String noTimeLimit = ConfigUtil.LANG_CONFIG.getString("noTimeLimit", "");
+                    String noTimeLimit = BaseUtil.getMsgNotColor("noTimeLimit", "");
                     MessageUtil.sendMessage(player, StrUtil.replace(noTimeLimit, "time", String.valueOf(time / 1000)));
                     return true;
                 }
@@ -333,7 +308,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             String number = shopMaterialStr[1];
             ItemStack itemStack = new ItemStack(ItemStackUtil.getMaterial(material));
             ItemStackUtil.addItem(player, itemStack, Integer.parseInt(number), BaseUtil.getMsgNotColor("addItemMsg"));
-            MessageUtil.sendMessage(player, ConfigUtil.LANG_CONFIG.getString("buyMsg"));
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("buyMsg"));
             return false;
         }
         // 玩家出售物品
@@ -350,7 +325,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             int shopPoint = menuButtonParam.getShopPoint();
             VaultUtil.give(player, shopMoney);
             PlayerPointsUtil.give(player, shopPoint);
-            MessageUtil.sendMessage(player, ConfigUtil.LANG_CONFIG.getString("sellMsg"));
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("sellMsg"));
         }
         return false;
     }

@@ -6,9 +6,9 @@ import cn.handyplus.lib.constants.VersionCheckEnum;
 import cn.handyplus.lib.core.YmlUtil;
 import cn.handyplus.lib.expand.adapter.HandySchedulerUtil;
 import cn.handyplus.lib.util.AssertUtil;
+import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.inventory.ViewGui;
-import cn.handyplus.menu.util.ConfigUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -39,17 +39,17 @@ public class ViewCommand implements IHandyCommandEvent {
     @Override
     public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (BaseConstants.VERSION_ID < VersionCheckEnum.V_1_14.getVersionId()) {
-            MessageUtil.sendMessage(sender, ConfigUtil.LANG_CONFIG.getString("versionFailureMsg", "&8[&c✘&8] &4服务端版本小于1.14,无法使用该指令"));
+            MessageUtil.sendMessage(sender, BaseUtil.getMsgNotColor("versionFailureMsg", "&8[&c✘&8] &4服务端版本小于1.14,无法使用该指令"));
             return;
         }
         // 参数是否正常
-        AssertUtil.notTrue(args.length < 2, sender, ConfigUtil.LANG_CONFIG.getString("paramFailureMsg"));
+        AssertUtil.notTrue(args.length < 2, sender, BaseUtil.getMsgNotColor("paramFailureMsg"));
         // 是否为玩家
-        Player player = AssertUtil.notPlayer(sender, ConfigUtil.LANG_CONFIG.getString("noPlayerFailureMsg"));
+        Player player = AssertUtil.notPlayer(sender, BaseUtil.getMsgNotColor("noPlayerFailureMsg"));
         String menu = YmlUtil.setYml(args[1]);
         Inventory inventory = ViewGui.getInstance().createGui(player, menu);
         if (inventory == null) {
-            MessageUtil.sendMessage(player, ConfigUtil.LANG_CONFIG.getString("noMenu", "").replace("${menu}", args[1]));
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMenu", "").replace("${menu}", args[1]));
             return;
         }
         HandySchedulerUtil.runTask(() -> player.openInventory(inventory));
