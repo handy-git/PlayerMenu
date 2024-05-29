@@ -1,19 +1,19 @@
-# 语言文件 [可选 中文简体:zh_CN;中文繁體:zh_TW;English:en_US]
+# 语言文件(Language file) [可选 中文简体:zh_CN;中文繁體:zh_TW;English:en_US]
 language: zh_CN
 
-# 是否开启更新提醒,建议开启
+# 是否开启更新提醒,建议开启(Whether to enable update reminders, recommended to enable)
 isCheckUpdate: true
 
-# op登录时候是否发送更新提醒
+# op登录时候是否发送更新提醒(Send update reminders to OPs on login)
 isCheckUpdateToOpMsg: true
 
-# 禁止打开菜单的世界
+# 禁止打开菜单的世界(Worlds where menu opening is disabled)
 noWorld:
   - "notWorld"
 
-# 唯一菜单 进服发送菜单,如果没有就赠送一个
+# 唯一菜单 进服发送菜单,如果没有就赠送一个(Unique menu: Send menu on login if none exists)
 clock:
-  # 是否开启
+  # 是否开启(Whether to enable)
   enable: true
   name: '   &8[&c服务器菜单&8]'
   material: clock
@@ -23,14 +23,16 @@ clock:
   isEnchant: false
   custom-model-data: 0
   # 使用该物品打开的菜单 如果填写了该配置,menu文件下的所有openItem将会无效,只使用这个
+  # Menu opened with this item. If configured, all openItem entries under menu will be invalidated, using only this.
   menu: menu.yml
   # 点击类型 ALL 全部 ，LEFT 左键，RIGHT 右键
+  # Click type: ALL for all, LEFT for left click, RIGHT for right click
   action: ALL
 
-# 动作打开菜单
+# 动作打开菜单(Action to open the menu)
 shift:
   F:
-    # 是否开启
+    # 是否开启(Whether to enable)
     enable: false
-    # 使用Shift+F打开的菜单
+    # 使用Shift+F打开的菜单(Menu opened with Shift+F)
     menu: menu.yml

@@ -1,0 +1,220 @@
+# Title
+title: '&eDemo Menu'
+# Open command
+openCommand: 'mc'
+# Open item
+openItem: 'clock'
+# Open permission, permission format: playerMenu.open.menu.yml Set to false if no permission is required
+permission: true
+# Menu size
+size: 54
+# Sound played when opening this menu. Supported in 1.12+
+# Sound list: https://bukkit.windit.net/javadoc/org/bukkit/Sound.html
+sound: ""
+# Menu node commands content with support for variables
+# [message] Send message [allMessage] Send message to all players
+# [title] Send title [allTitle] Send title to all players Format title:subTitle
+# [actionbar] Send actionbar [allActionbar] Send actionbar to all players
+# [command] Execute command [op] Execute command as op (try to avoid using this, use Console instead) [Console] Execute command as console
+# [close] Close the menu [server] Cross server [open] Open sub-menu
+# If the id node exists, please delete the id node first before making modifications in the configuration
+# %player_name% Player PAPI variable. Make sure to install the PAPI expansion component /papi ecloud download player
+menu:
+  '20':
+    index: 20
+    name: '   &8[&cSend Message&8]'
+    material: ARROW
+    lore:
+      - "&f- &7Click to send a message"
+    isEnchant: false
+    custom-model-data: 0
+    commands:
+      - '[message] Hello'
+      - '[title] Big Title:Small Title'
+      - '[actionbar] Hello'
+  '21':
+    index: 21
+    name: '   &8[&cExecute Command&8]'
+    material: ARROW
+    lore:
+      - "&f- &7Click to return to the main city"
+    isEnchant: false
+    custom-model-data: 0
+    commands:
+      - '[command] say Execute command'
+      - '[Console] say Execute command as console'
+  '22':
+    index: 22
+    name: '   &8[&cPoint Consumption&8]'
+    material: ARROW
+    lore:
+      - "&f- &7Click to consume points"
+    isEnchant: false
+    custom-model-data: 0
+    # Need to spend 100 points to click
+    point: 100
+    sound: "BLOCK_ANVIL_HIT"
+    failSound: "BLOCK_CHEST_CLOSE"
+    commands:
+      - '[command] say You have activated VIP'
+      - '[allMessage] Congratulations %player_name% for activating VIP using points'
+  '23':
+    index: 23
+    name: '   &8[&cGold Consumption&8]'
+    material: ARROW
+    lore:
+      - "&f- &7Click to consume gold"
+    isEnchant: false
+    custom-model-data: 0
+    # Need to spend 100 gold to click
+    money: 100
+    commands:
+      - '[command] say You have activated gold VIP'
+      - '[allMessage] Congratulations %player_name% for activating gold VIP'
+  '24':
+    index: 24
+    name: '   &8[&cCan Only Buy 3 Times&8]'
+    material: ARROW
+    lore:
+      - "&f- &7Click to buy with gold"
+      - "&f- &7Limited to three uses"
+    isEnchant: false
+    custom-model-data: 0
+    # Need to spend 100 gold to click
+    money: 100
+    # Identification (please use plural, cannot be repeated, can judge cd and limit only with id)
+    id: -1
+    # Limit to only three uses of this button
+    limit: 3
+    commands:
+      - '[command] say You have activated gold VIP'
+      - '[allMessage] Congratulations %player_name% for activating gold VIP'
+  '29':
+    index: 29
+    name: '   &8[&cVariable Condition&8]'
+    material: ARROW
+    lore:
+      - "&f- &7Supports 6 types of symbols for variable conditions"
+      - "&f- &7 = ; !=; >; <; >=; <="
+      - "&f- &7 = ; !=; No restrictions"
+      - "&f- &7>; <; >=; <= Must be numerical"
+    isEnchant: false
+    custom-model-data: 0
+    # Custom conditions
+    conditions:
+      - '%player_name% = Rice'
+      - '%player_money% > 100'
+    commands:
+      - '[message] say You clicked the button'
+  '30':
+    index: 30
+    name: '   &8[&cTime Condition&8]'
+    material: ARROW
+    lore:
+      - "&f- &7Click to use"
+      - "&f- &7Limited to once every 10 seconds"
+    isEnchant: false
+    custom-model-data: 0
+    # Identifier (please use plurals, must be unique, used for cooldown and limit checking)
+    id: -2
+    # Time unit in seconds
+    cd: 10
+    commands:
+      - '[message] say You clicked the button'
+  '31':
+    index: 31
+    name: '   &8[&cPlayer Head Button&8]'
+    material: PLAYER_HEAD
+    lore:
+      - "&f- &7Player head button"
+      - "&f- &7Can specify a player name, e.g., 'menu'"
+      - "&f- &7Or use player variables like %player_name%"
+    isEnchant: false
+    # Player head texture
+    head: '%player_name%'
+    custom-model-data: 0
+    commands:
+      - '[message] say Handsome player head'
+  '32':
+    index: 32
+    name: '   &8[&cPermission Button&8]'
+    material: REDSTONE
+    lore:
+      - "&f- &7Permission button"
+      - "&f- &7Players need permission 'abc' to see this button"
+    isEnchant: false
+    # Permission node
+    permission: 'abc'
+    custom-model-data: 0
+    commands:
+      - '[message] say Congratulations! You found the permission button'
+  '38':
+    index: 38
+    name: '   &8[&cSell Item for Coins&8]'
+    material: APPLE
+    lore:
+      - "&f- &7Click to sell items"
+      - "&f- &7Sell 64 apples for 100 coins"
+    isEnchant: false
+    custom-model-data: 0
+    # Shop type: 'sell' for selling, 'buy' for buying
+    shopType: 'sell'
+    # Item to be sold: Format: Material:Quantity
+    shopMaterial: "APPLE:64"
+    # Shop coin price
+    shopMoney: 100
+  '39':
+    index: 39
+    name: '   &8[&cBuy Item with Coins&8]'
+    material: APPLE
+    lore:
+      - "&f- &7Click to buy items"
+      - "&f- &7Buy 64 apples for 100 coins"
+    isEnchant: false
+    custom-model-data: 0
+    # Shop type: 'sell' for selling, 'buy' for buying
+    shopType: 'buy'
+    # Item to be bought: Format: Material:Quantity
+    shopMaterial: "APPLE:64"
+    # Shop coin price
+    shopMoney: 100
+  '40':
+    index: 40
+    name: '   &8[&cSell Item for Points&8]'
+    material: POTATO
+    lore:
+      - "&f- &7Click to sell items"
+      - "&f- &7Sell 64 potatoes for 100 points"
+    isEnchant: false
+    custom-model-data: 0
+    # Shop type: 'sell' for selling, 'buy' for buying
+    shopType: 'sell'
+    # Item to be sold: Format: Material:Quantity
+    shopMaterial: "POTATO:64"
+    # Shop point price
+    shopPoint: 100
+  '41':
+    index: 41
+    name: '   &8[&cBuy Item with Points&8]'
+    material: POTATO
+    lore:
+      - "&f- &7Click to purchase items"
+      - "&f- &7Buy 64 potatoes for 100 points"
+    isEnchant: false
+    custom-model-data: 0
+    # Shop type: 'sell' for selling, 'buy' for buying
+    shopType: 'buy'
+    # Item to be bought: Format: Material:Quantity
+    shopMaterial: "POTATO:64"
+    # Shop point price
+    shopPoint: 100
+  # Separator pane index (you can add more coordinates)
+  pane:
+    enable: true
+    index: 0,1,2,3,4,5,6,7,8,9,17,18,26,27,35,36,44,45,46,47,48,49,50,51,52,53
+    material: BLACK_STAINED_GLASS_PANE
+    isEnchant: false
+    name: "       &8[&7Separator Pane&8]"
+    lore:
+      - "&7Oops, please don't touch me randomly"
+    custom-model-data: 0

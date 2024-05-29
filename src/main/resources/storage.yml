@@ -1,6 +1,7 @@
 # 存储方法(MySQL,SQLite)请复制括号内的类型,不要自己写
+# Storage method (MySQL, SQLite). Copy the type inside the parentheses, do not write your own.
 storage-method: SQLite
-# 选择mysql后必填
+# 选择mysql后必填(If MySQL is selected, these fields are mandatory)
 MySQL:
   Host: 127.0.0.1
   Port: 3306

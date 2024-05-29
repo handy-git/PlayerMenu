@@ -28,7 +28,8 @@ public class ConfigUtil {
         // 加载config
         CONFIG = HandyConfigUtil.loadConfig();
         // 加载语言文件
-        LANG_CONFIG = HandyConfigUtil.loadLangConfig(CONFIG.getString("language"));
+        String language = CONFIG.getString("language");
+        LANG_CONFIG = HandyConfigUtil.loadLangConfig(language);
         // 加载菜单文件
         MENU_CONFIG_MAP = new HashMap<>();
         COMMAND_MAP = new HashMap<>();
@@ -36,7 +37,7 @@ public class ConfigUtil {
         PERMISSION_MAP = new HashMap<>();
         // 读取目录下菜单文件
         if (!HandyConfigUtil.exists("menu/")) {
-            HandyConfigUtil.load("menu/menu.yml");
+            HandyConfigUtil.load("zh_CN".equalsIgnoreCase(language) ? "menu/menu.yml" : "menu/example.yml");
         }
         // 读取目录下菜单文件
         MENU_CONFIG_MAP = HandyConfigUtil.loadDirectory("menu/");
