@@ -17,10 +17,14 @@ A somewhat handy menu plugin
 If this plugin helps you, please consider giving it a star in the top right corner to support the author!
 
 Usage Tutorial: [Click to view](https://ricedoc.handyplus.cn/wiki/PlayerMenu/README/)  
-Purchase Link: [Click to view](https://afdian.net/item/1e545a30aacd11edbe4a52540025c377)  
-Download Link: [Click to view](https://github.com/handy-git/PlayerMenu/releases)
+Purchase Link: [Click to view](https://www.spigotmc.org/resources/117019/)
 
-After purchasing, you will receive after-sales service. The author will guide you on how to use it. If you haven't purchased it, please refer to the wiki for usage instructions.
+After purchasing, you will receive after-sales service. The author will guide you on how to use it. If you haven't
+purchased it, please refer to the wiki for usage instructions.
+
+Dev DownLoad:
+
+[GITHUB ACTIONS](https://github.com/handy-git/PlayerMenu/actions)
 
 ## Usage Statistics
 
