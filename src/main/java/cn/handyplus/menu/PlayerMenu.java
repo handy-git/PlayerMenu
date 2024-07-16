@@ -4,7 +4,6 @@ import cn.handyplus.lib.InitApi;
 import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
-import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.util.ConfigUtil;
 import net.milkbowl.vault.economy.Economy;
 import org.black_ixx.playerpoints.PlayerPoints;
@@ -62,7 +61,7 @@ public class PlayerMenu extends JavaPlugin {
                 .enableSql("cn.handyplus.menu.enter")
                 .enableBc()
                 .addMetrics(14034)
-                .checkVersion(ConfigUtil.CONFIG.getBoolean(BaseConstants.IS_CHECK_UPDATE), MenuConstants.PLUGIN_VERSION_URL);
+                .checkVersion(ConfigUtil.CONFIG.getBoolean(BaseConstants.IS_CHECK_UPDATE));
         MessageUtil.sendConsoleMessage(ChatColor.GREEN + "已成功载入服务器！");
         MessageUtil.sendConsoleMessage(ChatColor.GREEN + "Author:handy 使用文档: https://ricedoc.handyplus.cn/wiki/PlayerMenu/README/");
     }

@@ -316,7 +316,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             String[] shopMaterialStr = shopMaterial.split(":");
             String material = shopMaterialStr[0];
             String number = shopMaterialStr[1];
-            Boolean rst = ItemStackUtil.removeItem(player.getInventory(), new ItemStack(ItemStackUtil.getMaterial(material)), Integer.valueOf(number));
+            Boolean rst = ItemStackUtil.removeItem(player, new ItemStack(ItemStackUtil.getMaterial(material)), Integer.valueOf(number));
             if (!rst) {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noItem"));
                 return true;

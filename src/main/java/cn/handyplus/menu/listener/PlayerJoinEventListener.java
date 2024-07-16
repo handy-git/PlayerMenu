@@ -5,7 +5,6 @@ import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.expand.adapter.HandySchedulerUtil;
 import cn.handyplus.lib.util.HandyHttpUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
-import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.entity.Player;
@@ -58,7 +57,7 @@ public class PlayerJoinEventListener implements Listener {
         if (!ConfigUtil.CONFIG.getBoolean(BaseConstants.IS_CHECK_UPDATE_TO_OP_MSG)) {
             return;
         }
-        HandyHttpUtil.checkVersion(event.getPlayer(), MenuConstants.PLUGIN_VERSION_URL);
+        HandyHttpUtil.checkVersion(event.getPlayer());
     }
 
 }
