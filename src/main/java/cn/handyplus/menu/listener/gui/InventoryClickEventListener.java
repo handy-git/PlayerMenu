@@ -139,6 +139,12 @@ public class InventoryClickEventListener implements IHandyClickEvent {
                 case REFRESH:
                     MenuGui.getInstance().setInventoryDate(handyInventory);
                     break;
+                case PERFORM_COMMAND:
+                    PlayerSchedulerUtil.playerPerformCommand(player, content);
+                    break;
+                case OP_PERFORM_COMMAND:
+                    PlayerSchedulerUtil.playerPerformOpCommand(player, content);
+                    break;
                 default:
                     break;
             }
@@ -172,7 +178,10 @@ public class InventoryClickEventListener implements IHandyClickEvent {
      * @param menuButtonParam 菜单
      */
     private void setManuNumberLimit(Player player, MenuButtonParam menuButtonParam) {
-        if (menuButtonParam.getId() == null || menuButtonParam.getLimit() < 1) {
+        if (menuButtonParam.getId() == null) {
+            return;
+        }
+        if (menuButtonParam.getLimit() < 1 && menuButtonParam.getLimitHide() < 1) {
             return;
         }
         MenuLimit menuLimit = new MenuLimit();
@@ -194,13 +203,12 @@ public class InventoryClickEventListener implements IHandyClickEvent {
      */
     private boolean check(Player player, MenuButtonParam menuButtonParam) {
         // 判断点击次数处理
-        int limit = menuButtonParam.getLimit();
-        if (limit > 0) {
-            Integer count = MenuLimitService.getInstance().findCountByPlayerUuid(player.getUniqueId(), menuButtonParam.getId());
-            if (count >= limit) {
-                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noLimit"));
-                return true;
-            }
+        if (this.clickLimit(player, menuButtonParam.getId(), menuButtonParam.getLimit())) {
+            return true;
+        }
+        // 判断点击次数处理
+        if (this.clickLimit(player, menuButtonParam.getId(), menuButtonParam.getLimitHide())) {
+            return true;
         }
         // 判断点击时间
         int cd = menuButtonParam.getCd();
@@ -257,6 +265,25 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             }
         }
         // 商店判断
+        return false;
+    }
+
+    /**
+     * 点击次数判断
+     *
+     * @param player 玩家
+     * @param limit  次数
+     * @return true 不满足
+     */
+    private boolean clickLimit(Player player, Integer menuItemId, int limit) {
+        if (limit <= 0) {
+            return false;
+        }
+        Integer count = MenuLimitService.getInstance().findCountByPlayerUuid(player.getUniqueId(), menuItemId);
+        if (count >= limit) {
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noLimit"));
+            return true;
+        }
         return false;
     }
 

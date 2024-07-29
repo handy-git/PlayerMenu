@@ -53,6 +53,13 @@ public class MenuButtonParam {
     private int limit;
 
     /**
+     * 限制点击次数并在没有次数后隐藏按钮
+     *
+     * @since 1.3.4
+     */
+    private int limitHide;
+
+    /**
      * 限制点击时间 (秒)
      */
     private int cd;

@@ -13,6 +13,7 @@ import cn.handyplus.menu.enter.MenuItem;
 import cn.handyplus.menu.hook.PlaceholderApiUtil;
 import cn.handyplus.menu.param.MenuButtonParam;
 import cn.handyplus.menu.service.MenuItemService;
+import cn.handyplus.menu.service.MenuLimitService;
 import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.OfflinePlayer;
@@ -117,6 +118,14 @@ public class MenuGui {
             if (StrUtil.isNotEmpty(menuButtonParam.getNotPermission()) && player.hasPermission(menuButtonParam.getNotPermission())) {
                 continue;
             }
+            // 判断是否限制点击次数
+            if (menuButtonParam.getId() != null && menuButtonParam.getLimitHide() > 0) {
+                Integer count = MenuLimitService.getInstance().findCountByPlayerUuid(player.getUniqueId(), menuButtonParam.getId());
+                if (count >= menuButtonParam.getLimitHide()) {
+                    continue;
+                }
+                return;
+            }
             // 物品显示数量
             int amount = menuButtonParam.getAmount() > 0 ? menuButtonParam.getAmount() : 1;
             if (StrUtil.isNotEmpty(menuButtonParam.getDynamicAmount())) {
@@ -182,6 +191,7 @@ public class MenuGui {
         int point = memorySection.getInt("point");
         int money = memorySection.getInt("money");
         int limit = memorySection.getInt("limit");
+        int limitHide = memorySection.getInt("limitHide");
         int cd = memorySection.getInt("cd");
         int id = memorySection.getInt("id", 0);
         String permission = memorySection.getString("permission");
@@ -212,6 +222,7 @@ public class MenuGui {
         menuButtonParam.setPoint(point);
         menuButtonParam.setMoney(money);
         menuButtonParam.setLimit(limit);
+        menuButtonParam.setLimitHide(limitHide);
         menuButtonParam.setCd(cd);
         menuButtonParam.setId(id != 0 ? id : null);
         menuButtonParam.setHead(head);

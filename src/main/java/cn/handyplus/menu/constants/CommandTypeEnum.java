@@ -30,6 +30,8 @@ public enum CommandTypeEnum {
     SERVER("[server]"),
     OPEN("[open]"),
     REFRESH("[refresh]"),
+    PERFORM_COMMAND("[performCommand]"),
+    OP_PERFORM_COMMAND("[opPerformCommand]"),
     ;
 
     private final String type;
