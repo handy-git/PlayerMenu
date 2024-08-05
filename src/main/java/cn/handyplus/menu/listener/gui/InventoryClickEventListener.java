@@ -1,9 +1,9 @@
 package cn.handyplus.menu.listener.gui;
 
 import cn.handyplus.lib.core.CollUtil;
-import cn.handyplus.lib.core.DateUtil;
 import cn.handyplus.lib.core.NumberUtil;
 import cn.handyplus.lib.core.StrUtil;
+import cn.handyplus.lib.expand.adapter.HandySchedulerUtil;
 import cn.handyplus.lib.expand.adapter.PlayerSchedulerUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.inventory.IHandyClickEvent;
@@ -27,7 +27,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -73,7 +72,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         // 播放声音
         MenuUtil.playSound(player, menuButtonParam.getSound());
         // 执行命令
-        this.executeCommand(player, menuButtonParam.getCommands(), handyInventory);
+        this.executeCommand(player, menuButtonParam.getCommands(), handyInventory, 0);
     }
 
     /**
@@ -83,72 +82,83 @@ public class InventoryClickEventListener implements IHandyClickEvent {
      * @param commands       命令
      * @param handyInventory gui
      */
-    private void executeCommand(Player player, List<String> commands, HandyInventory handyInventory) {
+    private void executeCommand(Player player, List<String> commands, HandyInventory handyInventory, Integer index) {
         if (CollUtil.isEmpty(commands)) {
             return;
         }
-        for (String command : commands) {
-            if (StrUtil.isEmpty(command)) {
-                continue;
-            }
-            command = PlaceholderApiUtil.set(player, command);
-            CommandTypeEnum commandTypeEnum = CommandTypeEnum.contains(command);
-            if (commandTypeEnum == null) {
-                continue;
-            }
-            String content = CommandTypeEnum.replaceFirst(command, commandTypeEnum);
-            switch (commandTypeEnum) {
-                case MESSAGE:
-                    MessageUtil.sendMessage(player, content);
-                    break;
-                case ALL_MESSAGE:
-                    MessageUtil.sendAllMessage(content);
-                    break;
-                case TITLE:
-                    String[] split = content.split(":");
-                    MessageUtil.sendTitle(player, split[0], split.length > 1 ? split[1] : "");
-                    break;
-                case ALL_TITLE:
-                    String[] allSplit = content.split(":");
-                    MessageUtil.sendAllTitle(allSplit[0], allSplit.length > 1 ? allSplit[1] : "");
-                    break;
-                case ACTIONBAR:
-                    MessageUtil.sendActionbar(player, content);
-                    break;
-                case ALL_ACTIONBAR:
-                    MessageUtil.sendAllActionbar(content);
-                    break;
-                case COMMAND:
-                    PlayerSchedulerUtil.performCommand(player, content);
-                    break;
-                case OP:
-                    PlayerSchedulerUtil.performOpCommand(player, content);
-                    break;
-                case CONSOLE:
-                    PlayerSchedulerUtil.dispatchCommand(content);
-                    break;
-                case CLOSE:
-                    player.closeInventory();
-                    break;
-                case SERVER:
-                    BcUtil.tpConnect(player, content);
-                    break;
-                case OPEN:
-                    MenuUtil.openGui(player, content);
-                    break;
-                case REFRESH:
-                    MenuGui.getInstance().setInventoryDate(handyInventory);
-                    break;
-                case PERFORM_COMMAND:
-                    PlayerSchedulerUtil.playerPerformCommand(player, content);
-                    break;
-                case OP_PERFORM_COMMAND:
-                    PlayerSchedulerUtil.playerPerformOpCommand(player, content);
-                    break;
-                default:
-                    break;
-            }
+        // 结束递归
+        if (index >= commands.size()) {
+            return;
         }
+        String command = commands.get(index);
+        if (StrUtil.isEmpty(command)) {
+            MessageUtil.sendConsoleMessage("配置异常:节点commands出现空行");
+            return;
+        }
+        command = PlaceholderApiUtil.set(player, command);
+        CommandTypeEnum commandTypeEnum = CommandTypeEnum.contains(command);
+        if (commandTypeEnum == null) {
+            MessageUtil.sendConsoleMessage("配置异常:节点commands出现不支持的类型:" + command);
+            return;
+        }
+        String content = CommandTypeEnum.replaceFirst(command, commandTypeEnum);
+        switch (commandTypeEnum) {
+            case DELAY:
+                Integer delay = NumberUtil.isNumericToInt(content, 0);
+                HandySchedulerUtil.runTaskLater(() -> executeCommand(player, commands, handyInventory, index + 1), delay * 20);
+                return;
+            case MESSAGE:
+                MessageUtil.sendMessage(player, content);
+                break;
+            case ALL_MESSAGE:
+                MessageUtil.sendAllMessage(content);
+                break;
+            case TITLE:
+                String[] split = content.split(":");
+                MessageUtil.sendTitle(player, split[0], split.length > 1 ? split[1] : "");
+                break;
+            case ALL_TITLE:
+                String[] allSplit = content.split(":");
+                MessageUtil.sendAllTitle(allSplit[0], allSplit.length > 1 ? allSplit[1] : "");
+                break;
+            case ACTIONBAR:
+                MessageUtil.sendActionbar(player, content);
+                break;
+            case ALL_ACTIONBAR:
+                MessageUtil.sendAllActionbar(content);
+                break;
+            case COMMAND:
+                PlayerSchedulerUtil.performCommand(player, content);
+                break;
+            case OP:
+                PlayerSchedulerUtil.performOpCommand(player, content);
+                break;
+            case CONSOLE:
+                PlayerSchedulerUtil.dispatchCommand(content);
+                break;
+            case CLOSE:
+                player.closeInventory();
+                break;
+            case SERVER:
+                BcUtil.tpConnect(player, content);
+                break;
+            case OPEN:
+                MenuUtil.openGui(player, content);
+                break;
+            case REFRESH:
+                MenuGui.getInstance().setInventoryDate(handyInventory);
+                break;
+            case PERFORM_COMMAND:
+                PlayerSchedulerUtil.playerPerformCommand(player, content);
+                break;
+            case OP_PERFORM_COMMAND:
+                PlayerSchedulerUtil.playerPerformOpCommand(player, content);
+                break;
+            default:
+                break;
+        }
+        // 递归执行下一个命令
+        executeCommand(player, commands, handyInventory, index + 1);
     }
 
     /**
@@ -158,7 +168,10 @@ public class InventoryClickEventListener implements IHandyClickEvent {
      * @param menuButtonParam 菜单
      */
     private void setManuTimeLimit(Player player, MenuButtonParam menuButtonParam) {
-        if (menuButtonParam.getId() == null || menuButtonParam.getCd() < 1) {
+        if (menuButtonParam.getId() == null) {
+            return;
+        }
+        if (menuButtonParam.getCd() < 1 && menuButtonParam.getCdHide() < 1) {
             return;
         }
         MenuLimit menuLimit = new MenuLimit();
@@ -203,25 +216,16 @@ public class InventoryClickEventListener implements IHandyClickEvent {
      */
     private boolean check(Player player, MenuButtonParam menuButtonParam) {
         // 判断点击次数处理
-        if (this.clickLimit(player, menuButtonParam.getId(), menuButtonParam.getLimit())) {
+        if (MenuUtil.clickLimit(player, menuButtonParam.getId(), menuButtonParam.getLimit())) {
             return true;
         }
         // 判断点击次数处理
-        if (this.clickLimit(player, menuButtonParam.getId(), menuButtonParam.getLimitHide())) {
+        if (MenuUtil.clickLimit(player, menuButtonParam.getId(), menuButtonParam.getLimitHide())) {
             return true;
         }
         // 判断点击时间
-        int cd = menuButtonParam.getCd();
-        if (cd > 0) {
-            Date clickTime = MenuLimitService.getInstance().findTimeByPlayerUuid(player.getUniqueId(), menuButtonParam.getId());
-            if (clickTime != null) {
-                long time = DateUtil.offset(clickTime, Calendar.SECOND, cd).getTime() - System.currentTimeMillis();
-                if (time > 0) {
-                    String noTimeLimit = BaseUtil.getMsgNotColor("noTimeLimit", "");
-                    MessageUtil.sendMessage(player, StrUtil.replace(noTimeLimit, "time", String.valueOf(time / 1000)));
-                    return true;
-                }
-            }
+        if (MenuUtil.clickCd(player, menuButtonParam.getId(), menuButtonParam.getCd())) {
+            return true;
         }
         // 判断点击金钱是否满足
         int money = menuButtonParam.getMoney();
@@ -265,25 +269,6 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             }
         }
         // 商店判断
-        return false;
-    }
-
-    /**
-     * 点击次数判断
-     *
-     * @param player 玩家
-     * @param limit  次数
-     * @return true 不满足
-     */
-    private boolean clickLimit(Player player, Integer menuItemId, int limit) {
-        if (limit <= 0) {
-            return false;
-        }
-        Integer count = MenuLimitService.getInstance().findCountByPlayerUuid(player.getUniqueId(), menuItemId);
-        if (count >= limit) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noLimit"));
-            return true;
-        }
         return false;
     }
 

@@ -1,6 +1,7 @@
 package cn.handyplus.menu.util;
 
 import cn.handyplus.lib.core.CollUtil;
+import cn.handyplus.lib.core.DateUtil;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.core.YmlUtil;
 import cn.handyplus.lib.expand.adapter.HandySchedulerUtil;
@@ -10,12 +11,15 @@ import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.inventory.MenuGui;
+import cn.handyplus.menu.service.MenuLimitService;
 import com.handy.guild.api.PlayerGuildApi;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,6 +105,50 @@ public class MenuUtil {
             return;
         }
         PlayerSchedulerUtil.playSound(player, soundOpt.get(), 1, 1);
+    }
+
+    /**
+     * 点击CD判断
+     *
+     * @param player     玩家
+     * @param menuItemId 菜单id
+     * @param cd         冷却
+     * @return true 不满足
+     */
+    public static boolean clickCd(Player player, Integer menuItemId, int cd) {
+        if (cd <= 0 || menuItemId == null) {
+            return false;
+        }
+        Date clickTime = MenuLimitService.getInstance().findTimeByPlayerUuid(player.getUniqueId(), menuItemId);
+        if (clickTime != null) {
+            long time = DateUtil.offset(clickTime, Calendar.SECOND, cd).getTime() - System.currentTimeMillis();
+            if (time > 0) {
+                String noTimeLimit = BaseUtil.getMsgNotColor("noTimeLimit", "");
+                MessageUtil.sendMessage(player, StrUtil.replace(noTimeLimit, "time", String.valueOf(time / 1000)));
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 点击次数判断
+     *
+     * @param player     玩家
+     * @param menuItemId 菜单id
+     * @param limit      次数
+     * @return true 不满足
+     */
+    public static boolean clickLimit(Player player, Integer menuItemId, int limit) {
+        if (limit <= 0 || menuItemId == null) {
+            return false;
+        }
+        Integer count = MenuLimitService.getInstance().findCountByPlayerUuid(player.getUniqueId(), menuItemId);
+        if (count >= limit) {
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noLimit"));
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -140,6 +140,10 @@ public class InventoryCloseEventListener implements Listener {
                 if (cd > 0) {
                     createMenuItem.put("cd", cd);
                 }
+                int cdHide = menuButtonParam.getCdHide();
+                if (cdHide > 0) {
+                    createMenuItem.put("cdHide", cdHide);
+                }
                 String head = menuButtonParam.getHead();
                 if (StrUtil.isNotEmpty(head)) {
                     createMenuItem.put("head", head);

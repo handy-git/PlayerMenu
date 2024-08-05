@@ -32,7 +32,7 @@ public enum CommandTypeEnum {
     REFRESH("[refresh]"),
     PERFORM_COMMAND("[performCommand]"),
     OP_PERFORM_COMMAND("[opPerformCommand]"),
-    ;
+    DELAY("[delay]");
 
     private final String type;
 

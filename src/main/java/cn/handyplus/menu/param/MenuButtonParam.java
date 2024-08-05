@@ -65,6 +65,13 @@ public class MenuButtonParam {
     private int cd;
 
     /**
+     * 限制点击时间 (秒) CD中隐藏按钮
+     *
+     * @since 1.3.4
+     */
+    private int cdHide;
+
+    /**
      * 自定义点击条件
      */
     private List<String> conditions;
