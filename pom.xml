@@ -18,7 +18,7 @@
         <HandyLib.version>3.11.0</HandyLib.version>
         <VaultAPI.vesion>1.7</VaultAPI.vesion>
         <PlayerPoints.version>3.2.6</PlayerPoints.version>
-        <PlayerGuild.version>1.5.4</PlayerGuild.version>
+        <PlayerGuild.version>1.13.7</PlayerGuild.version>
     </properties>
 
     <dependencies>
