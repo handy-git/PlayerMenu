@@ -15,7 +15,7 @@
         <spigot-api.vesion>1.21-R0.1-SNAPSHOT</spigot-api.vesion>
         <placeholderapi.version>2.10.5</placeholderapi.version>
         <lombok.version>1.18.34</lombok.version>
-        <HandyLib.version>3.11.6</HandyLib.version>
+        <HandyLib.version>3.11.8</HandyLib.version>
         <VaultAPI.vesion>1.7</VaultAPI.vesion>
         <PlayerPoints.version>3.2.6</PlayerPoints.version>
         <PlayerGuild.version>1.13.7</PlayerGuild.version>
