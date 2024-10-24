@@ -216,15 +216,15 @@ public class InventoryClickEventListener implements IHandyClickEvent {
      */
     private boolean check(Player player, MenuButtonParam menuButtonParam) {
         // 判断点击次数处理
-        if (MenuUtil.clickLimit(player, menuButtonParam.getId(), menuButtonParam.getLimit())) {
+        if (MenuUtil.clickLimit(player, menuButtonParam.getId(), menuButtonParam.getLimit(), true)) {
             return true;
         }
         // 判断点击次数处理
-        if (MenuUtil.clickLimit(player, menuButtonParam.getId(), menuButtonParam.getLimitHide())) {
+        if (MenuUtil.clickLimit(player, menuButtonParam.getId(), menuButtonParam.getLimitHide(), true)) {
             return true;
         }
         // 判断点击时间
-        if (MenuUtil.clickCd(player, menuButtonParam.getId(), menuButtonParam.getCd())) {
+        if (MenuUtil.clickCd(player, menuButtonParam.getId(), menuButtonParam.getCd(), true)) {
             return true;
         }
         // 判断点击金钱是否满足

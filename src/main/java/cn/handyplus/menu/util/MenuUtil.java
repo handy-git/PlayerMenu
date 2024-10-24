@@ -113,16 +113,17 @@ public class MenuUtil {
      * @param player     玩家
      * @param menuItemId 菜单id
      * @param cd         冷却
+     * @param msgTip     msg提醒
      * @return true 不满足
      */
-    public static boolean clickCd(Player player, Integer menuItemId, int cd) {
+    public static boolean clickCd(Player player, Integer menuItemId, int cd, boolean msgTip) {
         if (cd <= 0 || menuItemId == null) {
             return false;
         }
         Date clickTime = MenuLimitService.getInstance().findTimeByPlayerUuid(player.getUniqueId(), menuItemId);
         if (clickTime != null) {
             long time = DateUtil.offset(clickTime, Calendar.SECOND, cd).getTime() - System.currentTimeMillis();
-            if (time > 0) {
+            if (time > 0 && msgTip) {
                 String noTimeLimit = BaseUtil.getMsgNotColor("noTimeLimit", "");
                 MessageUtil.sendMessage(player, StrUtil.replace(noTimeLimit, "time", String.valueOf(time / 1000)));
                 return true;
@@ -137,14 +138,15 @@ public class MenuUtil {
      * @param player     玩家
      * @param menuItemId 菜单id
      * @param limit      次数
+     * @param msgTip     msg提醒
      * @return true 不满足
      */
-    public static boolean clickLimit(Player player, Integer menuItemId, int limit) {
+    public static boolean clickLimit(Player player, Integer menuItemId, int limit, boolean msgTip) {
         if (limit <= 0 || menuItemId == null) {
             return false;
         }
         Integer count = MenuLimitService.getInstance().findCountByPlayerUuid(player.getUniqueId(), menuItemId);
-        if (count >= limit) {
+        if (count >= limit && msgTip) {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noLimit"));
             return true;
         }

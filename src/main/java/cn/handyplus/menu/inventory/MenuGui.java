@@ -118,11 +118,11 @@ public class MenuGui {
                 continue;
             }
             // 判断是没次数隐藏
-            if (MenuUtil.clickLimit(player, menuButtonParam.getId(), menuButtonParam.getLimitHide())) {
+            if (MenuUtil.clickLimit(player, menuButtonParam.getId(), menuButtonParam.getLimitHide(), false)) {
                 continue;
             }
             // 判断是CD中隐藏
-            if (MenuUtil.clickCd(player, menuButtonParam.getId(), menuButtonParam.getCdHide())) {
+            if (MenuUtil.clickCd(player, menuButtonParam.getId(), menuButtonParam.getCdHide(), false)) {
                 continue;
             }
             // 物品显示数量
