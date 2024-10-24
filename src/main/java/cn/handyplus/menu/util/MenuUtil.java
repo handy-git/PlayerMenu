@@ -123,9 +123,9 @@ public class MenuUtil {
         Date clickTime = MenuLimitService.getInstance().findTimeByPlayerUuid(player.getUniqueId(), menuItemId);
         if (clickTime != null) {
             long time = DateUtil.offset(clickTime, Calendar.SECOND, cd).getTime() - System.currentTimeMillis();
-            if (time > 0 && msgTip) {
+            if (time > 0) {
                 String noTimeLimit = BaseUtil.getMsgNotColor("noTimeLimit", "");
-                MessageUtil.sendMessage(player, StrUtil.replace(noTimeLimit, "time", String.valueOf(time / 1000)));
+                MessageUtil.sendMessage(msgTip, player, StrUtil.replace(noTimeLimit, "time", String.valueOf(time / 1000)));
                 return true;
             }
         }
@@ -146,8 +146,8 @@ public class MenuUtil {
             return false;
         }
         Integer count = MenuLimitService.getInstance().findCountByPlayerUuid(player.getUniqueId(), menuItemId);
-        if (count >= limit && msgTip) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noLimit"));
+        if (count >= limit) {
+            MessageUtil.sendMessage(msgTip, player, BaseUtil.getMsgNotColor("noLimit"));
             return true;
         }
         return false;
