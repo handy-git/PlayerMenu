@@ -2,6 +2,7 @@ package cn.handyplus.menu.listener;
 
 import cn.handyplus.lib.annotation.HandyListener;
 import cn.handyplus.lib.core.NumberUtil;
+import cn.handyplus.lib.expand.adapter.HandySchedulerUtil;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.constants.InputTypeEnum;
@@ -50,7 +51,7 @@ public class AsyncPlayerChatEventListener implements Listener {
         MenuConstants.PLAYER_INPUT_MAP.put(player.getUniqueId(), message);
         MenuConstants.INPUT_MENU_MAP.remove(player.getUniqueId());
         // 继续执行菜单逻辑
-        MenuCore.executeMenu(player, menuButtonParam);
+        HandySchedulerUtil.runTask(() -> MenuCore.executeMenu(player, menuButtonParam));
     }
 
 }
