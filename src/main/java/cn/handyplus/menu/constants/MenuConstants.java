@@ -1,7 +1,12 @@
 package cn.handyplus.menu.constants;
 
+import cn.handyplus.menu.param.MenuButtonParam;
+
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * 常量
@@ -19,5 +24,19 @@ public class MenuConstants {
      * 属性前缀
      */
     public final static String PREFIX = "player_menu";
+
+    /**
+     * 输入类型
+     *
+     * @since 1.3.7
+     */
+    public static Map<UUID, MenuButtonParam> INPUT_MENU_MAP = new HashMap<>();
+
+    /**
+     * 玩家输入值
+     *
+     * @since 1.3.7
+     */
+    public static Map<UUID, String> PLAYER_INPUT_MAP = new HashMap<>();
 
 }

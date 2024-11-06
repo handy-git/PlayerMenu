@@ -183,4 +183,11 @@ public class MenuButtonParam {
      * @since 1.2.4
      */
     private String notPermission;
+
+    /**
+     * 输入信息
+     *
+     * @since 1.3.7
+     */
+    private String input;
 }

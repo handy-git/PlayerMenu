@@ -203,6 +203,7 @@ public class MenuGui {
         int shopPoint = memorySection.getInt("shopPoint");
         int amount = memorySection.getInt("amount");
         String dynamicAmount = memorySection.getString("dynamicAmount");
+        String input = memorySection.getString("input");
         // 构建类型
         MenuButtonParam menuButtonParam = new MenuButtonParam();
         // 基础属性
@@ -238,6 +239,7 @@ public class MenuGui {
         menuButtonParam.setShopMaterial(shopMaterial);
         menuButtonParam.setShopMoney(shopMoney);
         menuButtonParam.setShopPoint(shopPoint);
+        menuButtonParam.setInput(input);
         return menuButtonParam;
     }
 

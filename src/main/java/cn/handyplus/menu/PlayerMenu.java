@@ -4,6 +4,7 @@ import cn.handyplus.lib.InitApi;
 import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
+import cn.handyplus.menu.hook.PlaceholderUtil;
 import cn.handyplus.menu.util.ConfigUtil;
 import net.milkbowl.vault.economy.Economy;
 import org.black_ixx.playerpoints.PlayerPoints;
@@ -40,6 +41,9 @@ public class PlayerMenu extends JavaPlugin {
         this.loadPlayerPoints();
         // 加载PlaceholderApi
         USE_PAPI = BaseUtil.hook(BaseConstants.PLACEHOLDER_API, "placeholderAPISucceedMsg", "placeholderAPIFailureMsg");
+        if (USE_PAPI) {
+            new PlaceholderUtil(this).register();
+        }
         // 加载PlayerGuild
         USE_GUILD = BaseUtil.hook("PlayerGuild", "playerGuildSucceedMsg", "playerGuildFailureMsg");
         // 打印logo

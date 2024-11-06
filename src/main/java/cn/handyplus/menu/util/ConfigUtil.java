@@ -82,6 +82,8 @@ public class ConfigUtil {
         HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "addItemMsg", "&8[&a!&8] &a背包不足，多余物品已掉落在地上请尽快捡起", null, language);
         // 1.3.1
         HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "playerNotOnline", "&8[&c✘&8] &7玩家 &a${player} &7不在线", null, language);
+        // 1.3.7
+        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "noNumber", "&8[&c✘&8] &7请输入数字", null, language);
         LANG_CONFIG = HandyConfigUtil.loadLangConfig(CONFIG.getString("language"), true);
     }
 
