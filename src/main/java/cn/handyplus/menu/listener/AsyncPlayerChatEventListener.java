@@ -37,6 +37,7 @@ public class AsyncPlayerChatEventListener implements Listener {
         if (menuButtonParam == null) {
             return;
         }
+        event.setCancelled(true);
         InputTypeEnum inputTypeEnum = InputTypeEnum.contains(menuButtonParam.getInput());
         String message = event.getMessage();
         if (InputTypeEnum.NUMBER.equals(inputTypeEnum)) {

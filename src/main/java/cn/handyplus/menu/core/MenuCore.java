@@ -315,7 +315,7 @@ public class MenuCore {
             // 发送物品
             String[] shopMaterialStr = shopMaterial.split(":");
             String material = shopMaterialStr[0];
-            String number = replaceInput(player, shopMaterialStr[1]);
+            String number = shopMaterialStr[1];
             ItemStack itemStack = new ItemStack(ItemStackUtil.getMaterial(material));
             ItemStackUtil.addItem(player, itemStack, Integer.parseInt(number), BaseUtil.getMsgNotColor("addItemMsg"));
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("buyMsg"));
@@ -325,7 +325,7 @@ public class MenuCore {
         if ("sell".equalsIgnoreCase(shopType)) {
             String[] shopMaterialStr = shopMaterial.split(":");
             String material = shopMaterialStr[0];
-            String number = replaceInput(player, shopMaterialStr[1]);
+            String number = shopMaterialStr[1];
             Boolean rst = ItemStackUtil.removeItem(player, new ItemStack(ItemStackUtil.getMaterial(material)), Integer.valueOf(number));
             if (!rst) {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noItem"));
