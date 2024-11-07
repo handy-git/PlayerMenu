@@ -40,7 +40,7 @@ public class PlaceholderUtil extends PlaceholderExpansion {
             return null;
         }
         // %playerMenu_input%
-        if ("inpuyt".equals(placeholder)) {
+        if ("input".equals(placeholder)) {
             return MenuConstants.PLAYER_INPUT_MAP.getOrDefault(player.getUniqueId(), "");
         }
         return "";
