@@ -289,19 +289,23 @@ public class MenuCore {
         // 金币处理
         String input = MenuConstants.PLAYER_INPUT_MAP.getOrDefault(player.getUniqueId(), "");
         String shopMoneyStr = menuButtonParam.getShopMoney();
-        int shopMoney;
-        if (NumberUtil.isNumericToInt(shopMoneyStr) != null) {
-            shopMoney = NumberUtil.isNumericToInt(shopMoneyStr);
-        } else {
-            shopMoney = FormulaUtil.evaluateFormulaToInt(shopMoneyStr, MapUtil.of("input", input));
+        int shopMoney = 0;
+        if (StrUtil.isNotEmpty(shopMoneyStr)) {
+            if (NumberUtil.isNumericToInt(shopMoneyStr) != null) {
+                shopMoney = NumberUtil.isNumericToInt(shopMoneyStr);
+            } else {
+                shopMoney = FormulaUtil.evaluateFormulaToInt(shopMoneyStr, MapUtil.of("input", input));
+            }
         }
         // 点券处理
         String shopPointStr = menuButtonParam.getShopPoint();
-        int shopPoint;
-        if (NumberUtil.isNumericToInt(shopPointStr) != null) {
-            shopPoint = NumberUtil.isNumericToInt(shopPointStr);
-        } else {
-            shopPoint = FormulaUtil.evaluateFormulaToInt(shopPointStr, MapUtil.of("input", input));
+        int shopPoint = 0;
+        if (StrUtil.isNotEmpty(shopPointStr)) {
+            if (NumberUtil.isNumericToInt(shopPointStr) != null) {
+                shopPoint = NumberUtil.isNumericToInt(shopPointStr);
+            } else {
+                shopPoint = FormulaUtil.evaluateFormulaToInt(shopPointStr, MapUtil.of("input", input));
+            }
         }
         // 玩家购买物品
         if ("buy".equalsIgnoreCase(shopType)) {
