@@ -171,13 +171,13 @@ public class InventoryCloseEventListener implements Listener {
                 if (StrUtil.isNotEmpty(shopMaterial)) {
                     createMenuItem.put("shopMaterial", shopMaterial);
                 }
-                long shopMoney = menuButtonParam.getShopMoney();
-                if (shopMoney > 0) {
+                String shopMoney = menuButtonParam.getShopMoney();
+                if (StrUtil.isNotEmpty(shopMoney)) {
                     createMenuItem.put("shopMoney", shopMoney);
                 }
-                long shopPoint = menuButtonParam.getShopPoint();
-                if (shopPoint > 0) {
-                    createMenuItem.put("shopType", shopPoint);
+                String shopPoint = menuButtonParam.getShopPoint();
+                if (StrUtil.isNotEmpty(shopPoint)) {
+                    createMenuItem.put("shopPoint", shopPoint);
                 }
                 int amount = menuButtonParam.getAmount();
                 if (amount > 0) {

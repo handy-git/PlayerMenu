@@ -1,6 +1,8 @@
 package cn.handyplus.menu.core;
 
 import cn.handyplus.lib.core.CollUtil;
+import cn.handyplus.lib.core.FormulaUtil;
+import cn.handyplus.lib.core.MapUtil;
 import cn.handyplus.lib.core.NumberUtil;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.expand.adapter.HandySchedulerUtil;
@@ -284,16 +286,31 @@ public class MenuCore {
         if (StrUtil.isEmpty(shopType) || StrUtil.isEmpty(shopMaterial)) {
             return false;
         }
+        // 金币处理
+        String input = MenuConstants.PLAYER_INPUT_MAP.getOrDefault(player.getUniqueId(), "");
+        String shopMoneyStr = menuButtonParam.getShopMoney();
+        int shopMoney;
+        if (NumberUtil.isNumericToInt(shopMoneyStr) != null) {
+            shopMoney = NumberUtil.isNumericToInt(shopMoneyStr);
+        } else {
+            shopMoney = FormulaUtil.evaluateFormulaToInt(shopMoneyStr, MapUtil.of("input", input));
+        }
+        // 点券处理
+        String shopPointStr = menuButtonParam.getShopPoint();
+        int shopPoint;
+        if (NumberUtil.isNumericToInt(shopPointStr) != null) {
+            shopPoint = NumberUtil.isNumericToInt(shopPointStr);
+        } else {
+            shopPoint = FormulaUtil.evaluateFormulaToInt(shopPointStr, MapUtil.of("input", input));
+        }
         // 玩家购买物品
         if ("buy".equalsIgnoreCase(shopType)) {
             // 判断点击金钱是否满足
-            int shopMoney = menuButtonParam.getShopMoney();
             if (shopMoney > 0 && VaultUtil.getPlayerVault(player) < shopMoney) {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMoney"));
                 return true;
             }
             // 判断点击点券是否满足
-            int shopPoint = menuButtonParam.getShopPoint();
             if (shopPoint > 0 && PlayerPointsUtil.getPlayerPoints(player) < shopPoint) {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noPoint"));
                 return true;
@@ -315,7 +332,7 @@ public class MenuCore {
             // 发送物品
             String[] shopMaterialStr = shopMaterial.split(":");
             String material = shopMaterialStr[0];
-            String number = shopMaterialStr[1];
+            String number = replaceInput(player, shopMaterialStr[1]);
             ItemStack itemStack = new ItemStack(ItemStackUtil.getMaterial(material));
             ItemStackUtil.addItem(player, itemStack, Integer.parseInt(number), BaseUtil.getMsgNotColor("addItemMsg"));
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("buyMsg"));
@@ -325,14 +342,12 @@ public class MenuCore {
         if ("sell".equalsIgnoreCase(shopType)) {
             String[] shopMaterialStr = shopMaterial.split(":");
             String material = shopMaterialStr[0];
-            String number = shopMaterialStr[1];
+            String number = replaceInput(player, shopMaterialStr[1]);
             Boolean rst = ItemStackUtil.removeItem(player, new ItemStack(ItemStackUtil.getMaterial(material)), Integer.valueOf(number));
             if (!rst) {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noItem"));
                 return true;
             }
-            int shopMoney = menuButtonParam.getShopMoney();
-            int shopPoint = menuButtonParam.getShopPoint();
             VaultUtil.give(player, shopMoney);
             PlayerPointsUtil.give(player, shopPoint);
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("sellMsg"));

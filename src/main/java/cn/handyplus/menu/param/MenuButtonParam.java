@@ -154,14 +154,14 @@ public class MenuButtonParam {
      *
      * @since 1.2.0
      */
-    private int shopMoney;
+    private String shopMoney;
 
     /**
      * 商店金币价格
      *
      * @since 1.2.0
      */
-    private int shopPoint;
+    private String shopPoint;
 
     /**
      * 显示数量

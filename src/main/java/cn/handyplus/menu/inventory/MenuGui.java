@@ -199,8 +199,8 @@ public class MenuGui {
         // 商店配置
         String shopType = memorySection.getString("shopType");
         String shopMaterial = memorySection.getString("shopMaterial");
-        int shopMoney = memorySection.getInt("shopMoney");
-        int shopPoint = memorySection.getInt("shopPoint");
+        String shopMoney = memorySection.getString("shopMoney");
+        String shopPoint = memorySection.getString("shopPoint");
         int amount = memorySection.getInt("amount");
         String dynamicAmount = memorySection.getString("dynamicAmount");
         String input = memorySection.getString("input");
