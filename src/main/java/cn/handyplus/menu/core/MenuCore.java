@@ -429,8 +429,8 @@ public class MenuCore {
         String one = split[0].trim();
         String two = split[1].trim();
         if (PlayerMenu.USE_PAPI) {
-            one = PlaceholderApiUtil.set(player, one);
-            two = PlaceholderApiUtil.set(player, two);
+            one = BaseUtil.stripColor(PlaceholderApiUtil.set(player, one));
+            two = BaseUtil.stripColor(PlaceholderApiUtil.set(player, two));
         }
         MessageUtil.sendDebugMessage(player, "条件一 " + one + " 条件二 " + two);
         return Arrays.asList(one, two);
