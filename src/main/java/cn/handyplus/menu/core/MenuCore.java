@@ -337,7 +337,7 @@ public class MenuCore {
             String[] shopMaterialStr = shopMaterial.split(":");
             String material = shopMaterialStr[0];
             String number = replaceInput(player, shopMaterialStr[1]);
-            ItemStack itemStack = new ItemStack(ItemStackUtil.getMaterial(material));
+            ItemStack itemStack = ItemStackUtil.getItemStack(material);
             ItemStackUtil.addItem(player, itemStack, Integer.parseInt(number), BaseUtil.getMsgNotColor("addItemMsg"));
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("buyMsg"));
             return false;
@@ -347,7 +347,8 @@ public class MenuCore {
             String[] shopMaterialStr = shopMaterial.split(":");
             String material = shopMaterialStr[0];
             String number = replaceInput(player, shopMaterialStr[1]);
-            Boolean rst = ItemStackUtil.removeItem(player, new ItemStack(ItemStackUtil.getMaterial(material)), Integer.valueOf(number));
+            ItemStack itemStack = ItemStackUtil.getItemStack(material);
+            Boolean rst = ItemStackUtil.removeItem(player, itemStack, Integer.valueOf(number));
             if (!rst) {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noItem"));
                 return true;
