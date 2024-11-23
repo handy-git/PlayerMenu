@@ -348,7 +348,7 @@ public class MenuCore {
             String material = shopMaterialStr[0];
             String number = replaceInput(player, shopMaterialStr[1]);
             ItemStack itemStack = ItemStackUtil.getItemStack(material);
-            Boolean rst = ItemStackUtil.removeItem(player, itemStack, Integer.valueOf(number));
+            Boolean rst = ItemStackUtil.removeItem(player, itemStack, Integer.valueOf(number), false);
             if (!rst) {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noItem"));
                 return true;
