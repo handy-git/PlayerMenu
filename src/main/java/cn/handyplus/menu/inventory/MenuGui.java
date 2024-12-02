@@ -201,6 +201,7 @@ public class MenuGui {
         String shopMaterial = memorySection.getString("shopMaterial");
         String shopMoney = memorySection.getString("shopMoney");
         String shopPoint = memorySection.getString("shopPoint");
+        String shopCurrency = memorySection.getString("shopCurrency");
         int amount = memorySection.getInt("amount");
         String dynamicAmount = memorySection.getString("dynamicAmount");
         String input = memorySection.getString("input");
@@ -239,6 +240,7 @@ public class MenuGui {
         menuButtonParam.setShopMaterial(shopMaterial);
         menuButtonParam.setShopMoney(shopMoney);
         menuButtonParam.setShopPoint(shopPoint);
+        menuButtonParam.setShopCurrency(shopCurrency);
         menuButtonParam.setInput(input);
         return menuButtonParam;
     }

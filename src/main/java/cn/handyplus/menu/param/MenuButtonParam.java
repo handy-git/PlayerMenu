@@ -164,6 +164,13 @@ public class MenuButtonParam {
     private String shopPoint;
 
     /**
+     * 商店多经济价格
+     *
+     * @since 1.4.2
+     */
+    private String shopCurrency;
+
+    /**
      * 显示数量
      *
      * @since 1.2.4

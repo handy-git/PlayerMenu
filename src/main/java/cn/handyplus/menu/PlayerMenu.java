@@ -28,6 +28,7 @@ public class PlayerMenu extends JavaPlugin {
     public static Economy ECON;
     public static PlayerPoints PLAYER_POINTS;
     public static boolean USE_GUILD;
+    public static boolean USE_PLY;
 
     @Override
     public void onEnable() {
@@ -46,6 +47,8 @@ public class PlayerMenu extends JavaPlugin {
         }
         // 加载PlayerGuild
         USE_GUILD = BaseUtil.hook("PlayerGuild", "playerGuildSucceedMsg", "playerGuildFailureMsg");
+        // 加载PlayerCurrency
+        USE_PLY = BaseUtil.hook("PlayerCurrency", "playerCurrencySucceedMsg", "playerCurrencyFailureMsg");
         // 打印logo
         List<String> lordList = Arrays.asList(
                 "",

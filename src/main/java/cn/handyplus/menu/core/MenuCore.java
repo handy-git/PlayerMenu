@@ -17,6 +17,7 @@ import cn.handyplus.menu.constants.CommandTypeEnum;
 import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.enter.MenuLimit;
 import cn.handyplus.menu.hook.PlaceholderApiUtil;
+import cn.handyplus.menu.hook.PlayerCurrencyUtil;
 import cn.handyplus.menu.hook.PlayerPointsUtil;
 import cn.handyplus.menu.hook.VaultUtil;
 import cn.handyplus.menu.inventory.MenuGui;
@@ -28,6 +29,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -288,33 +290,25 @@ public class MenuCore {
         }
         // 金币处理
         String input = MenuConstants.PLAYER_INPUT_MAP.getOrDefault(player.getUniqueId(), "");
-        String shopMoneyStr = menuButtonParam.getShopMoney();
-        int shopMoney = 0;
-        if (StrUtil.isNotEmpty(shopMoneyStr)) {
-            if (NumberUtil.isNumericToInt(shopMoneyStr) != null) {
-                shopMoney = NumberUtil.isNumericToInt(shopMoneyStr);
-            } else {
-                shopMoney = FormulaUtil.evaluateFormulaToInt(shopMoneyStr, MapUtil.of("input", input));
-            }
-        }
+        int shopMoney = getShopPrice(menuButtonParam.getShopMoney(), input);
         // 点券处理
-        String shopPointStr = menuButtonParam.getShopPoint();
-        int shopPoint = 0;
-        if (StrUtil.isNotEmpty(shopPointStr)) {
-            if (NumberUtil.isNumericToInt(shopPointStr) != null) {
-                shopPoint = NumberUtil.isNumericToInt(shopPointStr);
-            } else {
-                shopPoint = FormulaUtil.evaluateFormulaToInt(shopPointStr, MapUtil.of("input", input));
-            }
+        int shopPoint = getShopPrice(menuButtonParam.getShopPoint(), input);
+        // 多货币处理
+        int currencyPrice = 0;
+        String currencyType = null;
+        if (StrUtil.isNotEmpty(menuButtonParam.getShopCurrency())) {
+            List<String> shopCurrencyList = StrUtil.strToStrList(menuButtonParam.getShopCurrency(), ":");
+            currencyType = shopCurrencyList.get(0).trim();
+            currencyPrice = getShopPrice(shopCurrencyList.get(1).trim(), input);
         }
         // 玩家购买物品
         if ("buy".equalsIgnoreCase(shopType)) {
-            // 判断点击金钱是否满足
+            // 金钱是否满足
             if (shopMoney > 0 && VaultUtil.getPlayerVault(player) < shopMoney) {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMoney"));
                 return true;
             }
-            // 判断点击点券是否满足
+            // 点券是否满足
             if (shopPoint > 0 && PlayerPointsUtil.getPlayerPoints(player) < shopPoint) {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noPoint"));
                 return true;
@@ -330,6 +324,14 @@ public class MenuCore {
             if (shopPoint > 0) {
                 if (!PlayerPointsUtil.buy(player, shopPoint)) {
                     MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noPoint"));
+                    return true;
+                }
+            }
+            // 多经济处理
+            if (currencyPrice > 0) {
+                if (!PlayerCurrencyUtil.buy(player, currencyType, currencyPrice)) {
+                    HashMap<String, String> map = MapUtil.of("${type}", PlayerCurrencyUtil.getDesc(currencyType));
+                    MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noBalance", map));
                     return true;
                 }
             }
@@ -355,9 +357,31 @@ public class MenuCore {
             }
             VaultUtil.give(player, shopMoney);
             PlayerPointsUtil.give(player, shopPoint);
+            PlayerCurrencyUtil.give(player, currencyType, currencyPrice);
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("sellMsg"));
         }
         return false;
+    }
+
+    /**
+     * 获取商品价格
+     *
+     * @param shopPriceStr 商品价格
+     * @param input        输入值
+     * @return 价格
+     */
+    private static int getShopPrice(String shopPriceStr, String input) {
+        int shopPrice = 0;
+        if (StrUtil.isEmpty(shopPriceStr)) {
+            return shopPrice;
+        }
+        // 价格格式处理
+        if (NumberUtil.isNumericToInt(shopPriceStr) != null) {
+            shopPrice = NumberUtil.isNumericToInt(shopPriceStr);
+        } else {
+            shopPrice = FormulaUtil.evaluateFormulaToInt(shopPriceStr, MapUtil.of("input", input));
+        }
+        return shopPrice;
     }
 
     /**

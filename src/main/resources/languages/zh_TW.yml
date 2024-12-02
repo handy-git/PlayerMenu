@@ -1,58 +1,64 @@
-# 没权限时候提醒
-noPermission: "&c你没有权限执行此命令..."
+# 沒權限時候提醒
+noPermission: '&c你沒有權限執行此命令...'
 
-# 重载插件提醒
-reloadMsg: "&a插件重载完毕..."
+# 重載插件提醒
+reloadMsg: '&a插件重載完畢...'
 
 # placeholderAPI提醒
-placeholderAPISucceedMsg: "&a已成功加载placeholderApi"
-placeholderAPIFailureMsg: "&7你的服务端没有安装PlaceholderApi哦 未启用自定义变量功能."
+placeholderAPISucceedMsg: '&a已成功加載placeholderApi'
+placeholderAPIFailureMsg: '&7你的服務端沒有安裝PlaceholderApi哦 未啟用自定義變量功能'
 
 # vault提醒
-vaultSucceedMsg: "&a已成功加载Vault 启用经济相关功能."
-vaultFailureMsg: "&7你的服务端没有安装Vault 未启用经济相关功能."
+vaultSucceedMsg: '&a已成功加載Vault 啟用經濟相關功能'
+vaultFailureMsg: '&7你的服務端沒有安裝Vault 未啟用經濟相關功能'
 
 # PlayerPoints提醒
-playerPointsSucceedMsg: "&a已成功加载PlayerPoints 启用点券相关功能."
-playerPointsFailureMsg: "&7你的服务端没有安装PlayerPoints 未启用点券相关功能."
+playerPointsSucceedMsg: '&a已成功加載PlayerPoints 啟用點券相關功能'
+playerPointsFailureMsg: '&7你的服務端沒有安裝PlayerPoints 未啟用點券相關功能'
 
-# playerGuild提醒
-playerGuildSucceedMsg: "&a已成功加载playerGuild 兼容公会功能."
-playerGuildFailureMsg: "&7你的服务端没有安装playerGuild 未兼容公会功能."
+# PlayerGuild提醒
+playerGuildSucceedMsg: '&a已成功加載PlayerGuild 兼容公會功能'
+playerGuildFailureMsg: '&7你的服務端沒有安裝PlayerGuild 未兼容公會功能'
 
-# /plg help指令管理员出现的提醒
+# PlayerCurrency提醒
+playerCurrencySucceedMsg: '&a已成功加載PlayerCurrency 啟用多貨幣經濟兼容'
+playerCurrencyFailureMsg: '&7你的服務端沒有安裝PlayerCurrency 未啟用多貨幣經濟兼容'
+
+# /plg help指令管理員出現的提醒
 helps:
-  - ""
-  - " &3Player&bMenu &8&l▪ &7米饭出品～"
-  - ""
-  - " &7命令: &f/plm &8[...]"
-  - " &7参数:"
-  - "   &8&l- &f reload   &7重载配置文件"
-  - "   &8&l- &f create &8[&7大小&8]   &7创建菜单"
-  - "   &8&l- &f adminOpen &8[&7菜单名&8] (玩家名) (变量来源玩家名)  &7给玩家打开对应菜单界面"
-  - "   &8&l- &f open &8[&7菜单名&8] (变量来源玩家名)  &7打开菜单界面"
-  - "   &8&l- &f view &8[&7菜单名&8]    &7编辑菜单界面"
-  - "   &8&l- &f getMaterial      &7获取手持物品材质"
+  - ''
+  - ' &3Player&bMenu &8&l▪ &7米飯出品～'
+  - ''
+  - ' &7命令: &f/plm &8[...]'
+  - ' &7參數:'
+  - '   &8&l- &f reload   &7重載配置文件'
+  - '   &8&l- &f create &8[&7大小&8]   &7創建菜單'
+  - '   &8&l- &f adminOpen &8[&7菜單名&8] (玩家名) (變量來源玩家名)  &7給玩家打開對應菜單界面'
+  - '   &8&l- &f open &8[&7菜單名&8] (變量來源玩家名)  &7打開菜單界面'
+  - '   &8&l- &f view &8[&7菜單名&8]    &7編輯菜單界面'
+  - '   &8&l- &f getMaterial      &7獲取手持物品材質'
 
-succeedMsg: "&a命令执行成功."
-failureMsg: "&c命令执行失败."
-versionFailureMsg: "&8[&c✘&8] &4服务端版本小于1.14,无法使用该指令"
-paramFailureMsg: "&8[&c✘&8] &4参数错误"
-noPlayerFailureMsg: "&c该命令只能玩家执行."
-playerNotOnline: "&8[&c✘&8] &7玩家 &a${player} &7不在线"
-noMenu: "&8[&c✘&8] &7参数异常,没有名为 &a${menu} &7的菜单"
-noSize: "&8[&c✘&8] &7gui大小必须为整数"
-noMoney: "&8[&c✘&8] &7金币不足,无法使用"
-noPoint: "&8[&c✘&8] &7点券不足,无法使用"
-noItem: "&8[&c✘&8] &7物品不足,出售失败"
-sellMsg: "&8[&a✔&8] &7出售成功"
-buyMsg: "&8[&a✔&8] &7购买成功"
-noLimit: "&8[&c✘&8] &7次数不足,无法使用"
-noTimeLimit: "&8[&c✘&8] &7需等待&a${time}&7秒,才可使用"
-errorCondition: "&8[&c✘&8] &7条件格式异常,无法使用"
-createMsg: " &8[&a✔&8] &7菜单配置成功"
-noOpenPermission: "&8[&c✘&8] &7无法打开该菜单,你没有权限 ${permission}"
-noOpenCondition: "&8[&c✘&8] &7无法打开该菜单,你没有满足要求"
-noOpenWorldPermission: "&8[&c✘&8] &7这个世界无法打开该菜单"
-noOpenPvpPermission: "&8[&c✘&8] &7正在进行公会战无法打开该菜单"
-addItemMsg: "&8[&a!&8] &a背包不足，多余物品已掉落在地上请尽快捡起"
+succeedMsg: '&a命令執行成功.'
+failureMsg: '&c命令執行失敗.'
+versionFailureMsg: '&8[&c✘&8] &4服務端版本小於1.14,無法使用該指令'
+paramFailureMsg: '&8[&c✘&8] &4參數錯誤'
+noPlayerFailureMsg: '&c該命令只能玩家執行.'
+playerNotOnline: '&8[&c✘&8] &7玩家 &a${player} &7不在線'
+noMenu: '&8[&c✘&8] &7參數異常,沒有名為 &a${menu} &7的菜單'
+noSize: '&8[&c✘&8] &7gui大小必須為整數'
+noMoney: '&8[&c✘&8] &7金幣不足,無法使用'
+noBalance: '&8[&c✘&8] &7${type}不足,無法使用'
+noPoint: '&8[&c✘&8] &7點券不足,無法使用'
+noItem: '&8[&c✘&8] &7物品不足,出售失敗'
+sellMsg: '&8[&a✔&8] &7出售成功'
+buyMsg: '&8[&a✔&8] &7購買成功'
+noLimit: '&8[&c✘&8] &7次數不足,無法使用'
+noTimeLimit: '&8[&c✘&8] &7需等待&a${time}&7秒,才可使用'
+errorCondition: '&8[&c✘&8] &7條件格式異常,無法使用'
+createMsg: ' &8[&a✔&8] &7菜單配置成功'
+noOpenPermission: '&8[&c✘&8] &7無法打開該菜單,你沒有權限 ${permission}'
+noOpenCondition: '&8[&c✘&8] &7無法打開該菜單,你沒有滿足要求'
+noOpenWorldPermission: '&8[&c✘&8] &7這個世界無法打開該菜單'
+noOpenPvpPermission: '&8[&c✘&8] &7正在進行公會戰無法打開該菜單'
+addItemMsg: '&8[&a!&8] &a背包不足，多余物品已掉落在地上請盡快撿起'
+noNumber: '&8[&c✘&8] &7請輸入數字'
