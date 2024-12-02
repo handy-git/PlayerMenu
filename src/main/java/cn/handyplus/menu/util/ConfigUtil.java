@@ -85,7 +85,7 @@ public class ConfigUtil {
         // 1.3.7
         HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "noNumber", "&8[&c✘&8] &7请输入数字", null, language);
         // 1.4.2
-        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "playerCurrencySucceedMsg.", "&a已成功加载PlayerCurrency 启用多货币经济兼容", null, language);
+        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "playerCurrencySucceedMsg", "&a已成功加载PlayerCurrency 启用多货币经济兼容", null, language);
         HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "playerCurrencyFailureMsg", "&7你的服务端没有安装PlayerCurrency 未启用多货币经济兼容", null, language);
         HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "noBalance", "&8[&c✘&8] &7${type}&7不足,无法使用", null, language);
         LANG_CONFIG = HandyConfigUtil.loadLangConfig(CONFIG.getString("language"), true);
