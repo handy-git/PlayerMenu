@@ -28,7 +28,7 @@ public class PlayerCurrencyUtil {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("playerCurrencyFailureMsg"));
             return false;
         }
-        // 扣除点券
+        // 扣除余额
         return PlayerCurrencyApi.take(player.getUniqueId(), type, price, "PlayerMenu", operatorReason);
     }
 
@@ -48,7 +48,7 @@ public class PlayerCurrencyUtil {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("playerCurrencyFailureMsg"));
             return false;
         }
-        // 给予点券
+        // 给予余额
         return PlayerCurrencyApi.give(player.getUniqueId(), type, price, "PlayerMenu", operatorReason);
     }
 
