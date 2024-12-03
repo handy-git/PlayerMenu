@@ -327,19 +327,21 @@ public class MenuCore {
                     return true;
                 }
             }
+            // 先获取购买的物品
+            String[] shopMaterialStr = shopMaterial.split(":");
+            String material = shopMaterialStr[0];
+            String number = replaceInput(player, shopMaterialStr[1]);
+            ItemStack itemStack = ItemStackUtil.getItemStack(material);
             // 多经济处理
             if (currencyPrice > 0) {
-                if (!PlayerCurrencyUtil.buy(player, currencyType, currencyPrice)) {
+                String buyOperatorReason = BaseUtil.getMsgNotColor("buyOperatorReason", MapUtil.of("${name}", BaseUtil.getDisplayName(itemStack), "${number}", number));
+                if (!PlayerCurrencyUtil.buy(player, currencyType, currencyPrice, buyOperatorReason)) {
                     HashMap<String, String> map = MapUtil.of("${type}", PlayerCurrencyUtil.getDesc(currencyType));
                     MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noBalance", map));
                     return true;
                 }
             }
             // 发送物品
-            String[] shopMaterialStr = shopMaterial.split(":");
-            String material = shopMaterialStr[0];
-            String number = replaceInput(player, shopMaterialStr[1]);
-            ItemStack itemStack = ItemStackUtil.getItemStack(material);
             ItemStackUtil.addItem(player, itemStack, Integer.parseInt(number), BaseUtil.getMsgNotColor("addItemMsg"));
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("buyMsg"));
             return false;
@@ -357,7 +359,8 @@ public class MenuCore {
             }
             VaultUtil.give(player, shopMoney);
             PlayerPointsUtil.give(player, shopPoint);
-            PlayerCurrencyUtil.give(player, currencyType, currencyPrice);
+            String sellOperatorReason = BaseUtil.getMsgNotColor("sellOperatorReason", MapUtil.of("${name}", BaseUtil.getDisplayName(itemStack), "${number}", number));
+            PlayerCurrencyUtil.give(player, currencyType, currencyPrice, sellOperatorReason);
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("sellMsg"));
         }
         return false;

@@ -22,14 +22,14 @@ public class PlayerCurrencyUtil {
      * @param type   类型
      * @param price  价格
      */
-    public static boolean buy(Player player, String type, long price) {
+    public static boolean buy(Player player, String type, long price, String operatorReason) {
         // 多经济是否加载
         if (!PlayerMenu.USE_PLY) {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("playerCurrencyFailureMsg"));
             return false;
         }
         // 扣除点券
-        return PlayerCurrencyApi.take(player.getUniqueId(), type, price);
+        return PlayerCurrencyApi.take(player.getUniqueId(), type, price, "PlayerMenu", operatorReason);
     }
 
     /**
@@ -39,7 +39,7 @@ public class PlayerCurrencyUtil {
      * @param type   类型
      * @param price  价格
      */
-    public static boolean give(Player player, String type, long price) {
+    public static boolean give(Player player, String type, long price, String operatorReason) {
         if (price == 0) {
             return false;
         }
@@ -49,7 +49,7 @@ public class PlayerCurrencyUtil {
             return false;
         }
         // 给予点券
-        return PlayerCurrencyApi.give(player.getUniqueId(), type, price);
+        return PlayerCurrencyApi.give(player.getUniqueId(), type, price, "PlayerMenu", operatorReason);
     }
 
     /**
