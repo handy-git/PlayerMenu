@@ -39,4 +39,18 @@ public class MenuConstants {
      */
     public static Map<UUID, String> PLAYER_INPUT_MAP = new HashMap<>();
 
+    /**
+     * 玩家出售
+     *
+     * @since 1.4.5
+     */
+    public static final String SELL = "sell";
+
+    /**
+     * 玩家购买
+     *
+     * @since 1.4.5
+     */
+    public static final String BUY = "buy";
+
 }

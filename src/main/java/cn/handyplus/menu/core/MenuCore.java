@@ -31,6 +31,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 菜单逻辑核心
@@ -301,8 +302,9 @@ public class MenuCore {
             currencyType = shopCurrencyList.get(0).trim();
             currencyPrice = getShopPrice(shopCurrencyList.get(1).trim(), input);
         }
+        Map<String, String> replaceMap = MapUtil.newHashMapWithExpectedSize(2);
         // 玩家购买物品
-        if ("buy".equalsIgnoreCase(shopType)) {
+        if (MenuConstants.BUY.equalsIgnoreCase(shopType)) {
             // 金钱是否满足
             if (shopMoney > 0 && VaultUtil.getPlayerVault(player) < shopMoney) {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMoney"));
@@ -315,6 +317,7 @@ public class MenuCore {
             }
             // 金币扣除处理
             if (shopMoney > 0) {
+                replaceMap.put("${price}", String.valueOf(shopMoney));
                 if (!VaultUtil.buy(player, shopMoney)) {
                     MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMoney"));
                     return true;
@@ -322,6 +325,7 @@ public class MenuCore {
             }
             // 点券扣除处理
             if (shopPoint > 0) {
+                replaceMap.put("${price}", String.valueOf(shopPoint));
                 if (!PlayerPointsUtil.buy(player, shopPoint)) {
                     MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noPoint"));
                     return true;
@@ -334,6 +338,7 @@ public class MenuCore {
             ItemStack itemStack = ItemStackUtil.getItemStack(material);
             // 多经济处理
             if (currencyPrice > 0) {
+                replaceMap.put("${price}", String.valueOf(currencyPrice));
                 String buyOperatorReason = BaseUtil.getMsgNotColor("buyOperatorReason", MapUtil.of("${name}", BaseUtil.getDisplayName(itemStack), "${number}", number));
                 if (!PlayerCurrencyUtil.buy(player, currencyType, currencyPrice, buyOperatorReason)) {
                     HashMap<String, String> map = MapUtil.of("${type}", PlayerCurrencyUtil.getDesc(currencyType));
@@ -342,12 +347,14 @@ public class MenuCore {
                 }
             }
             // 发送物品
+            replaceMap.put("${number}", String.valueOf(number));
+            replaceMap.put("${name}", BaseUtil.getDisplayName(itemStack));
             ItemStackUtil.addItem(player, itemStack, Integer.parseInt(number), BaseUtil.getMsgNotColor("addItemMsg"));
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("buyMsg"));
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("buyMsg", replaceMap));
             return false;
         }
         // 玩家出售物品
-        if ("sell".equalsIgnoreCase(shopType)) {
+        if (MenuConstants.SELL.equalsIgnoreCase(shopType)) {
             String[] shopMaterialStr = shopMaterial.split(":");
             String material = shopMaterialStr[0];
             String number = replaceInput(player, shopMaterialStr[1]);
@@ -357,11 +364,22 @@ public class MenuCore {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noItem"));
                 return true;
             }
-            VaultUtil.give(player, shopMoney);
-            PlayerPointsUtil.give(player, shopPoint);
-            String sellOperatorReason = BaseUtil.getMsgNotColor("sellOperatorReason", MapUtil.of("${name}", BaseUtil.getDisplayName(itemStack), "${number}", number));
-            PlayerCurrencyUtil.give(player, currencyType, currencyPrice, sellOperatorReason);
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("sellMsg"));
+            if (shopMoney > 0) {
+                replaceMap.put("${price}", String.valueOf(shopMoney));
+                VaultUtil.give(player, shopMoney);
+            }
+            if (shopPoint > 0) {
+                replaceMap.put("${price}", String.valueOf(shopPoint));
+                PlayerPointsUtil.give(player, shopPoint);
+            }
+            if (currencyPrice > 0) {
+                replaceMap.put("${price}", String.valueOf(currencyPrice));
+                String sellOperatorReason = BaseUtil.getMsgNotColor("sellOperatorReason", MapUtil.of("${name}", BaseUtil.getDisplayName(itemStack), "${number}", number));
+                PlayerCurrencyUtil.give(player, currencyType, currencyPrice, sellOperatorReason);
+            }
+            replaceMap.put("${number}", number);
+            replaceMap.put("${name}", BaseUtil.getDisplayName(itemStack));
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("sellMsg", replaceMap));
         }
         return false;
     }
