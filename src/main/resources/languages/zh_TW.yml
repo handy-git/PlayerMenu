@@ -64,3 +64,5 @@ addItemMsg: '&8[&a!&8] &a背包不足，多余物品已掉落在地上請盡快�
 noNumber: '&8[&c✘&8] &7請輸入數字'
 sellOperatorReason: '&7玩家出售 &a${number} &7個物品 &a${name}'
 buyOperatorReason: '&7玩家購買 &a${number} &7個物品 &a${name}'
+money: "&7金幣"
+point: "&7點券"

@@ -65,3 +65,5 @@ addItemMsg: '&8[&a!&8] &aInsufficient inventory space, excess items have dropped
 noNumber: '&8[&c✘&8] &7Please enter a number'
 sellOperatorReason: '&7The player sold &a${number} &7items of &a${name}'
 buyOperatorReason: '&7The player bought &a${number} &7items of &a${name}'
+money: "&7Gold"
+point: "&7Points"

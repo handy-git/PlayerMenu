@@ -91,6 +91,9 @@ public class ConfigUtil {
         // 1.4.3
         HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "sellOperatorReason", "&7玩家出售 &a${number} &7个物品 &a${name}", null, language);
         HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "buyOperatorReason", "&7玩家购买 &a${number} &7个物品 &a${name}", null, language);
+        // 1.4.5
+        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "money", "&7金币", null, language);
+        HandyConfigUtil.setPathIsNotContains(LANG_CONFIG, "point", "&7点券", null, language);
         LANG_CONFIG = HandyConfigUtil.loadLangConfig(CONFIG.getString("language"), true);
     }
 
