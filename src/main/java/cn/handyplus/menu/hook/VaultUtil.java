@@ -3,6 +3,7 @@ package cn.handyplus.menu.hook;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.PlayerMenu;
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.entity.Player;
 
 /**
@@ -24,12 +25,8 @@ public class VaultUtil {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("vaultFailureMsg"));
             return false;
         }
-        // 查询玩家余额是否够
-        if (!PlayerMenu.ECON.has(player, price)) {
-            return false;
-        }
-        PlayerMenu.ECON.withdrawPlayer(player, price);
-        return true;
+        EconomyResponse economyResponse = PlayerMenu.ECON.withdrawPlayer(player, price);
+        return EconomyResponse.ResponseType.SUCCESS.equals(economyResponse.type);
     }
 
     /**
@@ -38,16 +35,17 @@ public class VaultUtil {
      * @param player 玩家
      * @param price  价格
      */
-    public static void give(Player player, int price) {
+    public static boolean give(Player player, int price) {
         if (price == 0) {
-            return;
+            return false;
         }
         // 查询是否开启经济系统
         if (PlayerMenu.ECON == null) {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("vaultFailureMsg"));
-            return;
+            return false;
         }
-        PlayerMenu.ECON.depositPlayer(player, price);
+        EconomyResponse economyResponse = PlayerMenu.ECON.depositPlayer(player, price);
+        return EconomyResponse.ResponseType.SUCCESS.equals(economyResponse.type);
     }
 
     /**
