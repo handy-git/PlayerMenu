@@ -37,6 +37,8 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             return;
         }
         MenuButtonParam menuButtonParam = (MenuButtonParam) obj;
+        // 注入点击类型
+        menuButtonParam.setEventClickType(event.getClick());
         // 检查点击条件是否满足
         if (MenuCore.check(player, menuButtonParam)) {
             // 播放未满足条件的声音

@@ -199,6 +199,19 @@ public class InventoryCloseEventListener implements Listener {
                 if (StrUtil.isNotEmpty(input)) {
                     createMenuItem.put("input", input);
                 }
+                String clickType = menuButtonParam.getClickType();
+                if (StrUtil.isNotEmpty(clickType)) {
+                    createMenuItem.put("clickType", clickType);
+                }
+                Map<String, List<String>> actions = menuButtonParam.getActions();
+                if (!actions.isEmpty()) {
+                    if (actions.containsKey("right")) {
+                        createMenuItem.put("actions.right", actions.get("right"));
+                    }
+                    if (actions.containsKey("left")) {
+                        createMenuItem.put("actions.left", actions.get("left"));
+                    }
+                }
             }
             if (createMenuItem.get("id") == null) {
                 MenuItem menuItem = new MenuItem();

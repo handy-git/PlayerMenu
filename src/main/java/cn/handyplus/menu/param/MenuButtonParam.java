@@ -1,8 +1,10 @@
 package cn.handyplus.menu.param;
 
 import lombok.Data;
+import org.bukkit.event.inventory.ClickType;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 菜单属性
@@ -197,4 +199,25 @@ public class MenuButtonParam {
      * @since 1.3.7
      */
     private String input;
+
+    /**
+     * 动作
+     *
+     * @since 1.5.0
+     */
+    private Map<String, List<String>> actions;
+
+    /**
+     * 点击类型
+     *
+     * @since 1.5.0
+     */
+    private String clickType;
+
+    /**
+     * 事件当前点击类型
+     *
+     * @since 1.5.0
+     */
+    private ClickType eventClickType;
 }

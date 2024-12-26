@@ -25,6 +25,7 @@ import cn.handyplus.menu.param.MenuButtonParam;
 import cn.handyplus.menu.service.MenuLimitService;
 import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
@@ -73,6 +74,14 @@ public class MenuCore {
         MenuUtil.playSound(player, menuButtonParam.getSound());
         // 执行命令
         executeCommand(player, menuButtonParam.getCommands(), handyInventory, 0);
+        // 执行右键命令
+        if (ClickType.RIGHT.equals(menuButtonParam.getEventClickType())) {
+            executeCommand(player, menuButtonParam.getActions().get("right"), handyInventory, 0);
+        }
+        // 执行左键命令
+        if (ClickType.LEFT.equals(menuButtonParam.getEventClickType())) {
+            executeCommand(player, menuButtonParam.getActions().get("left"), handyInventory, 0);
+        }
     }
 
     /**
@@ -81,6 +90,7 @@ public class MenuCore {
      * @param player         玩家
      * @param commands       命令
      * @param handyInventory gui
+     * @param index          递归基数
      */
     private static void executeCommand(Player player, List<String> commands, HandyInventory handyInventory, Integer index) {
         if (CollUtil.isEmpty(commands)) {
@@ -228,6 +238,10 @@ public class MenuCore {
         }
         // 判断点击时间
         if (MenuUtil.clickCd(player, menuButtonParam.getId(), menuButtonParam.getCd(), true)) {
+            return true;
+        }
+        // 判断点击类型是否满足
+        if (StrUtil.isNotEmpty(menuButtonParam.getClickType()) && !menuButtonParam.getEventClickType().name().equalsIgnoreCase(menuButtonParam.getClickType())) {
             return true;
         }
         // 判断点击金钱是否满足
