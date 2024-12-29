@@ -1,6 +1,7 @@
 package cn.handyplus.menu.inventory;
 
 import cn.handyplus.lib.constants.BaseConstants;
+import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.core.NumberUtil;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
@@ -25,6 +26,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -181,8 +183,11 @@ public class MenuGui {
         int customModelDataId = memorySection.getInt("custom-model-data");
         int priority = memorySection.getInt("priority");
         List<String> commands = memorySection.getStringList("commands");
+        List<String> leftActions = memorySection.getStringList("actions.left");
+        List<String> rightActions = memorySection.getStringList("actions.right");
         List<String> conditions = memorySection.getStringList("conditions");
         String sound = memorySection.getString("sound");
+        String clickType = memorySection.getString("clickType");
         String failSound = memorySection.getString("failSound");
         boolean isEnchant = memorySection.getBoolean("isEnchant", false);
         boolean hideFlag = memorySection.getBoolean("hideFlag", true);
@@ -235,6 +240,15 @@ public class MenuGui {
         menuButtonParam.setDynamicAmount(dynamicAmount);
         menuButtonParam.setNotPermission(notPermission);
         menuButtonParam.setPriority(priority);
+        Map<String, List<String>> actions = new HashMap<>();
+        if (CollUtil.isNotEmpty(leftActions)) {
+            actions.put("left", leftActions);
+        }
+        if (CollUtil.isNotEmpty(rightActions)) {
+            actions.put("right", rightActions);
+        }
+        menuButtonParam.setActions(actions);
+        menuButtonParam.setClickType(clickType);
         // 扩展商店属性
         menuButtonParam.setShopType(shopType);
         menuButtonParam.setShopMaterial(shopMaterial);
