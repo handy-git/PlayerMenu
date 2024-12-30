@@ -24,6 +24,10 @@ After purchasing, you will receive after-sales service. The author will guide yo
 **Free License for Contributions**  
 Contribute code, documentation, or other resources to this open-source project, and you can get a free license upon approval.
 
+## Contributors
+
+[![Contrib](https://contrib.rocks/image?repo=handy-git/PlayerMenu)](https://github.com/handy-git/PlayerMenu/graphs/contributors)
+
 Dev DownLoad:
 
 [GITHUB ACTIONS](https://github.com/handy-git/PlayerMenu/actions)
