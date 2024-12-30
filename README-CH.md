@@ -24,6 +24,10 @@
 **贡献免费许可证**  
 对本开源项目贡献代码、文档或其他资源，经审核通过后，您将获得免费的许可证。
 
+## 贡献者
+
+[![Contrib](https://contrib.rocks/image?repo=handy-git/PlayerMenu)](https://github.com/handy-git/PlayerMenu/graphs/contributors)
+
 开发版本下载渠道:
 
 [GITHUB ACTIONS](https://github.com/handy-git/PlayerMenu/actions)
