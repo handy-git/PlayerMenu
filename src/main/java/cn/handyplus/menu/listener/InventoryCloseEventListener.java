@@ -4,6 +4,7 @@ import cn.handyplus.lib.annotation.HandyListener;
 import cn.handyplus.lib.constants.VersionCheckEnum;
 import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.core.JsonUtil;
+import cn.handyplus.lib.core.MapUtil;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.util.BaseUtil;
@@ -204,7 +205,7 @@ public class InventoryCloseEventListener implements Listener {
                     createMenuItem.put("clickType", clickType);
                 }
                 Map<String, List<String>> actions = menuButtonParam.getActions();
-                if (!actions.isEmpty()) {
+                if (MapUtil.isNotEmpty(actions)) {
                     if (actions.containsKey("right")) {
                         createMenuItem.put("actions.right", actions.get("right"));
                     }
