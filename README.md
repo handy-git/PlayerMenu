@@ -21,6 +21,10 @@ Purchase Link: [Click to view](https://www.spigotmc.org/resources/117019/)
 
 After purchasing, you will receive after-sales service. The author will guide you on how to use it. If you haven't purchased it, please refer to the wiki for usage instructions.
 
+## Page Views Count
+
+![Page Views Count](https://badges.toozhao.com/badges/01JHVDQ81YMNCRZMS2DQVK41CP/green.svg)
+
 **Free License for Contributions**  
 Contribute code, documentation, or other resources to this open-source project, and you can get a free license upon approval.
 
