@@ -1,8 +1,10 @@
 package cn.handyplus.menu.hook;
 
+import cn.handyplus.lib.constants.HookPluginEnum;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.PlayerMenu;
+import org.black_ixx.playerpoints.PlayerPoints;
 import org.bukkit.entity.Player;
 
 /**
@@ -20,12 +22,12 @@ public class PlayerPointsUtil {
      */
     public static boolean buy(Player player, int price) {
         // 点券是否加载
-        if (PlayerMenu.PLAYER_POINTS == null) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("playerPointsFailureMsg"));
+        if (!PlayerMenu.PLAYER_POINTS) {
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor(HookPluginEnum.PLAYER_POINTS.getFailMsg()));
             return false;
         }
         // 扣除点券
-        return PlayerMenu.PLAYER_POINTS.getAPI().take(player.getUniqueId(), price);
+        return PlayerPoints.getInstance().getAPI().take(player.getUniqueId(), price);
     }
 
     /**
@@ -39,12 +41,12 @@ public class PlayerPointsUtil {
             return;
         }
         // 点券是否加载
-        if (PlayerMenu.PLAYER_POINTS == null) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("playerPointsFailureMsg"));
+        if (!PlayerMenu.PLAYER_POINTS) {
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor(HookPluginEnum.PLAYER_POINTS.getFailMsg()));
             return;
         }
         // 给予点券
-        PlayerMenu.PLAYER_POINTS.getAPI().give(player.getUniqueId(), price);
+        PlayerPoints.getInstance().getAPI().give(player.getUniqueId(), price);
     }
 
     /**
@@ -54,10 +56,10 @@ public class PlayerPointsUtil {
      * @return 玩家点券
      */
     public static int getPlayerPoints(Player player) {
-        if (PlayerMenu.PLAYER_POINTS == null || player == null) {
+        if (!PlayerMenu.PLAYER_POINTS || player == null) {
             return 0;
         }
-        return PlayerMenu.PLAYER_POINTS.getAPI().look(player.getUniqueId());
+        return PlayerPoints.getInstance().getAPI().look(player.getUniqueId());
     }
 
 }

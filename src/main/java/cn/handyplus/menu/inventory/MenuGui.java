@@ -308,7 +308,7 @@ public class MenuGui {
         }
         SkullMeta skullMeta = (SkullMeta) itemMeta;
         if (StrUtil.isNotEmpty(menuButtonParam.getHead())) {
-            skullMeta.setOwner(menuButtonParam.getHead());
+            ItemMetaUtil.setOwner(skullMeta, menuButtonParam.getHead());
             itemStack.setItemMeta(skullMeta);
             return;
         }

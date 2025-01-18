@@ -1,6 +1,7 @@
 package cn.handyplus.menu.listener;
 
 import cn.handyplus.lib.annotation.HandyListener;
+import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.entity.Player;
@@ -28,12 +29,12 @@ public class PlayerSwapHandItemsEventListener implements Listener {
         if (!player.isSneaking()) {
             return;
         }
-        boolean shiftF = ConfigUtil.CONFIG.getBoolean("shift.F.enable");
+        boolean shiftF = BaseConstants.CONFIG.getBoolean("shift.F.enable");
         if (!shiftF) {
             return;
         }
         event.setCancelled(true);
-        String clockMenu = ConfigUtil.CONFIG.getString("shift.F.menu", "");
+        String clockMenu = BaseConstants.CONFIG.getString("shift.F.menu", "");
         MenuUtil.openGui(player, clockMenu);
     }
 

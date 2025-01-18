@@ -1,6 +1,7 @@
 package cn.handyplus.menu.listener;
 
 import cn.handyplus.lib.annotation.HandyListener;
+import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.menu.util.ConfigUtil;
@@ -36,10 +37,10 @@ public class PlayerInteractEventListener implements Listener {
         }
         Player player = event.getPlayer();
         // 判断是否开启唯一菜单
-        String clockMenu = ConfigUtil.CONFIG.getString("clock.menu", "");
-        boolean enable = ConfigUtil.CONFIG.getBoolean("clock.enable");
+        String clockMenu = BaseConstants.CONFIG.getString("clock.menu", "");
+        boolean enable = BaseConstants.CONFIG.getBoolean("clock.enable");
         if (enable && StrUtil.isNotEmpty(clockMenu)) {
-            String actionStr = ConfigUtil.CONFIG.getString("clock.action", "ALL");
+            String actionStr = BaseConstants.CONFIG.getString("clock.action", "ALL");
             Action action = event.getAction();
             switch (actionStr.toUpperCase()) {
                 case "ALL":

@@ -1,6 +1,6 @@
 name: PlayerMenu
 main: cn.handyplus.menu.PlayerMenu
-version: 1.5.1
+version: 1.5.2
 author: handy
 api-version: 1.13
 website: https://ricedoc.handyplus.cn/wiki/PlayerMenu/log/
@@ -22,6 +22,7 @@ permissions:
       playerMenu.adminOpen: true
       playerMenu.open: true
       playerMenu.close: true
+      playerMenu.clock: true
   playerMenu.reload:
     description: 重新加载配置
     default: op
@@ -42,4 +43,7 @@ permissions:
     default: true
   playerMenu.close:
     description: 关闭
+    default: true
+  playerMenu.clock:
+    description: 给玩家配置的菜单
     default: true

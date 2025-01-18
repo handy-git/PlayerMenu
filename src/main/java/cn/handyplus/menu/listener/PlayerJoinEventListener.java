@@ -5,7 +5,6 @@ import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.expand.adapter.HandySchedulerUtil;
 import cn.handyplus.lib.util.HandyHttpUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
-import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,7 +30,7 @@ public class PlayerJoinEventListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         HandySchedulerUtil.runTaskAsynchronously(() -> {
-            if (!ConfigUtil.CONFIG.getBoolean("clock.enable")) {
+            if (!BaseConstants.CONFIG.getBoolean("clock.enable")) {
                 return;
             }
             Player player = event.getPlayer();
@@ -53,10 +52,6 @@ public class PlayerJoinEventListener implements Listener {
      */
     @EventHandler(priority = EventPriority.HIGH)
     public void onOpPlayerJoin(PlayerJoinEvent event) {
-        // op登录发送更新提醒
-        if (!ConfigUtil.CONFIG.getBoolean(BaseConstants.IS_CHECK_UPDATE_TO_OP_MSG)) {
-            return;
-        }
         HandyHttpUtil.checkVersion(event.getPlayer());
     }
 

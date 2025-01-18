@@ -37,6 +37,8 @@ helps:
   - '   &8&l- &f open &8[&7Menu Name&8] (Variable Source Player Name)  &7Open the menu interface'
   - '   &8&l- &f view &8[&7Menu Name&8]    &7Edit the menu interface'
   - '   &8&l- &f getMaterial      &7Get the material of the item in hand'
+  - '   &8&l- &f close      &7Close any menu'
+  - '   &8&l- &f clock      &7Get Clock Menu'
 
 # General success and failure messages
 succeedMsg: '&aCommand executed successfully.'
@@ -63,6 +65,8 @@ noOpenWorldPermission: '&8[&c✘&8] &7This menu cannot be opened in this world'
 noOpenPvpPermission: '&8[&c✘&8] &7Cannot open this menu during a guild war'
 addItemMsg: '&8[&a!&8] &aInsufficient inventory space, excess items have dropped on the ground. Please pick them up quickly.'
 noNumber: '&8[&c✘&8] &7Please enter a number'
+clockFailureMsg: '&8[&c✘&8] &7You already have the menu.'
+clockSucceedMsg: '&8[&a✔&8] &7Successfully received the menu'
 sellOperatorReason: '&7The player sold &a${number} &7items of &a${name}'
 buyOperatorReason: '&7The player bought &a${number} &7items of &a${name}'
 money: "&7Gold"

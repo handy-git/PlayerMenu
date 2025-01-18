@@ -1,5 +1,6 @@
 package cn.handyplus.menu.util;
 
+import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.core.DateUtil;
 import cn.handyplus.lib.core.StrUtil;
@@ -36,11 +37,11 @@ public class MenuUtil {
      * @return 菜单
      */
     public static ItemStack getClock() {
-        String material = ConfigUtil.CONFIG.getString("clock.material");
-        String name = ConfigUtil.CONFIG.getString("clock.name");
-        List<String> loreList = ConfigUtil.CONFIG.getStringList("clock.lore");
-        boolean isEnchant = ConfigUtil.CONFIG.getBoolean("clock.isEnchant");
-        int customModelDataId = ConfigUtil.CONFIG.getInt("clock.custom-model-data");
+        String material = BaseConstants.CONFIG.getString("clock.material");
+        String name = BaseConstants.CONFIG.getString("clock.name");
+        List<String> loreList = BaseConstants.CONFIG.getStringList("clock.lore");
+        boolean isEnchant = BaseConstants.CONFIG.getBoolean("clock.isEnchant");
+        int customModelDataId = BaseConstants.CONFIG.getInt("clock.custom-model-data");
         return ItemStackUtil.getItemStack(material, name, loreList, isEnchant, customModelDataId);
     }
 
@@ -178,7 +179,7 @@ public class MenuUtil {
      * @param player 玩家
      */
     private static boolean checkWorld(Player player) {
-        List<String> noWorld = ConfigUtil.CONFIG.getStringList("noWorld");
+        List<String> noWorld = BaseConstants.CONFIG.getStringList("noWorld");
         if (CollUtil.isNotEmpty(noWorld) && noWorld.contains(player.getWorld().getName())) {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noOpenWorldPermission"));
             return false;

@@ -4,6 +4,7 @@ import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.MenuConstants;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * 变量扩展
@@ -23,7 +24,7 @@ public class PlaceholderUtil extends PlaceholderExpansion {
      * @return 结果
      */
     @Override
-    public String getIdentifier() {
+    public @NotNull String getIdentifier() {
         return "playerMenu";
     }
 
@@ -35,7 +36,7 @@ public class PlaceholderUtil extends PlaceholderExpansion {
      * @return 变量
      */
     @Override
-    public String onRequest(OfflinePlayer player, String placeholder) {
+    public String onRequest(OfflinePlayer player, @NotNull String placeholder) {
         if (player == null) {
             return null;
         }
@@ -74,7 +75,7 @@ public class PlaceholderUtil extends PlaceholderExpansion {
      * @return 结果
      */
     @Override
-    public String getAuthor() {
+    public @NotNull String getAuthor() {
         return plugin.getDescription().getAuthors().toString();
     }
 
@@ -84,7 +85,7 @@ public class PlaceholderUtil extends PlaceholderExpansion {
      * @return 结果
      */
     @Override
-    public String getVersion() {
+    public @NotNull String getVersion() {
         return plugin.getDescription().getVersion();
     }
 }
