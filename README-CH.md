@@ -25,7 +25,7 @@
 
 ![Page Views Count](https://badges.toozhao.com/badges/01JHVDQ81YMNCRZMS2DQVK41CP/green.svg)
 
-**贡献免费许可证**  
+## 贡献免费许可证
 对本开源项目贡献代码、文档或其他资源，经审核通过后，您将获得免费的许可证。
 
 ## 贡献者
