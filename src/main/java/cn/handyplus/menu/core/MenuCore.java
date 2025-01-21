@@ -351,7 +351,7 @@ public class MenuCore {
             String[] shopMaterialStr = shopMaterial.split(":");
             String material = shopMaterialStr[0];
             String number = replaceInput(player, shopMaterialStr[1]);
-            ItemStack itemStack = new ItemStack(ItemStackUtil.getMaterial(material));
+            ItemStack itemStack = ItemStackUtil.getItemByMaterial(material);
             // 多经济处理
             if (currencyPrice > 0) {
                 replaceMap.put("${price}", String.valueOf(currencyPrice));
@@ -375,7 +375,7 @@ public class MenuCore {
             String[] shopMaterialStr = shopMaterial.split(":");
             String material = shopMaterialStr[0];
             String number = replaceInput(player, shopMaterialStr[1]);
-            ItemStack itemStack = new ItemStack(ItemStackUtil.getMaterial(material));
+            ItemStack itemStack = ItemStackUtil.getItemByMaterial(material);
             Boolean rst = ItemStackUtil.removeItem(player, itemStack, Integer.valueOf(number), false);
             if (!rst) {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noItem"));
