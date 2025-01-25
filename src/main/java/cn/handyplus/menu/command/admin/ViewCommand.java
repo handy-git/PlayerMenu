@@ -4,7 +4,7 @@ import cn.handyplus.lib.command.IHandyCommandEvent;
 import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.constants.VersionCheckEnum;
 import cn.handyplus.lib.core.YmlUtil;
-import cn.handyplus.lib.expand.adapter.HandySchedulerUtil;
+import cn.handyplus.lib.expand.adapter.PlayerSchedulerUtil;
 import cn.handyplus.lib.util.AssertUtil;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
@@ -52,7 +52,7 @@ public class ViewCommand implements IHandyCommandEvent {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMenu", "").replace("${menu}", args[1]));
             return;
         }
-        HandySchedulerUtil.runTask(() -> player.openInventory(inventory));
+        PlayerSchedulerUtil.syncOpenInventory(player, inventory);
     }
 
 }

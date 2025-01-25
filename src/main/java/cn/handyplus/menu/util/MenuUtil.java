@@ -86,7 +86,7 @@ public class MenuUtil {
                 return;
             }
             // 打开菜单
-            HandySchedulerUtil.runTask(() -> player.openInventory(inventory));
+            PlayerSchedulerUtil.syncOpenInventory(player, inventory);
         });
     }
 

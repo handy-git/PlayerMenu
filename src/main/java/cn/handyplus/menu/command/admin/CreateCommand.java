@@ -2,6 +2,7 @@ package cn.handyplus.menu.command.admin;
 
 import cn.handyplus.lib.command.IHandyCommandEvent;
 import cn.handyplus.lib.constants.BaseConstants;
+import cn.handyplus.lib.expand.adapter.PlayerSchedulerUtil;
 import cn.handyplus.lib.util.AssertUtil;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
@@ -10,6 +11,7 @@ import cn.handyplus.menu.inventory.CreateGui;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 /**
  * 创建菜单
@@ -29,6 +31,11 @@ public class CreateCommand implements IHandyCommandEvent {
     }
 
     @Override
+    public boolean isAsync() {
+        return true;
+    }
+
+    @Override
     public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // 是否为玩家
         Player player = AssertUtil.notPlayer(sender, BaseUtil.getMsgNotColor("noPlayerFailureMsg"));
@@ -40,7 +47,8 @@ public class CreateCommand implements IHandyCommandEvent {
                 return;
             }
         }
-        player.openInventory(CreateGui.getInstance().createGui(player, size));
+        Inventory inventory = CreateGui.getInstance().createGui(player, size);
+        PlayerSchedulerUtil.syncOpenInventory(player, inventory);
     }
 
 }
