@@ -7,6 +7,7 @@ import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.hook.PlaceholderUtil;
 import cn.handyplus.menu.util.ConfigUtil;
 import net.milkbowl.vault.economy.Economy;
+import org.black_ixx.playerpoints.PlayerPoints;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,7 +24,7 @@ public class PlayerMenu extends JavaPlugin {
     public static PlayerMenu INSTANCE;
     public static boolean USE_PAPI;
     public static Economy ECON;
-    public static boolean PLAYER_POINTS;
+    public static PlayerPoints PLAYER_POINTS;
     public static boolean USE_GUILD;
     public static boolean USE_PLY;
 
@@ -36,7 +37,7 @@ public class PlayerMenu extends JavaPlugin {
         // 加载vault
         this.loadEconomy();
         // 加载PlayerPoints
-        PLAYER_POINTS = BaseUtil.hook(HookPluginEnum.PLAYER_POINTS);
+        BaseUtil.hookToPlugin(HookPluginEnum.PLAYER_POINTS).ifPresent(value -> PLAYER_POINTS = (PlayerPoints) value);
         // 加载PlaceholderApi
         USE_PAPI = BaseUtil.hook(HookPluginEnum.PLACEHOLDER_API);
         if (USE_PAPI) {

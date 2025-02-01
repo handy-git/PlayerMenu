@@ -4,7 +4,6 @@ import cn.handyplus.lib.constants.HookPluginEnum;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.PlayerMenu;
-import org.black_ixx.playerpoints.PlayerPoints;
 import org.bukkit.entity.Player;
 
 /**
@@ -22,12 +21,12 @@ public class PlayerPointsUtil {
      */
     public static boolean buy(Player player, int price) {
         // 点券是否加载
-        if (!PlayerMenu.PLAYER_POINTS) {
+        if (PlayerMenu.PLAYER_POINTS == null) {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor(HookPluginEnum.PLAYER_POINTS.getFailMsg()));
             return false;
         }
         // 扣除点券
-        return PlayerPoints.getInstance().getAPI().take(player.getUniqueId(), price);
+        return PlayerMenu.PLAYER_POINTS.getAPI().take(player.getUniqueId(), price);
     }
 
     /**
@@ -41,12 +40,12 @@ public class PlayerPointsUtil {
             return;
         }
         // 点券是否加载
-        if (!PlayerMenu.PLAYER_POINTS) {
+        if (PlayerMenu.PLAYER_POINTS == null) {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor(HookPluginEnum.PLAYER_POINTS.getFailMsg()));
             return;
         }
         // 给予点券
-        PlayerPoints.getInstance().getAPI().give(player.getUniqueId(), price);
+        PlayerMenu.PLAYER_POINTS.getAPI().give(player.getUniqueId(), price);
     }
 
     /**
@@ -56,10 +55,10 @@ public class PlayerPointsUtil {
      * @return 玩家点券
      */
     public static int getPlayerPoints(Player player) {
-        if (!PlayerMenu.PLAYER_POINTS || player == null) {
+        if (PlayerMenu.PLAYER_POINTS == null || player == null) {
             return 0;
         }
-        return PlayerPoints.getInstance().getAPI().look(player.getUniqueId());
+        return PlayerMenu.PLAYER_POINTS.getAPI().look(player.getUniqueId());
     }
 
 }

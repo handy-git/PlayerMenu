@@ -1,5 +1,6 @@
 package cn.handyplus.menu.util;
 
+import cn.handyplus.guild.api.PlayerGuildApi;
 import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.core.DateUtil;
@@ -13,7 +14,6 @@ import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.inventory.MenuGui;
 import cn.handyplus.menu.service.MenuLimitService;
-import com.handy.guild.api.PlayerGuildApi;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -66,7 +66,7 @@ public class MenuUtil {
     public static void openGui(Player player, String menu, String papiName) {
         HandySchedulerUtil.runTaskAsynchronously(() -> {
             // 判断是否在公会战
-            if (PlayerMenu.USE_GUILD && PlayerGuildApi.getInstance().isPvp(player)) {
+            if (PlayerMenu.USE_GUILD && PlayerGuildApi.isPvp(player)) {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noOpenPvpPermission"));
                 return;
             }
