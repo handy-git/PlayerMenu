@@ -68,5 +68,6 @@ clockFailureMsg: '&8[&c✘&8] &7你已經擁有菜單了'
 clockSucceedMsg: '&8[&a✔&8] &7領取菜單成功'
 sellOperatorReason: '&7玩家出售 &a${number} &7個物品 &a${name}'
 buyOperatorReason: '&7玩家購買 &a${number} &7個物品 &a${name}'
+clickOperatorReason: '&7玩家點擊菜單按鈕 &a${name}'
 money: "&7金幣"
 point: "&7點券"

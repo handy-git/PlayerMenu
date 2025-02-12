@@ -271,6 +271,16 @@ public class MenuCore {
                 }
             }
         }
+        // 多货币处理
+        int currencyPrice = 0;
+        String currencyType = null;
+        String input = MenuConstants.PLAYER_INPUT_MAP.getOrDefault(player.getUniqueId(), "");
+        if (StrUtil.isNotEmpty(menuButtonParam.getPly())) {
+            List<String> shopCurrencyList = StrUtil.strToStrList(menuButtonParam.getPly(), ":");
+            currencyType = shopCurrencyList.get(0).trim();
+            currencyPrice = getShopPrice(shopCurrencyList.get(1).trim(), input);
+        }
+
         // 金币扣除处理
         if (money > 0) {
             if (!VaultUtil.buy(player, money)) {
@@ -282,6 +292,15 @@ public class MenuCore {
         if (point > 0) {
             if (!PlayerPointsUtil.buy(player, point)) {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noPoint"));
+                return true;
+            }
+        }
+        // ply处理
+        if (currencyPrice > 0) {
+            String buyOperatorReason = BaseUtil.getMsgNotColor("clickOperatorReason", MapUtil.of("${name}", menuButtonParam.getName()));
+            if (!PlayerCurrencyUtil.buy(player, currencyType, currencyPrice, buyOperatorReason)) {
+                HashMap<String, String> map = MapUtil.of("${type}", PlayerCurrencyUtil.getDesc(currencyType));
+                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noBalance", map));
                 return true;
             }
         }

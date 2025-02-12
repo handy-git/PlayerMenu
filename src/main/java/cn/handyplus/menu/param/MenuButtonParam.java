@@ -30,6 +30,13 @@ public class MenuButtonParam {
     private int point;
 
     /**
+     * 多货币处理
+     *
+     * @since 1.5.6
+     */
+    private String ply;
+
+    /**
      * 物品id
      */
     private Integer id;
@@ -220,4 +227,5 @@ public class MenuButtonParam {
      * @since 1.5.0
      */
     private ClickType eventClickType;
+
 }

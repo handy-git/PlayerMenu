@@ -96,8 +96,9 @@ public class ConfigUtil {
         HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "point", "&7点券", null, language);
         // 1.5.2
         HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "clockFailureMsg", "&8[&c✘&8] &7你已经拥有菜单了", null, language);
-        HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "clockSucceedMsg", "&8[&a✔&8] &7领取菜单成功", null, language);
-        HandyConfigUtil.loadLangConfig(BaseConstants.CONFIG.getString("language"), true);
+        // 1.5.6
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "clickOperatorReason", "&7玩家点击菜单按钮 &a${name}", null, language);
+        HandyConfigUtil.loadLangConfig(true);
     }
 
 }

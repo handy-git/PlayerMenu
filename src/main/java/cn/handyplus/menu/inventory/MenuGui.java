@@ -193,6 +193,7 @@ public class MenuGui {
         boolean hideFlag = memorySection.getBoolean("hideFlag", true);
         boolean hideEnchant = memorySection.getBoolean("hideEnchant", true);
         int point = memorySection.getInt("point");
+        String ply = memorySection.getString("ply");
         int money = memorySection.getInt("money");
         int limit = memorySection.getInt("limit");
         int limitHide = memorySection.getInt("limitHide");
@@ -228,6 +229,7 @@ public class MenuGui {
         menuButtonParam.setHideFlag(hideFlag);
         menuButtonParam.setPoint(point);
         menuButtonParam.setMoney(money);
+        menuButtonParam.setPly(ply);
         menuButtonParam.setLimit(limit);
         menuButtonParam.setLimitHide(limitHide);
         menuButtonParam.setCd(cd);

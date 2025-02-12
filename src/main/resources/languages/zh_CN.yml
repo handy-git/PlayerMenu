@@ -68,5 +68,6 @@ clockFailureMsg: '&8[&c✘&8] &7你已经拥有菜单了'
 clockSucceedMsg: '&8[&a✔&8] &7领取菜单成功'
 sellOperatorReason: '&7玩家出售 &a${number} &7个物品 &a${name}'
 buyOperatorReason: '&7玩家购买 &a${number} &7个物品 &a${name}'
+clickOperatorReason: '&7玩家点击菜单按钮 &a${name}'
 money: "&7金币"
 point: "&7点券"

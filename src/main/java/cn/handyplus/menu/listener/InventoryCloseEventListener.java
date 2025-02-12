@@ -97,6 +97,10 @@ public class InventoryCloseEventListener implements Listener {
                 if (point > 0) {
                     createMenuItem.put("point", point);
                 }
+                String ply = menuButtonParam.getPly();
+                if (StrUtil.isNotEmpty(ply)) {
+                    createMenuItem.put("ply", ply);
+                }
                 int limit = menuButtonParam.getLimit();
                 if (limit > 0) {
                     createMenuItem.put("limit", limit);

@@ -69,5 +69,6 @@ clockFailureMsg: '&8[&c✘&8] &7You already have the menu.'
 clockSucceedMsg: '&8[&a✔&8] &7Successfully received the menu'
 sellOperatorReason: '&7The player sold &a${number} &7items of &a${name}'
 buyOperatorReason: '&7The player bought &a${number} &7items of &a${name}'
+clickOperatorReason: '&7Player clicked menu button &a${name}'
 money: "&7Gold"
 point: "&7Points"
