@@ -1,11 +1,14 @@
 package cn.handyplus.menu.service;
 
+import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.db.Db;
 import cn.handyplus.menu.enter.MenuLimit;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * 菜单点击限制
@@ -130,6 +133,33 @@ public class MenuLimitService {
         }
         Optional<MenuLimit> menuLimitOptional = this.findByPlayerUuid(playerUuid, menuItemId);
         return menuLimitOptional.map(MenuLimit::getClickTime).orElse(null);
+    }
+
+    /**
+     * 根据菜单id清理数据
+     * @param menuItemIds 菜单id
+     * @since 1.5.8
+     */
+    public void deleteByMenuItemIds(List<Integer> menuItemIds) {
+        if (CollUtil.isEmpty(menuItemIds)) {
+            return;
+        }
+        Db<MenuLimit> use = Db.use(MenuLimit.class);
+        use.where().in(MenuLimit::getMenuItemId, menuItemIds);
+        use.execution().delete();
+    }
+
+    /**
+     * 查询当前全部菜单id
+     * @return 菜单id
+     * @since 1.5.8
+     */
+    public List<String> selectMenuItemIds() {
+        Db<MenuLimit> use = Db.use(MenuLimit.class);
+        use.select(MenuLimit::getMenuItemId);
+        use.where().groupBy(MenuLimit::getMenuItemId);
+        List<MenuLimit> list = use.execution().list();
+        return list.stream().map(menuLimit -> String.valueOf(menuLimit.getMenuItemId())).collect(Collectors.toList());
     }
 
 }

@@ -39,6 +39,7 @@ helps:
   - '   &8&l- &f getMaterial      &7獲取手持物品材質'
   - '   &8&l- &f close      &7關閉任意菜單'
   - '   &8&l- &f clock      &7獲取時鐘菜單'
+  - '&8&l- &f clear &8[&7ID&8] &7清理限購數據'
 
 succeedMsg: '&a命令執行成功.'
 failureMsg: '&c命令執行失敗.'
@@ -69,5 +70,6 @@ clockSucceedMsg: '&8[&a✔&8] &7領取菜單成功'
 sellOperatorReason: '&7玩家出售 &a${number} &7個物品 &a${name}'
 buyOperatorReason: '&7玩家購買 &a${number} &7個物品 &a${name}'
 clickOperatorReason: '&7玩家點擊菜單按鈕 &a${name}'
+clearSucceedMsg: "&a清理成功，本次清理ID: ${id}"
 money: "&7金幣"
 point: "&7點券"

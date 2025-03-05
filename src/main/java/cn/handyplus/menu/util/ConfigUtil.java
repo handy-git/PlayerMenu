@@ -98,6 +98,8 @@ public class ConfigUtil {
         HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "clockFailureMsg", "&8[&c✘&8] &7你已经拥有菜单了", null, language);
         // 1.5.6
         HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "clickOperatorReason", "&7玩家点击菜单按钮 &a${name}", null, language);
+        // 1.5.8
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "clearSucceedMsg", "&a清理成功,本次清理ID: ${id}", null, language);
         HandyConfigUtil.loadLangConfig(true);
     }
 

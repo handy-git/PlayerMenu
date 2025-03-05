@@ -39,6 +39,7 @@ helps:
   - '   &8&l- &f getMaterial      &7Get the material of the item in hand'
   - '   &8&l- &f close      &7Close any menu'
   - '   &8&l- &f clock      &7Get Clock Menu'
+  - '&8&l- &f clear &8[&7ID&8] &7Clear purchase limit data'
 
 # General success and failure messages
 succeedMsg: '&aCommand executed successfully.'
@@ -70,5 +71,6 @@ clockSucceedMsg: '&8[&a✔&8] &7Successfully received the menu'
 sellOperatorReason: '&7The player sold &a${number} &7items of &a${name}'
 buyOperatorReason: '&7The player bought &a${number} &7items of &a${name}'
 clickOperatorReason: '&7Player clicked menu button &a${name}'
+clearSucceedMsg: "&aCleanup successful, this cleanup ID: ${id}"
 money: "&7Gold"
 point: "&7Points"

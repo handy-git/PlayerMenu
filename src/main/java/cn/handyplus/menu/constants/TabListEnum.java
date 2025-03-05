@@ -1,5 +1,6 @@
 package cn.handyplus.menu.constants;
 
+import cn.handyplus.menu.service.MenuLimitService;
 import cn.handyplus.menu.util.ConfigUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +20,7 @@ public enum TabListEnum {
     /**
      * 第一层提醒
      */
-    FIRST(Arrays.asList("reload", "open", "getMaterial", "create", "view", "close", "adminOpen", "clock"), 0, null, 1),
+    FIRST(Arrays.asList("reload", "open", "getMaterial", "create", "view", "close", "adminOpen", "clock", "clear"), 0, null, 1),
 
     CREATE_TWO(Arrays.asList("9", "18", "27", "36", "45", "54"), 1, "create", 2),
 
@@ -30,6 +31,8 @@ public enum TabListEnum {
     ADMIN_OPEN_TWO(new ArrayList<>(), 1, "adminOpen", 2),
     ADMIN_OPEN_THREE(null, 1, "adminOpen", 3),
     ADMIN_OPEN_FOUR(null, 1, "adminOpen", 4),
+
+    CLEAR_TWO(new ArrayList<>(), 1, "clear", 2),
     ;
 
     /**
@@ -71,9 +74,13 @@ public enum TabListEnum {
             if (tabListEnum.getNum() != argsLength) {
                 continue;
             }
-            // 特殊处理
+            // 菜单key
             if (tabListEnum.equals(OPEN_TWO) || tabListEnum.equals(ADMIN_OPEN_TWO) || tabListEnum.equals(VIEW_TWO)) {
                 return new ArrayList<>(ConfigUtil.MENU_CONFIG_MAP.keySet());
+            }
+            // 清理数据返回id
+            if (tabListEnum.equals(CLEAR_TWO)) {
+                return MenuLimitService.getInstance().selectMenuItemIds();
             }
             return tabListEnum.getList();
         }
