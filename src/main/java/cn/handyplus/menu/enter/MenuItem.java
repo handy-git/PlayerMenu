@@ -18,6 +18,6 @@ public class MenuItem {
     @TableField(value = "id", comment = "ID")
     private Integer id;
 
-    @TableField(value = "item_stack", comment = "物品", length = 10000, notNull = true)
+    @TableField(value = "item_stack", comment = "物品", length = 20000, notNull = true)
     private String itemStack;
 }
