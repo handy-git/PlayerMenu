@@ -100,12 +100,16 @@ public class MenuUtil {
         if (StrUtil.isEmpty(soundStr)) {
             return;
         }
-        Optional<Sound> soundOpt = BaseUtil.getSound(soundStr);
+        List<String> soundStrList = StrUtil.strToStrList(soundStr, ":");
+        String sound = soundStrList.get(0);
+        Optional<Sound> soundOpt = BaseUtil.getSound(sound);
         if (!soundOpt.isPresent()) {
-            MessageUtil.sendMessage(player, "没有 " + soundStr + " 音效");
+            MessageUtil.sendMessage(player, "没有 " + sound + " 音效");
             return;
         }
-        PlayerSchedulerUtil.playSound(player, soundOpt.get(), 1, 1);
+        float volume = soundStrList.size() > 1 ? Float.parseFloat(soundStrList.get(1)) : 1;
+        float pitch = soundStrList.size() > 2 ? Float.parseFloat(soundStrList.get(2)) : 1;
+        PlayerSchedulerUtil.playSound(player, soundOpt.get(), volume, pitch);
     }
 
     /**
