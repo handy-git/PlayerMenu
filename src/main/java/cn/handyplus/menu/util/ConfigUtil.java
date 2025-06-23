@@ -28,8 +28,7 @@ public class ConfigUtil {
         // 加载config
         HandyConfigUtil.loadConfig();
         // 加载语言文件
-        String language = BaseConstants.CONFIG.getString("language");
-        HandyConfigUtil.loadLangConfig(language, true);
+        HandyConfigUtil.loadLangConfig(true);
         // 加载菜单文件
         MENU_CONFIG_MAP = new HashMap<>();
         COMMAND_MAP = new HashMap<>();
@@ -37,7 +36,7 @@ public class ConfigUtil {
         PERMISSION_MAP = new HashMap<>();
         // 读取目录下菜单文件
         if (!HandyConfigUtil.exists("menu/")) {
-            HandyConfigUtil.load("zh_CN".equalsIgnoreCase(language) ? "menu/menu.yml" : "menu/example.yml");
+            HandyConfigUtil.load("zh_CN".equalsIgnoreCase(BaseConstants.CONFIG.getString("language")) ? "menu/menu.yml" : "menu/example.yml");
         }
         // 读取目录下菜单文件
         MENU_CONFIG_MAP = HandyConfigUtil.loadDirectory("menu/");
@@ -70,6 +69,8 @@ public class ConfigUtil {
         // 1.1.3 添加快捷键F操作
         HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "shift.F.enable", false, Collections.singletonList("是否开启"), "config.yml");
         HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "shift.F.menu", "menu.yml", Collections.singletonList("使用Shift+F打开的菜单"), "config.yml");
+        // 1.6.2
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "autoCreateId", true, Collections.singletonList("使用指令/plm create创建菜单是否自动生成ID"), "config.yml");
         HandyConfigUtil.loadConfig();
         // 1.1.7
         String language = "languages/" + BaseConstants.CONFIG.getString("language") + ".yml";

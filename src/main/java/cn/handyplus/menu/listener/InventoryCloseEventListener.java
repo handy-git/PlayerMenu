@@ -1,6 +1,7 @@
 package cn.handyplus.menu.listener;
 
 import cn.handyplus.lib.annotation.HandyListener;
+import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.constants.VersionCheckEnum;
 import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.core.JsonUtil;
@@ -218,7 +219,8 @@ public class InventoryCloseEventListener implements Listener {
                     }
                 }
             }
-            if (createMenuItem.get("id") == null) {
+            // 自动创建id
+            if (createMenuItem.get("id") == null && BaseConstants.CONFIG.getBoolean("autoCreateId")) {
                 MenuItem menuItem = new MenuItem();
                 menuItem.setItemStack(ItemStackUtil.itemStackSerialize(item));
                 int menuItemId = MenuItemService.getInstance().add(menuItem);
