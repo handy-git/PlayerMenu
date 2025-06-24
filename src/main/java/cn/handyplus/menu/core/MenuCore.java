@@ -28,6 +28,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -115,8 +116,9 @@ public class MenuCore {
         String content = CommandTypeEnum.replaceFirst(command, commandTypeEnum);
         switch (commandTypeEnum) {
             case DELAY:
-                Integer delay = NumberUtil.isNumericToInt(content, 0);
-                HandySchedulerUtil.runTaskLater(() -> executeCommand(player, commands, handyInventory, index + 1), delay * 20);
+                BigDecimal delay = NumberUtil.isNumericToBigDecimal(content, BigDecimal.ZERO);
+                BigDecimal result = delay.multiply(new BigDecimal(20));
+                HandySchedulerUtil.runTaskLater(() -> executeCommand(player, commands, handyInventory, index + 1), result.longValue());
                 return;
             case MESSAGE:
                 MessageUtil.sendMessage(player, content);
