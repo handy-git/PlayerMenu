@@ -92,6 +92,7 @@ public class MenuGui {
      */
     private void setFunctionMenu(HandyInventory handyInventory) {
         Inventory inventory = handyInventory.getInventory();
+        handyInventory.getObjMap().clear();
         Map<Integer, Object> objMap = handyInventory.getObjMap();
         Player player = handyInventory.getPlayer();
         String papiName = handyInventory.getSearchType();
