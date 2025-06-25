@@ -101,6 +101,7 @@ public class ConfigUtil {
         HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "clickOperatorReason", "&7玩家点击菜单按钮 &a${name}", null, language);
         // 1.5.8
         HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "clearSucceedMsg", "&a清理成功,本次清理ID: ${id}", null, language);
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "noInput", "&8[&c✘&8] &7禁止输入该内容 %", null, language);
         HandyConfigUtil.loadLangConfig(true);
     }
 

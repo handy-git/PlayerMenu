@@ -41,7 +41,11 @@ public class AsyncPlayerChatEventListener implements Listener {
         event.setCancelled(true);
         InputTypeEnum inputTypeEnum = InputTypeEnum.contains(menuButtonParam.getInput());
         String message = event.getMessage();
-        message = message.replace("%", "");
+        // 禁止输入%
+        if (message.contains("%")) {
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noInput"));
+            return;
+        }
         if (InputTypeEnum.NUMBER.equals(inputTypeEnum)) {
             Optional<BigDecimal> numericOpt = NumberUtil.isNumericToBigDecimal(message);
             if (!numericOpt.isPresent()) {
