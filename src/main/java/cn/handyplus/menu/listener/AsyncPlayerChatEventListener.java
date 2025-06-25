@@ -41,6 +41,7 @@ public class AsyncPlayerChatEventListener implements Listener {
         event.setCancelled(true);
         InputTypeEnum inputTypeEnum = InputTypeEnum.contains(menuButtonParam.getInput());
         String message = event.getMessage();
+        message = message.replace("%", "");
         if (InputTypeEnum.NUMBER.equals(inputTypeEnum)) {
             Optional<BigDecimal> numericOpt = NumberUtil.isNumericToBigDecimal(message);
             if (!numericOpt.isPresent()) {
