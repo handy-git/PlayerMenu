@@ -35,7 +35,7 @@ public class PlayerCommandPreprocessEventListener implements Listener {
         }
         Player player = event.getPlayer();
         event.setCancelled(true);
-        MenuUtil.openGui(player, menu, param.length > 1 ? param[1] : null);
+        MenuUtil.asyncOpenGui(player, menu, param.length > 1 ? param[1] : null);
     }
 
 }

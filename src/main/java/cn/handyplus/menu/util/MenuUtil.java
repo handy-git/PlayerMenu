@@ -51,8 +51,8 @@ public class MenuUtil {
      * @param player 玩家
      * @param menu   菜单
      */
-    public static void openGui(Player player, String menu) {
-        openGui(player, menu, null);
+    public static void asyncOpenGui(Player player, String menu) {
+        asyncOpenGui(player, menu, null);
     }
 
     /**
@@ -63,7 +63,7 @@ public class MenuUtil {
      * @param papiName 变量玩家
      * @since 1.3.0
      */
-    public static void openGui(Player player, String menu, String papiName) {
+    public static void asyncOpenGui(Player player, String menu, String papiName) {
         HandySchedulerUtil.runTaskAsynchronously(() -> {
             // 判断是否在公会战
             if (PlayerMenu.USE_GUILD && PlayerGuildApi.isPvp(player)) {

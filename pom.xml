@@ -7,7 +7,7 @@
     <groupId>cn.handyplus.menu</groupId>
     <name>PlayerMenu</name>
     <artifactId>PlayerMenu</artifactId>
-    <version>1.6.4</version>
+    <version>1.6.5</version>
     <description>一个有点好用的玩家菜单插件</description>
 
     <properties>
@@ -15,11 +15,11 @@
         <spigot-api.vesion>1.21.6-R0.1-SNAPSHOT</spigot-api.vesion>
         <lombok.version>1.18.38</lombok.version>
         <annotations.version>26.0.2</annotations.version>
-        <HandyLib.version>3.21.7</HandyLib.version>
+        <HandyLib.version>3.22.0</HandyLib.version>
         <VaultAPI.vesion>1.7</VaultAPI.vesion>
-        <PlayerPoints.version>3.2.7</PlayerPoints.version>
-        <PlayerGuild.version>2.0.0</PlayerGuild.version>
-        <PlayerCurrency.version>1.1.7</PlayerCurrency.version>
+        <PlayerPoints.version>3.3.2</PlayerPoints.version>
+        <PlayerGuild.version>2.6.3</PlayerGuild.version>
+        <PlayerCurrency.version>1.1.8</PlayerCurrency.version>
         <placeholderapi.version>2.11.6</placeholderapi.version>
     </properties>
 

@@ -156,7 +156,7 @@ public class MenuCore {
                 BcUtil.tpConnect(player, content);
                 break;
             case OPEN:
-                MenuUtil.openGui(player, content);
+                MenuUtil.asyncOpenGui(player, content);
                 break;
             case REFRESH:
                 if (handyInventory != null) {

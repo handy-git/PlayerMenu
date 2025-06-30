@@ -40,7 +40,7 @@ public class AdminOpenCommand implements IHandyCommandEvent {
         }
         // 是否为玩家
         Player player = onlinePlayerOpt.get();
-        MenuUtil.openGui(player, args[1], args.length > 3 ? args[3] : null);
+        MenuUtil.asyncOpenGui(player, args[1], args.length > 3 ? args[3] : null);
     }
 
 }

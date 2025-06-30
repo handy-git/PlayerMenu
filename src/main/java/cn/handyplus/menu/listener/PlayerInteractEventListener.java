@@ -73,7 +73,7 @@ public class PlayerInteractEventListener implements Listener {
             }
             clockMenu = menu;
         }
-        MenuUtil.openGui(player, clockMenu);
+        MenuUtil.asyncOpenGui(player, clockMenu);
     }
 
 }
