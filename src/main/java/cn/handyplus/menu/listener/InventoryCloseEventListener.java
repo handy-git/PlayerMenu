@@ -77,7 +77,7 @@ public class InventoryCloseEventListener implements Listener {
             ItemMeta itemMeta = ItemStackUtil.getItemMeta(item);
             Map<String, Object> createMenuItem = new LinkedHashMap<>();
             createMenuItem.put("index", i);
-            createMenuItem.put("name", BaseUtil.getDisplayName(itemMeta.getDisplayName(), item.getType().name()));
+            createMenuItem.put("name", BaseUtil.getDisplayName(item));
             createMenuItem.put("material", item.getType().name());
             createMenuItem.put("lore", itemMeta.getLore());
             createMenuItem.put("isEnchant", false);
