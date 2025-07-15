@@ -1,76 +1,83 @@
-# 沒權限時候提醒
-noPermission: '&c你沒有權限執行此命令...'
+# 無權限提醒
+noPermission: '&c你沒有權限執行此指令...'
 
-# 重載插件提醒
-reloadMsg: '&a插件重載完畢...'
+# 插件重載提醒
+reloadMsg: '&a插件重載完成...'
 
-# placeholderAPI提醒
-placeholderAPISucceedMsg: '&a已成功加載placeholderApi'
-placeholderAPIFailureMsg: '&7你的服務端沒有安裝PlaceholderApi哦 未啟用自定義變量功能'
+# PlaceholderAPI提醒
+placeholderAPISucceedMsg: '&a成功載入PlaceholderAPI'
+placeholderAPIFailureMsg: '&7你的伺服器未安裝PlaceholderAPI 自定義變數功能未啟用'
 
-# vault提醒
-vaultSucceedMsg: '&a已成功加載Vault 啟用經濟相關功能'
-vaultFailureMsg: '&7你的服務端沒有安裝Vault 未啟用經濟相關功能'
+# Vault提醒
+vaultSucceedMsg: '&a成功載入Vault 經濟功能已啟用'
+vaultFailureMsg: '&7你的伺服器未安裝Vault 經濟功能未啟用'
 
 # PlayerPoints提醒
-playerPointsSucceedMsg: '&a已成功加載PlayerPoints 啟用點券相關功能'
-playerPointsFailureMsg: '&7你的服務端沒有安裝PlayerPoints 未啟用點券相關功能'
+playerPointsSucceedMsg: '&a成功載入PlayerPoints 點券功能已啟用'
+playerPointsFailureMsg: '&7你的伺服器未安裝PlayerPoints 點券功能未啟用'
 
 # PlayerGuild提醒
-playerGuildSucceedMsg: '&a已成功加載PlayerGuild 兼容公會功能'
-playerGuildFailureMsg: '&7你的服務端沒有安裝PlayerGuild 未兼容公會功能'
+playerGuildSucceedMsg: '&a成功載入PlayerGuild 公會相容功能已啟用'
+playerGuildFailureMsg: '&7你的伺服器未安裝PlayerGuild 公會相容功能未啟用'
 
 # PlayerCurrency提醒
-playerCurrencySucceedMsg: '&a已成功加載PlayerCurrency 啟用多貨幣經濟兼容'
-playerCurrencyFailureMsg: '&7你的服務端沒有安裝PlayerCurrency 未啟用多貨幣經濟兼容'
+playerCurrencySucceedMsg: '&a成功載入PlayerCurrency 多貨幣經濟相容已啟用'
+playerCurrencyFailureMsg: '&7你的伺服器未安裝PlayerCurrency 多貨幣經濟相容未啟用'
 
-# /plg help指令管理員出現的提醒
+# /plg help指令管理員提醒
 helps:
   - ''
   - ' &3Player&bMenu &8&l▪ &7米飯出品～'
   - ''
-  - ' &7命令: &f/plm &8[...]'
+  - ' &7指令: &f/plm &8[...]'
   - ' &7參數:'
-  - '   &8&l- &f reload   &7重載配置文件'
-  - '   &8&l- &f create &8[&7大小&8]   &7創建菜單'
-  - '   &8&l- &f adminOpen &8[&7菜單名&8] (玩家名) (變量來源玩家名)  &7給玩家打開對應菜單界面'
-  - '   &8&l- &f open &8[&7菜單名&8] (變量來源玩家名)  &7打開菜單界面'
-  - '   &8&l- &f view &8[&7菜單名&8]    &7編輯菜單界面'
+  - '   &8&l- &f reload   &7重載設定檔'
+  - '   &8&l- &f create &8[&7大小&8]   &7創建選單'
+  - '   &8&l- &f adminOpen &8[&7選單名&8] (玩家) (變數來源)  &7為玩家開啟選單'
+  - '   &8&l- &f open &8[&7選單名&8] (變數來源)  &7開啟選單'
+  - '   &8&l- &f view &8[&7選單名&8]    &7編輯選單'
   - '   &8&l- &f getMaterial      &7獲取手持物品材質'
-  - '   &8&l- &f close      &7關閉任意菜單'
-  - '   &8&l- &f clock      &7獲取時鐘菜單'
-  - '&8&l- &f clear &8[&7ID&8] &7清理限購數據'
+  - '   &8&l- &f close      &7關閉任何選單'
+  - '   &8&l- &f clock      &7獲取時鐘選單'
+  - '   &8&l- &f clear &8[&7ID&8]    &7清除限購資料'
 
-succeedMsg: '&a命令執行成功.'
-failureMsg: '&c命令執行失敗.'
-versionFailureMsg: '&8[&c✘&8] &4服務端版本小於1.14,無法使用該指令'
-paramFailureMsg: '&8[&c✘&8] &4參數錯誤'
-noPlayerFailureMsg: '&c該命令只能玩家執行.'
+succeedMsg: '&a指令執行成功.'
+failureMsg: '&c指令執行失敗.'
+versionFailureMsg: '&8[&c✘&8] &4伺服器版本低於1.14,無法使用此指令'
+paramFailureMsg: '&8[&c✘&8] &4參數不全，請查閱文件補全參數'
+noPlayerFailureMsg: '&c此指令只能由玩家執行.'
 playerNotOnline: '&8[&c✘&8] &7玩家 &a${player} &7不在線'
-noMenu: '&8[&c✘&8] &7參數異常,沒有名為 &a${menu} &7的菜單'
-noSize: '&8[&c✘&8] &7gui大小必須為整數'
-noMoney: '&8[&c✘&8] &7金幣不足,無法使用'
-noBalance: '&8[&c✘&8] &7${type}不足,無法使用'
-noPoint: '&8[&c✘&8] &7點券不足,無法使用'
+noMenu: '&8[&c✘&8] &7參數異常,沒有名為 &a${menu} &7的選單'
+noSize: '&8[&c✘&8] &7GUI大小必須為整數'
+noMoney: '&8[&c✘&8] &7金幣不足'
+noBalance: '&8[&c✘&8] &7${type}&7不足'
+noPoint: '&8[&c✘&8] &7點券不足'
 noItem: '&8[&c✘&8] &7物品不足,出售失敗'
-sellMsg: '&8[&a✔&8] &7你成功出售了&a${number}&7個&a${name}&7，獲得了&a${price}'
-buyMsg: '&8[&a✔&8] &7你成功購買了&a${number}&7個&a${name}&7，花費了&a${price}'
-noLimit: '&8[&c✘&8] &7次數不足,無法使用'
-noTimeLimit: '&8[&c✘&8] &7需等待&a${time}&7秒,才可使用'
-errorCondition: '&8[&c✘&8] &7條件格式異常,無法使用'
-createMsg: ' &8[&a✔&8] &7菜單配置成功'
-noOpenPermission: '&8[&c✘&8] &7無法打開該菜單,你沒有權限 ${permission}'
-noOpenCondition: '&8[&c✘&8] &7無法打開該菜單,你沒有滿足要求'
-noOpenWorldPermission: '&8[&c✘&8] &7這個世界無法打開該菜單'
-noOpenPvpPermission: '&8[&c✘&8] &7正在進行公會戰無法打開該菜單'
-addItemMsg: '&8[&a!&8] &a背包不足，多余物品已掉落在地上請盡快撿起'
+sellMsg: '&8[&a✔&8] &7你成功出售了&a${number}&7個&a${name}&7,獲得了&a${price}${type}'
+buyMsg: '&8[&a✔&8] &7你成功購買了&a${number}&7個&a${name}&7,花費了&a${price}${type}'
+noLimit: '&8[&c✘&8] &7次數不足'
+noTimeLimit: '&8[&c✘&8] &7需等待&a${time}&7秒'
+errorCondition: '&8[&c✘&8] &7條件格式異常'
+createMsg: '&8[&a✔&8] &7選單設定成功'
+noOpenPermission: '&8[&c✘&8] &7無權限開啟選單: ${permission}'
+noOpenCondition: '&8[&c✘&8] &7未滿足開啟選單條件'
+noOpenWorldPermission: '&8[&c✘&8] &7此世界無法開啟選單'
+noOpenPvpPermission: '&8[&c✘&8] &7公會戰期間無法開啟選單'
+addItemMsg: '&8[&a!&8] &a背包已滿，多餘物品已掉落'
 noNumber: '&8[&c✘&8] &7請輸入數字'
 noInput: '&8[&c✘&8] &7禁止輸入該內容 %'
-clockFailureMsg: '&8[&c✘&8] &7你已經擁有菜單了'
-clockSucceedMsg: '&8[&a✔&8] &7領取菜單成功'
-sellOperatorReason: '&7玩家出售 &a${number} &7個物品 &a${name}'
-buyOperatorReason: '&7玩家購買 &a${number} &7個物品 &a${name}'
-clickOperatorReason: '&7玩家點擊菜單按鈕 &a${name}'
-clearSucceedMsg: "&a清理成功，本次清理ID: ${id}"
+clockFailureMsg: '&8[&c✘&8] &7你已經擁有選單了'
+clockSucceedMsg: '&8[&a✔&8] &7領取選單成功'
+sellOperatorReason: '&8[&a✔&8] &7玩家出售 &a${number} &7個物品 &a${name}'
+buyOperatorReason: '&8[&a✔&8] &7玩家購買 &a${number} &7個物品 &a${name}'
+clickOperatorReason: '&8[&a✔&8] &7玩家點擊選單按鈕 &a${name}'
+clearSucceedMsg: "&8[&a✔&8] &7清除成功,本次清除ID: ${id}"
+addMenuItemMsg: "&8[&a✔&8] &7新增成功,ID: ${id}"
+getMenuItemMsg: "&8[&c✘&8] &7不存在ID: ${id}"
 money: "&7金幣"
 point: "&7點券"
+
+# 指令tab自動補全幫助(僅翻譯)
+tabHelp:
+  id: "請輸入ID"
+  number: "請輸入數量"

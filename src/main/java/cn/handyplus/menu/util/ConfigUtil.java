@@ -98,10 +98,15 @@ public class ConfigUtil {
         // 1.5.2
         HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "clockFailureMsg", "&8[&c✘&8] &7你已经拥有菜单了", null, language);
         // 1.5.6
-        HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "clickOperatorReason", "&7玩家点击菜单按钮 &a${name}", null, language);
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "clickOperatorReason", "&8[&a✔&8] &7玩家点击菜单按钮 &a${name}", null, language);
         // 1.5.8
-        HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "clearSucceedMsg", "&a清理成功,本次清理ID: ${id}", null, language);
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "clearSucceedMsg", "&8[&a✔&8] &7清理成功,本次清理ID: ${id}", null, language);
         HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "noInput", "&8[&c✘&8] &7禁止输入该内容 %", null, language);
+        // 1.6.6
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "addMenuItemMsg", "&8[&a✔&8] &7新增成功,ID: ${id}", null, language);
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "getMenuItemMsg", "&8[&c✘&8] &7不存在ID: ${id}", null, language);
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "tabHelp.id", "请输入ID", null, language);
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "tabHelp.number", "请输入数量", null, language);
         HandyConfigUtil.loadLangConfig(true);
     }
 

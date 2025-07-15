@@ -39,17 +39,17 @@ public class PlayerCurrencyUtil {
      * @param type   类型
      * @param price  价格
      */
-    public static boolean give(Player player, String type, long price, String operatorReason) {
+    public static void give(Player player, String type, long price, String operatorReason) {
         if (price == 0) {
-            return false;
+            return;
         }
         // 多经济是否加载
         if (!PlayerMenu.USE_PLY) {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("playerCurrencyFailureMsg"));
-            return false;
+            return;
         }
         // 给予余额
-        return PlayerCurrencyApi.give(player.getUniqueId(), type, price, "PlayerMenu", operatorReason);
+        player.getUniqueId();
     }
 
     /**

@@ -66,7 +66,6 @@ public class PlayerMenuCommand implements TabExecutor {
         for (String help : helps) {
             MessageUtil.sendMessage(sender, help);
         }
-        return;
     }
 
 }

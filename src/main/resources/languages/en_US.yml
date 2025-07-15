@@ -1,77 +1,83 @@
-# No permission message
+# No permission reminder
 noPermission: '&cYou do not have permission to execute this command...'
 
-# Reload plugin message
+# Plugin reload reminder
 reloadMsg: '&aPlugin reloaded successfully...'
 
-# PlaceholderAPI messages
-placeholderAPISucceedMsg: '&aPlaceholderAPI loaded successfully'
-placeholderAPIFailureMsg: '&7PlaceholderAPI is not installed on your server, custom variables are not enabled'
+# PlaceholderAPI reminders
+placeholderAPISucceedMsg: '&aSuccessfully loaded PlaceholderAPI'
+placeholderAPIFailureMsg: '&7Your server does not have PlaceholderAPI installed. Custom variable functionality disabled'
 
-# Vault messages
-vaultSucceedMsg: '&aVault loaded successfully, enabling economy-related features'
-vaultFailureMsg: '&7Vault is not installed on your server, economy-related features are disabled'
+# Vault reminders
+vaultSucceedMsg: '&aSuccessfully loaded Vault. Economy features enabled'
+vaultFailureMsg: '&7Your server does not have Vault installed. Economy features disabled'
 
-# PlayerPoints messages
-playerPointsSucceedMsg: '&aPlayerPoints loaded successfully, enabling points-related features'
-playerPointsFailureMsg: '&7PlayerPoints is not installed on your server, points-related features are disabled'
+# PlayerPoints reminders
+playerPointsSucceedMsg: '&aSuccessfully loaded PlayerPoints. Point currency features enabled'
+playerPointsFailureMsg: '&7Your server does not have PlayerPoints installed. Point currency features disabled'
 
-# PlayerGuild messages
-playerGuildSucceedMsg: '&aPlayerGuild loaded successfully, guild-related features enabled'
-playerGuildFailureMsg: '&7PlayerGuild is not installed on your server, guild-related features are not enabled'
+# PlayerGuild reminders
+playerGuildSucceedMsg: '&aSuccessfully loaded PlayerGuild. Guild compatibility enabled'
+playerGuildFailureMsg: '&7Your server does not have PlayerGuild installed. Guild compatibility disabled'
 
-# PlayerCurrency messages
-playerCurrencySucceedMsg: '&aPlayerCurrency loaded successfully, multi-currency economy compatibility enabled'
-playerCurrencyFailureMsg: '&7PlayerCurrency is not installed on your server, multi-currency economy compatibility is disabled'
+# PlayerCurrency reminders
+playerCurrencySucceedMsg: '&aSuccessfully loaded PlayerCurrency. Multi-currency economy enabled'
+playerCurrencyFailureMsg: '&7Your server does not have PlayerCurrency installed. Multi-currency economy disabled'
 
-# /plg help command administrator message
+# /plg help command admin reminders
 helps:
   - ''
-  - ' &3Player&bMenu &8&l▪ &7RiceCraft Production～'
+  - ' &3Player&bMenu &8&l▪ &7By Rice~'
   - ''
   - ' &7Command: &f/plm &8[...]'
   - ' &7Parameters:'
-  - '   &8&l- &f reload   &7Reload the configuration file'
-  - '   &8&l- &f create &8[&7Size&8]   &7Create a menu'
-  - '   &8&l- &f adminOpen &8[&7Menu Name&8] (Player Name) (Variable Source Player Name)  &7Open the specified menu for a player'
-  - '   &8&l- &f open &8[&7Menu Name&8] (Variable Source Player Name)  &7Open the menu interface'
-  - '   &8&l- &f view &8[&7Menu Name&8]    &7Edit the menu interface'
-  - '   &8&l- &f getMaterial      &7Get the material of the item in hand'
+  - '   &8&l- &f reload   &7Reload config'
+  - '   &8&l- &f create &8[&7size&8]   &7Create menu'
+  - '   &8&l- &f adminOpen &8[&7menu&8] (player) (variableSource)  &7Open menu for player'
+  - '   &8&l- &f open &8[&7menu&8] (variableSource)  &7Open menu'
+  - '   &8&l- &f view &8[&7menu&8]    &7Edit menu'
+  - '   &8&l- &f getMaterial      &7Get held item material'
   - '   &8&l- &f close      &7Close any menu'
-  - '   &8&l- &f clock      &7Get Clock Menu'
-  - '&8&l- &f clear &8[&7ID&8] &7Clear purchase limit data'
+  - '   &8&l- &f clock      &7Get clock menu'
+  - '   &8&l- &f clear &8[&7ID&8]    &7Clear purchase limit data'
 
-# General success and failure messages
 succeedMsg: '&aCommand executed successfully.'
 failureMsg: '&cCommand execution failed.'
-versionFailureMsg: '&8[&c✘&8] &4Server version is lower than 1.14, this command cannot be used'
-paramFailureMsg: '&8[&c✘&8] &4Incorrect parameters'
+versionFailureMsg: '&8[&c✘&8] &4Server version below 1.14, command unavailable'
+paramFailureMsg: '&8[&c✘&8] &4Incomplete parameters, please check documentation'
 noPlayerFailureMsg: '&cThis command can only be executed by players.'
-playerNotOnline: '&8[&c✘&8] &7Player &a${player} &7is not online'
+playerNotOnline: '&8[&c✘&8] &7Player &a${player} &7is offline'
 noMenu: '&8[&c✘&8] &7Invalid parameter, no menu named &a${menu}'
-noSize: '&8[&c✘&8] &7The GUI size must be an integer'
-noMoney: '&8[&c✘&8] &7Insufficient money, operation failed'
-noBalance: '&8[&c✘&8] &7Insufficient ${type}, operation failed'
-noPoint: '&8[&c✘&8] &7Insufficient points, operation failed'
-noItem: '&8[&c✘&8] &7Not enough items, sale failed'
-sellMsg: '&8[&a✔&8] &7You successfully sold &a${number}&7 items of &a${name}&7, and earned &a${price}'
-buyMsg: '&8[&a✔&8] &7You successfully bought &a${number}&7 items of &a${name}&7, and spent &a${price}'
-noLimit: '&8[&c✘&8] &7Insufficient attempts, operation failed'
-noTimeLimit: '&8[&c✘&8] &7Please wait &a${time}&7 seconds to use this again'
-errorCondition: '&8[&c✘&8] &7Invalid condition format, operation failed'
-createMsg: ' &8[&a✔&8] &7Menu configured successfully'
-noOpenPermission: '&8[&c✘&8] &7Cannot open this menu, you lack the required permission ${permission}'
-noOpenCondition: '&8[&c✘&8] &7Cannot open this menu, conditions not met'
-noOpenWorldPermission: '&8[&c✘&8] &7This menu cannot be opened in this world'
-noOpenPvpPermission: '&8[&c✘&8] &7Cannot open this menu during a guild war'
-addItemMsg: '&8[&a!&8] &aInsufficient inventory space, excess items have dropped on the ground. Please pick them up quickly.'
+noSize: '&8[&c✘&8] &7GUI size must be integer'
+noMoney: '&8[&c✘&8] &7Insufficient coins'
+noBalance: '&8[&c✘&8] &7Insufficient &7${type}'
+noPoint: '&8[&c✘&8] &7Insufficient points'
+noItem: '&8[&c✘&8] &7Insufficient items, sale failed'
+sellMsg: '&8[&a✔&8] &7Sold &a${number}&7x &a${name}&7 for &a${price}${type}'
+buyMsg: '&8[&a✔&8] &7Purchased &a${number}&7x &a${name}&7 for &a${price}${type}'
+noLimit: '&8[&c✘&8] &7Usage limit reached'
+noTimeLimit: '&8[&c✘&8] &7Please wait &a${time}&7 seconds'
+errorCondition: '&8[&c✘&8] &7Invalid condition format'
+createMsg: '&8[&a✔&8] &7Menu configured successfully'
+noOpenPermission: '&8[&c✘&8] &7No permission to open menu: ${permission}'
+noOpenCondition: '&8[&c✘&8] &7Requirements not met to open menu'
+noOpenWorldPermission: '&8[&c✘&8] &7Cannot open menu in this world'
+noOpenPvpPermission: '&8[&c✘&8] &7Cannot open menu during guild war'
+addItemMsg: '&8[&a!&8] &aInventory full, excess items dropped'
 noNumber: '&8[&c✘&8] &7Please enter a number'
-noInput: '&8[&8[&c✘&8] &7Input not allowed %'
-clockFailureMsg: '&8[&c✘&8] &7You already have the menu.'
-clockSucceedMsg: '&8[&a✔&8] &7Successfully received the menu'
-sellOperatorReason: '&7The player sold &a${number} &7items of &a${name}'
-buyOperatorReason: '&7The player bought &a${number} &7items of &a${name}'
-clickOperatorReason: '&7Player clicked menu button &a${name}'
-clearSucceedMsg: "&aCleanup successful, this cleanup ID: ${id}"
-money: "&7Gold"
+noInput: '&8[&c✘&8] &7Input not allowed %'
+clockFailureMsg: '&8[&c✘&8] &7You already have a menu'
+clockSucceedMsg: '&8[&a✔&8] &7Menu received successfully'
+sellOperatorReason: '&8[&a✔&8] &7Player sold &a${number} &7x &a${name}'
+buyOperatorReason: '&8[&a✔&8] &7Player bought &a${number} &7x &a${name}'
+clickOperatorReason: '&8[&a✔&8] &7Player clicked menu button &a${name}'
+clearSucceedMsg: "&8[&a✔&8] &7Cleared successfully, ID: ${id}"
+addMenuItemMsg: "&8[&a✔&8] &7Added successfully, ID: ${id}"
+getMenuItemMsg: "&8[&c✘&8] &7ID not found: ${id}"
+money: "&7Coins"
 point: "&7Points"
+
+# Tab completion help (translation only)
+tabHelp:
+  id: "Enter ID"
+  number: "Enter quantity"

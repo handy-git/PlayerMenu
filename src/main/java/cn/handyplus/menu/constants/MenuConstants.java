@@ -30,14 +30,14 @@ public class MenuConstants {
      *
      * @since 1.3.7
      */
-    public static Map<UUID, MenuButtonParam> INPUT_MENU_MAP = new HashMap<>();
+    public final static Map<UUID, MenuButtonParam> INPUT_MENU_MAP = new HashMap<>();
 
     /**
      * 玩家输入值
      *
      * @since 1.3.7
      */
-    public static Map<UUID, String> PLAYER_INPUT_MAP = new HashMap<>();
+    public final static Map<UUID, String> PLAYER_INPUT_MAP = new HashMap<>();
 
     /**
      * 玩家出售

@@ -60,15 +60,15 @@ public class PlayerMenu extends JavaPlugin {
         for (String lord : lordList) {
             MessageUtil.sendConsoleMessage(ChatColor.DARK_AQUA + lord);
         }
-        initApi.initCommand("cn.handyplus.menu.command")
+        initApi.addMetrics(14034)
+                .initCommand("cn.handyplus.menu.command")
                 .initListener("cn.handyplus.menu.listener")
                 .initClickEvent("cn.handyplus.menu.listener.gui")
                 .enableSql("cn.handyplus.menu.enter")
                 .enableBc()
-                .addMetrics(14034)
                 .checkVersion();
         MessageUtil.sendConsoleMessage(ChatColor.GREEN + "已成功载入服务器！");
-        MessageUtil.sendConsoleMessage(ChatColor.GREEN + "Author:handy 使用文档: https://ricedoc.handyplus.cn/wiki/PlayerMenu/README/");
+        MessageUtil.sendConsoleMessage(ChatColor.GREEN + "Author:handy WIKI: https://ricedoc.handyplus.cn/wiki/PlayerMenu/README/");
     }
 
     @Override

@@ -40,11 +40,13 @@ helps:
   - '   &8&l- &f close      &7关闭任意菜单'
   - '   &8&l- &f clock      &7获取时钟菜单'
   - '   &8&l- &f clear &8[&7ID&8]    &7清理限购数据'
+  - '   &8&l- &f getItem &8[&7ID&8] &8(&7数量&8)    &7获取菜单物品'
+  - '   &8&l- &f addItem    &7新增菜单物品'
 
 succeedMsg: '&a命令执行成功.'
 failureMsg: '&c命令执行失败.'
 versionFailureMsg: '&8[&c✘&8] &4服务端版本小于1.14,无法使用该指令'
-paramFailureMsg: '&8[&c✘&8] &4参数错误'
+paramFailureMsg: '&8[&c✘&8] &4参数不全,请查阅文档补全参数'
 noPlayerFailureMsg: '&c该命令只能玩家执行.'
 playerNotOnline: '&8[&c✘&8] &7玩家 &a${player} &7不在线'
 noMenu: '&8[&c✘&8] &7参数异常,没有名为 &a${menu} &7的菜单'
@@ -68,9 +70,16 @@ noNumber: '&8[&c✘&8] &7请输入数字'
 noInput: '&8[&c✘&8] &7禁止输入该内容 %'
 clockFailureMsg: '&8[&c✘&8] &7你已经拥有菜单了'
 clockSucceedMsg: '&8[&a✔&8] &7领取菜单成功'
-sellOperatorReason: '&7玩家出售 &a${number} &7个物品 &a${name}'
-buyOperatorReason: '&7玩家购买 &a${number} &7个物品 &a${name}'
-clickOperatorReason: '&7玩家点击菜单按钮 &a${name}'
-clearSucceedMsg: "&a清理成功,本次清理ID: ${id}"
+sellOperatorReason: '&8[&a✔&8] &7玩家出售 &a${number} &7个物品 &a${name}'
+buyOperatorReason: '&8[&a✔&8] &7玩家购买 &a${number} &7个物品 &a${name}'
+clickOperatorReason: '&8[&a✔&8] &7玩家点击菜单按钮 &a${name}'
+clearSucceedMsg: "&8[&a✔&8] &7清理成功,本次清理ID: ${id}"
+addMenuItemMsg: "&8[&a✔&8] &7新增成功,ID: ${id}"
+getMenuItemMsg: "&8[&c✘&8] &7不存在ID: ${id}"
 money: "&7金币"
 point: "&7点券"
+
+# 用于输入指令时候tab自动提醒帮助(只建议翻译,不建议更改)
+tabHelp:
+  id: "请输入ID"
+  number: "请输入数量"
