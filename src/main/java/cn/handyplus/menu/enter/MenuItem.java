@@ -20,4 +20,8 @@ public class MenuItem {
 
     @TableField(value = "item_stack", comment = "物品", length = 20000, notNull = true)
     private String itemStack;
+
+    @TableField(value = "md5", comment = "md5")
+    private String md5;
+
 }

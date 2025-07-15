@@ -1,5 +1,6 @@
 package cn.handyplus.menu.service;
 
+import cn.handyplus.lib.core.SecureUtil;
 import cn.handyplus.lib.db.Db;
 import cn.handyplus.menu.enter.MenuItem;
 
@@ -31,7 +32,9 @@ public class MenuItemService {
      * @return 成功
      */
     public int add(MenuItem menuItem) {
-        Optional<MenuItem> menuItemOpt = this.findByItem(menuItem.getItemStack());
+        String md5 = SecureUtil.md5Str(menuItem.getItemStack());
+        menuItem.setMd5(md5);
+        Optional<MenuItem> menuItemOpt = this.findByMd5(md5);
         if (menuItemOpt.isPresent()) {
             return menuItemOpt.get().getId();
         }
@@ -51,13 +54,13 @@ public class MenuItemService {
     /**
      * 根据item查询
      *
-     * @param item 物品
+     * @param md5 md5
      * @return 成功
      * @since 1.6.6
      */
-    public Optional<MenuItem> findByItem(String item) {
+    public Optional<MenuItem> findByMd5(String md5) {
         Db<MenuItem> use = Db.use(MenuItem.class);
-        use.where().eq(MenuItem::getItemStack, item);
+        use.where().eq(MenuItem::getMd5, md5);
         return use.execution().selectOne();
     }
 
@@ -80,7 +83,8 @@ public class MenuItemService {
      */
     public void updateItemStack(String itemStack, Integer id) {
         Db<MenuItem> use = Db.use(MenuItem.class);
-        use.update().set(MenuItem::getItemStack, itemStack);
+        use.update().set(MenuItem::getItemStack, itemStack)
+                .set(MenuItem::getMd5, SecureUtil.md5Str(itemStack));
         use.execution().updateById(id);
     }
 
