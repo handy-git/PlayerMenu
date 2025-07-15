@@ -36,14 +36,34 @@ jobs:
       - name: Build with Maven
         run: mvn --batch-mode clean install
 
+      - name: Extract Maven version
+        id: version
+        run: |
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Find built JAR
         id: find-jar
         run: |
           JAR_PATH=$(find target -name '*.jar' | grep -v 'original' | head -n 1)
           echo "JAR_PATH=$JAR_PATH" >> $GITHUB_ENV
+          echo "jar_path=$JAR_PATH" >> $GITHUB_OUTPUT
 
-      - name: Upload JAR file
+      - name: Upload JAR to Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: PlayerMenu Artifacts
+          name: PlayerMenu-${{ env.VERSION }}.jar
           path: ${{ env.JAR_PATH }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: github.event_name == 'push'
+        with:
+          tag_name: v${{ env.VERSION }}
+          name: Release v${{ env.VERSION }}
+          body: |
+            Commit: ${{ github.event.head_commit.message }}
+          files: ${{ env.JAR_PATH }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
