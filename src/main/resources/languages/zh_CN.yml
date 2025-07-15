@@ -42,6 +42,7 @@ helps:
   - '   &8&l- &f clear &8[&7ID&8]    &7清理限购数据'
   - '   &8&l- &f getItem &8[&7ID&8] &8(&7数量&8) &8(&7玩家&8)  &7获取菜单物品'
   - '   &8&l- &f addItem    &7新增菜单物品'
+  - "   &8&l- &f convert [MySQL|SQLite]  &7转换数据"
 
 succeedMsg: '&a命令执行成功.'
 failureMsg: '&c命令执行失败.'

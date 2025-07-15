@@ -1,5 +1,6 @@
 package cn.handyplus.menu.constants;
 
+import cn.handyplus.lib.db.DbTypeEnum;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.menu.service.MenuLimitService;
 import cn.handyplus.menu.util.ConfigUtil;
@@ -22,7 +23,7 @@ public enum TabListEnum {
     /**
      * 第一层提醒
      */
-    FIRST(Arrays.asList("reload", "open", "getMaterial", "create", "view", "close", "adminOpen", "clock", "clear", "addItem", "getItem"), 0, null, 1),
+    FIRST(Arrays.asList("reload", "open", "getMaterial", "create", "view", "close", "adminOpen", "clock", "clear", "addItem", "getItem", "convert"), 0, null, 1),
 
     CREATE_TWO(Arrays.asList("9", "18", "27", "36", "45", "54"), 1, "create", 2),
 
@@ -39,6 +40,8 @@ public enum TabListEnum {
     GET_ITEM_TWO(Collections.singletonList(BaseUtil.getLangMsg("tabHelp.id")), 1, "getItem", 2),
     GET_ITEM_THREE(Collections.singletonList(BaseUtil.getLangMsg("tabHelp.name")), 1, "getItem", 3),
     GET_ITEM_FOUR(null, 1, "getItem", 4),
+
+    CONVERT_ONE(DbTypeEnum.getEnum(), 1, "convert", 2),
     ;
 
     /**

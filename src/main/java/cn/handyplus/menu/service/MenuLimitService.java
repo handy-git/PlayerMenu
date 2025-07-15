@@ -137,6 +137,7 @@ public class MenuLimitService {
 
     /**
      * 根据菜单id清理数据
+     *
      * @param menuItemIds 菜单id
      * @since 1.5.8
      */
@@ -151,6 +152,7 @@ public class MenuLimitService {
 
     /**
      * 查询当前全部菜单id
+     *
      * @return 菜单id
      * @since 1.5.8
      */
@@ -160,6 +162,16 @@ public class MenuLimitService {
         use.where().groupBy(MenuLimit::getMenuItemId);
         List<MenuLimit> list = use.execution().list();
         return list.stream().map(menuLimit -> String.valueOf(menuLimit.getMenuItemId())).collect(Collectors.toList());
+    }
+
+    /**
+     * 查询全部
+     *
+     * @return list
+     * @since 1.6.6
+     */
+    public List<MenuLimit> findAll() {
+        return Db.use(MenuLimit.class).execution().list();
     }
 
 }

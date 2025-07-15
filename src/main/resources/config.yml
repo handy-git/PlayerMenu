@@ -39,3 +39,6 @@ isCheckUpdate: true
 
 # op登录时候是否发送更新提醒(Send update reminders to OPs on login)
 isCheckUpdateToOpMsg: true
+
+# 勿动!!!
+version: ""

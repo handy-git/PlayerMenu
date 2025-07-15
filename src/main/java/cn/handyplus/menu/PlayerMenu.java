@@ -6,6 +6,7 @@ import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.hook.PlaceholderUtil;
 import cn.handyplus.menu.util.ConfigUtil;
+import cn.handyplus.menu.util.UpUtil;
 import net.milkbowl.vault.economy.Economy;
 import org.black_ixx.playerpoints.PlayerPoints;
 import org.bukkit.ChatColor;
@@ -67,6 +68,9 @@ public class PlayerMenu extends JavaPlugin {
                 .enableSql("cn.handyplus.menu.enter")
                 .enableBc()
                 .checkVersion();
+
+        UpUtil.up();
+
         MessageUtil.sendConsoleMessage(ChatColor.GREEN + "已成功载入服务器！");
         MessageUtil.sendConsoleMessage(ChatColor.GREEN + "Author:handy WIKI: https://ricedoc.handyplus.cn/wiki/PlayerMenu/README/");
     }

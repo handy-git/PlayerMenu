@@ -26,6 +26,7 @@ permissions:
       playerMenu.clear: true
       playerMenu.getItem: true
       playerMenu.addItem: true
+      playerMenu.convert: true
   playerMenu.reload:
     description: 重新加载配置
     default: op
@@ -50,9 +51,15 @@ permissions:
   playerMenu.clock:
     description: 给玩家配置的菜单
     default: true
+  playerMenu.clear:
+    description: 清理数据
+    default: op
   playerMenu.getItem:
     description: 获取菜单物品
     default: op
   playerMenu.addItem:
     description: 新增菜单物品
+    default: op
+  playerMenu.convert:
+    description: 转化数据库
     default: op
