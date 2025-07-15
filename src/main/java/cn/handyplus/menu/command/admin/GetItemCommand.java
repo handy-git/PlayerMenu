@@ -39,8 +39,18 @@ public class GetItemCommand implements IHandyCommandEvent {
     @Override
     public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         AssertUtil.notTrue(args.length < 2, sender, BaseUtil.getMsgNotColor("paramFailureMsg"));
-        // 是否为玩家
-        Player player = AssertUtil.notPlayer(sender, BaseUtil.getMsgNotColor("noPlayerFailureMsg"));
+        // 获取玩家
+        Player player;
+        if (args.length > 3) {
+            Optional<Player> onlinePlayer = BaseUtil.getOnlinePlayer(args[3]);
+            if (!onlinePlayer.isPresent()) {
+                MessageUtil.sendMessage(sender, BaseUtil.getMsgNotColor("noPlayerFailureMsg"));
+                return;
+            }
+            player = onlinePlayer.get();
+        } else {
+            player = AssertUtil.notPlayer(sender, BaseUtil.getMsgNotColor("noPlayerFailureMsg"));
+        }
         Integer id = AssertUtil.isNumericToInt(args[1], sender, BaseUtil.getMsgNotColor("getMenuItemMsg"));
         Optional<MenuItem> menuItem = MenuItemService.getInstance().findById(id);
         if (!menuItem.isPresent()) {

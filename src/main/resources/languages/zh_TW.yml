@@ -40,6 +40,8 @@ helps:
   - '   &8&l- &f close      &7關閉任何選單'
   - '   &8&l- &f clock      &7獲取時鐘選單'
   - '   &8&l- &f clear &8[&7ID&8]    &7清除限購資料'
+  - '   &8&l- &f getItem &8[&7ID&8] &8(&7數量&8) &8(&7玩家&8)  &7獲取選單物品'
+  - '   &8&l- &f addItem    &7新增選單物品'
 
 succeedMsg: '&a指令執行成功.'
 failureMsg: '&c指令執行失敗.'

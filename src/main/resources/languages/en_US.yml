@@ -40,6 +40,8 @@ helps:
   - '   &8&l- &f close      &7Close any menu'
   - '   &8&l- &f clock      &7Get clock menu'
   - '   &8&l- &f clear &8[&7ID&8]    &7Clear purchase limit data'
+  - '   &8&l- &f getItem &8[&7ID&8] &8(&7quantity&8) &8(&7player&8)  &7Get menu item'
+  - '   &8&l- &f addItem    &7Add new menu item'
 
 succeedMsg: '&aCommand executed successfully.'
 failureMsg: '&cCommand execution failed.'
