@@ -38,7 +38,7 @@ public enum TabListEnum {
     CLEAR_TWO(new ArrayList<>(), 1, "clear", 2),
 
     GET_ITEM_TWO(Collections.singletonList(BaseUtil.getLangMsg("tabHelp.id")), 1, "getItem", 2),
-    GET_ITEM_THREE(Collections.singletonList(BaseUtil.getLangMsg("tabHelp.name")), 1, "getItem", 3),
+    GET_ITEM_THREE(Collections.singletonList(BaseUtil.getLangMsg("tabHelp.number")), 1, "getItem", 3),
     GET_ITEM_FOUR(null, 1, "getItem", 4),
 
     CONVERT_ONE(DbTypeEnum.getEnum(), 1, "convert", 2),
