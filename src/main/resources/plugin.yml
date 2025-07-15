@@ -4,7 +4,7 @@ version: 1.6.6
 author: handy
 api-version: 1.13
 website: https://ricedoc.handyplus.cn/wiki/PlayerMenu/log/
-softdepend: [ PlaceholderAPI,Vault,PlayerPoints,PlayerGuild,PlayerCurrency ]
+softdepend: [ PlaceholderAPI,Vault,PlayerPoints,PlayerGuild,PlayerCurrency,LEconomy,CMI ]
 description: 玩家菜单插件
 folia-supported: true
 commands:
