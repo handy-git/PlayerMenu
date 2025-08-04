@@ -37,7 +37,7 @@ public class ClearCommand implements IHandyCommandEvent {
     @Override
     public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // 参数是否正常
-        AssertUtil.notTrue(args.length < 2, sender, BaseUtil.getMsgNotColor("paramFailureMsg"));
+        AssertUtil.notTrue(args.length < 2, BaseUtil.getMsgNotColor("paramFailureMsg"));
         // 获取要清理的数据ID
         List<Integer> menuItemIds = StrUtil.strToIntList(args[1]);
         // 开始清理

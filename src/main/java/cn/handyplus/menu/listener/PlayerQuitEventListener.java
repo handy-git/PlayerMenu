@@ -44,6 +44,7 @@ public class PlayerQuitEventListener implements Listener {
     private void removeCache(Player player) {
         MenuConstants.INPUT_MENU_MAP.remove(player.getUniqueId());
         MenuConstants.PLAYER_INPUT_MAP.remove(player.getUniqueId());
+        MenuConstants.ADMIN_OPEN_PLAYER.remove(player.getUniqueId());
     }
 
 }

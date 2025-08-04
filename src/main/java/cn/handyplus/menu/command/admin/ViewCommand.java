@@ -43,7 +43,7 @@ public class ViewCommand implements IHandyCommandEvent {
             return;
         }
         // 参数是否正常
-        AssertUtil.notTrue(args.length < 2, sender, BaseUtil.getMsgNotColor("paramFailureMsg"));
+        AssertUtil.notTrue(args.length < 2, BaseUtil.getMsgNotColor("paramFailureMsg"));
         // 是否为玩家
         Player player = AssertUtil.notPlayer(sender, BaseUtil.getMsgNotColor("noPlayerFailureMsg"));
         String menu = YmlUtil.setYml(args[1]);

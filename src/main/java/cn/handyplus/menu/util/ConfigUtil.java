@@ -71,6 +71,8 @@ public class ConfigUtil {
         HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "shift.F.menu", "menu.yml", Collections.singletonList("使用Shift+F打开的菜单"), "config.yml");
         // 1.6.2
         HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "autoCreateId", true, Collections.singletonList("使用指令/plm create创建菜单是否自动生成ID"), "config.yml");
+        // 1.6.7 adminOpenPermission
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "adminOpenPermission", true, Collections.singletonList("adminOpen指令打开菜单是否免权限"), "config.yml");
         HandyConfigUtil.loadConfig();
         // 1.1.7
         String language = "languages/" + BaseConstants.CONFIG.getString("language") + ".yml";

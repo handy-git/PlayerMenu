@@ -41,7 +41,7 @@ public class CreateCommand implements IHandyCommandEvent {
         Player player = AssertUtil.notPlayer(sender, BaseUtil.getMsgNotColor("noPlayerFailureMsg"));
         Integer size = BaseConstants.GUI_SIZE_54;
         if (args.length > 1) {
-            size = AssertUtil.isNumericToInt(args[1], sender, BaseUtil.getMsgNotColor("noSize"));
+            size = AssertUtil.isNumericToInt(args[1], BaseUtil.getMsgNotColor("noSize"));
             if (!MenuConstants.GUI_SIZE.contains(size)) {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noSize"));
                 return;

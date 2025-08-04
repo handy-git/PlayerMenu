@@ -38,7 +38,7 @@ public class GetItemCommand implements IHandyCommandEvent {
 
     @Override
     public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        AssertUtil.notTrue(args.length < 2, sender, BaseUtil.getMsgNotColor("paramFailureMsg"));
+        AssertUtil.notTrue(args.length < 2, BaseUtil.getMsgNotColor("paramFailureMsg"));
         // 获取玩家
         Player player;
         if (args.length > 3) {
@@ -51,7 +51,7 @@ public class GetItemCommand implements IHandyCommandEvent {
         } else {
             player = AssertUtil.notPlayer(sender, BaseUtil.getMsgNotColor("noPlayerFailureMsg"));
         }
-        Integer id = AssertUtil.isNumericToInt(args[1], sender, BaseUtil.getMsgNotColor("getMenuItemMsg"));
+        Integer id = AssertUtil.isNumericToInt(args[1], BaseUtil.getMsgNotColor("getMenuItemMsg"));
         Optional<MenuItem> menuItem = MenuItemService.getInstance().findById(id);
         if (!menuItem.isPresent()) {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("getMenuItemMsg"));
@@ -60,7 +60,7 @@ public class GetItemCommand implements IHandyCommandEvent {
         ItemStack itemStack = ItemStackUtil.itemStackDeserialize(menuItem.get().getItemStack());
         int number = 1;
         if (args.length > 2) {
-            number = AssertUtil.isNumericToInt(args[2], sender, BaseUtil.getMsgNotColor("paramFailureMsg"));
+            number = AssertUtil.isNumericToInt(args[2], BaseUtil.getMsgNotColor("paramFailureMsg"));
         }
         ItemStackUtil.addItem(player, itemStack, number);
     }

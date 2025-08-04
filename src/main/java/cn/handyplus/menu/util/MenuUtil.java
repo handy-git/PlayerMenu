@@ -12,6 +12,7 @@ import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.PlayerMenu;
+import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.inventory.MenuGui;
 import cn.handyplus.menu.service.MenuLimitService;
 import org.bukkit.Sound;
@@ -166,9 +167,16 @@ public class MenuUtil {
      * @return true 有权限操作
      */
     private static boolean checkPermission(Player player, String finalMenu) {
+        // 是否开启权限控制
         if (!ConfigUtil.PERMISSION_MAP.getOrDefault(finalMenu, true)) {
             return true;
         }
+        // 是否adminOpen打开
+        if (MenuConstants.ADMIN_OPEN_PLAYER.getOrDefault(player.getUniqueId(), false)) {
+            MenuConstants.ADMIN_OPEN_PLAYER.remove(player.getUniqueId());
+            return true;
+        }
+        // 玩家是否有权限
         String openPermission = "playerMenu.open." + finalMenu;
         if (!player.hasPermission(openPermission)) {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noOpenPermission", "").replace("${permission}", openPermission));

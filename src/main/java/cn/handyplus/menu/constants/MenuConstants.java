@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 常量
@@ -52,5 +53,12 @@ public class MenuConstants {
      * @since 1.4.5
      */
     public static final String BUY = "buy";
+
+    /**
+     * 是否adminOpen打开
+     *
+     * @since 1.6.7
+     */
+    public static final Map<UUID, Boolean> ADMIN_OPEN_PLAYER = new ConcurrentHashMap<>();
 
 }

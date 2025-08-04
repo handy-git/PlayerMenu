@@ -40,5 +40,8 @@ isCheckUpdate: true
 # op登录时候是否发送更新提醒(Send update reminders to OPs on login)
 isCheckUpdateToOpMsg: true
 
+# adminOpen指令打开菜单是否免权限(Whether to allow adminOpen command to open menu without permission)
+adminOpenPermission: true
+
 # 勿动!!!
 version: ""
