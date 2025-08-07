@@ -1,10 +1,13 @@
 package cn.handyplus.menu.util;
 
+import cn.handyplus.lib.command.HandyCommandWrapper;
 import cn.handyplus.lib.constants.BaseConstants;
+import cn.handyplus.lib.core.MapUtil;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.util.HandyConfigUtil;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
@@ -55,7 +58,10 @@ public class ConfigUtil {
             // 权限
             PERMISSION_MAP.put(key, fileConfiguration.getBoolean("permission"));
         }
-
+        // 动态注入命令
+        if (MapUtil.isNotEmpty(COMMAND_MAP)) {
+            HandyCommandWrapper.injectCommand(new ArrayList<>(COMMAND_MAP.keySet()));
+        }
         // 升级节点处理
         upConfig();
     }
