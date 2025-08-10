@@ -6,7 +6,7 @@ noWorld:
   - "notWorld"
 
 # 使用指令/plm create创建菜单是否自动生成ID(Whether to auto-generate IDs when creating menus with /plm create command)
-autoCreateId: true
+autoCreateId: false
 
 # 唯一菜单 进服发送菜单,如果没有就赠送一个(Unique menu: Send menu on login if none exists)
 clock:
