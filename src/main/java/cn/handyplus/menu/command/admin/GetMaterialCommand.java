@@ -50,6 +50,7 @@ public class GetMaterialCommand implements IHandyCommandEvent {
             return;
         }
         MessageUtil.sendMessage(sender, name);
+        MessageUtil.sendConsoleMessage(name);
     }
 
 }
