@@ -126,8 +126,8 @@ public class InventoryCloseEventListener implements Listener {
                 if (StrUtil.isNotEmpty(failSound)) {
                     createMenuItem.put("failSound", failSound);
                 }
-                Integer id = menuButtonParam.getId();
-                if (id != null) {
+                int id = menuButtonParam.getId();
+                if (id != 0) {
                     createMenuItem.put("id", id);
                 }
                 Boolean isEnchant = menuButtonParam.getIsEnchant();

@@ -122,8 +122,8 @@ public class MenuUtil {
      * @param msgTip     msg提醒
      * @return true 不满足
      */
-    public static boolean clickCd(Player player, Integer menuItemId, int cd, boolean msgTip) {
-        if (cd <= 0 || menuItemId == null) {
+    public static boolean clickCd(Player player, int menuItemId, int cd, boolean msgTip) {
+        if (cd <= 0 || menuItemId == 0) {
             return false;
         }
         Date clickTime = MenuLimitService.getInstance().findTimeByPlayerUuid(player.getUniqueId(), menuItemId);
@@ -147,8 +147,8 @@ public class MenuUtil {
      * @param msgTip     msg提醒
      * @return true 不满足
      */
-    public static boolean clickLimit(Player player, Integer menuItemId, int limit, boolean msgTip) {
-        if (limit <= 0 || menuItemId == null) {
+    public static boolean clickLimit(Player player, int menuItemId, int limit, boolean msgTip) {
+        if (limit <= 0 || menuItemId == 0) {
             return false;
         }
         Integer count = MenuLimitService.getInstance().findCountByPlayerUuid(player.getUniqueId(), menuItemId);

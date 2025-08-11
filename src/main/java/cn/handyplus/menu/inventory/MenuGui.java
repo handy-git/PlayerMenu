@@ -234,7 +234,7 @@ public class MenuGui {
         menuButtonParam.setLimitHide(limitHide);
         menuButtonParam.setCd(cd);
         menuButtonParam.setCdHide(cdHide);
-        menuButtonParam.setId(id != 0 ? id : null);
+        menuButtonParam.setId(id);
         menuButtonParam.setHead(head);
         menuButtonParam.setHeadBase(headBase);
         menuButtonParam.setPermission(permission);
@@ -268,7 +268,7 @@ public class MenuGui {
      * @param itemStack       菜单
      */
     public static ItemStack getItemStackById(MenuButtonParam menuButtonParam, ItemStack itemStack) {
-        if (menuButtonParam.getId() == null || menuButtonParam.getId() < 1) {
+        if (menuButtonParam.getId() < 1) {
             return itemStack;
         }
         Optional<MenuItem> menuItemOptional = MenuItemService.getInstance().findById(menuButtonParam.getId());

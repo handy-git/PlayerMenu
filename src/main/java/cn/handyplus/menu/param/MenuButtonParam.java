@@ -39,7 +39,7 @@ public class MenuButtonParam {
     /**
      * 物品id
      */
-    private Integer id;
+    private int id;
 
     /**
      * 添加附魔

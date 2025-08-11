@@ -183,7 +183,7 @@ public class MenuCore {
      * @param menuButtonParam 菜单
      */
     private static void setManuTimeLimit(Player player, MenuButtonParam menuButtonParam) {
-        if (menuButtonParam.getId() == null) {
+        if (menuButtonParam.getId() == 0) {
             return;
         }
         if (menuButtonParam.getCd() < 1 && menuButtonParam.getCdHide() < 1) {
@@ -206,7 +206,7 @@ public class MenuCore {
      * @param menuButtonParam 菜单
      */
     private static void setManuNumberLimit(Player player, MenuButtonParam menuButtonParam) {
-        if (menuButtonParam.getId() == null) {
+        if (menuButtonParam.getId() == 0) {
             return;
         }
         if (menuButtonParam.getLimit() < 1 && menuButtonParam.getLimitHide() < 1) {
