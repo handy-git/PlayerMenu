@@ -139,8 +139,7 @@ public class MenuGui {
                 // 判断优先级
                 if (objMap.containsKey(index)) {
                     MenuButtonParam menuParam = (MenuButtonParam) objMap.get(index);
-                    if (menuParam.getPriority() != null && menuButtonParam.getPriority() != null &&
-                            menuParam.getPriority() > menuButtonParam.getPriority()) {
+                    if (menuParam.getPriority() > menuButtonParam.getPriority()) {
                         continue;
                     }
                 }

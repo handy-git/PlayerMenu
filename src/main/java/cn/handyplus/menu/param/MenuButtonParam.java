@@ -135,7 +135,7 @@ public class MenuButtonParam {
      *
      * @since 1.2.8
      */
-    private Integer priority;
+    private int priority;
 
     /**
      * 显示按钮的权限
