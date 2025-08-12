@@ -80,13 +80,10 @@ public class InventoryCloseEventListener implements Listener {
             createMenuItem.put("name", BaseUtil.getDisplayName(item));
             createMenuItem.put("material", item.getType().name());
             createMenuItem.put("lore", itemMeta.getLore());
-            createMenuItem.put("isEnchant", false);
             // 材质id
-            if (VersionCheckEnum.getEnum().getVersionId() > VersionCheckEnum.V_1_13.getVersionId()) {
-                createMenuItem.put("custom-model-data", itemMeta.hasCustomModelData() ? itemMeta.getCustomModelData() : 0);
+            if (VersionCheckEnum.getEnum().getVersionId() > VersionCheckEnum.V_1_13.getVersionId() && itemMeta.hasCustomModelData()) {
+                createMenuItem.put("custom-model-data", itemMeta.getCustomModelData());
             }
-            createMenuItem.put("hideFlag", true);
-            createMenuItem.put("hideEnchant", true);
             Optional<String> persistentDataOpt = ItemStackUtil.getPersistentData(item, MenuConstants.PREFIX);
             if (persistentDataOpt.isPresent()) {
                 MenuButtonParam menuButtonParam = JsonUtil.toBean(persistentDataOpt.get(), MenuButtonParam.class);
@@ -131,15 +128,15 @@ public class InventoryCloseEventListener implements Listener {
                     createMenuItem.put("id", id);
                 }
                 Boolean isEnchant = menuButtonParam.getIsEnchant();
-                if (isEnchant != null) {
+                if (isEnchant != null && isEnchant) {
                     createMenuItem.put("isEnchant", isEnchant);
                 }
                 Boolean hideEnchant = menuButtonParam.getHideEnchant();
-                if (hideEnchant != null) {
+                if (hideEnchant != null && !hideEnchant) {
                     createMenuItem.put("hideEnchant", hideEnchant);
                 }
                 Boolean hideFlag = menuButtonParam.getHideFlag();
-                if (hideFlag != null) {
+                if (hideFlag != null && !hideFlag) {
                     createMenuItem.put("hideFlag", hideFlag);
                 }
                 int cd = menuButtonParam.getCd();
