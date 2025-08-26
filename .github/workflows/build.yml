@@ -47,3 +47,4 @@ jobs:
         with:
           name: PlayerMenu Artifacts
           path: ${{ env.JAR_PATH }}
+          retention-days: 7
