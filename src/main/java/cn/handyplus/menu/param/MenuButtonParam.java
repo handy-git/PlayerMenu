@@ -86,6 +86,11 @@ public class MenuButtonParam {
     private List<String> conditions;
 
     /**
+     * 自定义点击条件未满足提醒
+     */
+    private String conditionNotMet;
+
+    /**
      * 点击播放声音
      */
     private String sound;

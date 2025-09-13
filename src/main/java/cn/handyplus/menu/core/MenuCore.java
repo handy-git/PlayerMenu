@@ -268,7 +268,9 @@ public class MenuCore {
                 }
                 // 判断条件
                 if (!checkCondition(player, condition)) {
-                    MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noOpenCondition"));
+                    String noOpenCondition = BaseUtil.getMsgNotColor("noOpenCondition");
+                    String conditionNotMet = StrUtil.isNotEmpty(menuButtonParam.getConditionNotMet()) ? menuButtonParam.getConditionNotMet() : noOpenCondition;
+                    MessageUtil.sendMessage(player, conditionNotMet);
                     return true;
                 }
             }

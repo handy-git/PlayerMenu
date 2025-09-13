@@ -115,6 +115,10 @@ public class InventoryCloseEventListener implements Listener {
                 if (CollUtil.isNotEmpty(conditions)) {
                     createMenuItem.put("conditions", conditions);
                 }
+                String conditionNotMet = menuButtonParam.getConditionNotMet();
+                if (StrUtil.isNotEmpty(conditionNotMet)) {
+                    createMenuItem.put("conditionNotMet", conditionNotMet);
+                }
                 String sound = menuButtonParam.getSound();
                 if (StrUtil.isNotEmpty(sound)) {
                     createMenuItem.put("sound", sound);

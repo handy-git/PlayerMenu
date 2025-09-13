@@ -186,6 +186,7 @@ public class MenuGui {
         List<String> leftActions = memorySection.getStringList("actions.left");
         List<String> rightActions = memorySection.getStringList("actions.right");
         List<String> conditions = memorySection.getStringList("conditions");
+        String conditionNotMet = memorySection.getString("conditionNotMet");
         String sound = memorySection.getString("sound");
         String clickType = memorySection.getString("clickType");
         String failSound = memorySection.getString("failSound");
@@ -224,6 +225,7 @@ public class MenuGui {
         // 扩展属性
         menuButtonParam.setCommands(commands);
         menuButtonParam.setConditions(conditions);
+        menuButtonParam.setConditionNotMet(conditionNotMet);
         menuButtonParam.setIsEnchant(isEnchant);
         menuButtonParam.setHideEnchant(hideEnchant);
         menuButtonParam.setHideFlag(hideFlag);
