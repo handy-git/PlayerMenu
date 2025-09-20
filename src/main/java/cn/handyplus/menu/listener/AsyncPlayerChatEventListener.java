@@ -46,6 +46,13 @@ public class AsyncPlayerChatEventListener implements Listener {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noInput"));
             return;
         }
+        // 输入T退出
+        if ("T".equals(message)) {
+            MenuConstants.INPUT_MENU_MAP.remove(player.getUniqueId());
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("exitInput", "&8[&a✔&8] &7成功退出输入"));
+            return;
+        }
+        // 数字校验
         if (InputTypeEnum.NUMBER.equals(inputTypeEnum)) {
             Optional<BigDecimal> numericOpt = NumberUtil.isNumericToBigDecimal(message);
             if (!numericOpt.isPresent()) {

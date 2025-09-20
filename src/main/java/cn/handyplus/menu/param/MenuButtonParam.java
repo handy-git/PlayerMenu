@@ -22,12 +22,12 @@ public class MenuButtonParam {
     /**
      * 金币
      */
-    private int money;
+    private String money;
 
     /**
      * 点券
      */
-    private int point;
+    private String point;
 
     /**
      * 多货币处理

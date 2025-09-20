@@ -62,7 +62,7 @@ public class MenuCore {
      */
     public static void executeMenu(HandyInventory handyInventory, Player player, MenuButtonParam menuButtonParam) {
         // 处理商店类型
-        if (shopCheck(player, menuButtonParam)) {
+        if (shopCheck(player, menuButtonParam) || priceCheck(player, menuButtonParam)) {
             // 播放未满足条件的声音
             MenuUtil.playSound(player, StrUtil.isNotEmpty(menuButtonParam.getFailSound()) ? menuButtonParam.getFailSound() : menuButtonParam.getSound());
             return;
@@ -246,18 +246,6 @@ public class MenuCore {
         if (StrUtil.isNotEmpty(menuButtonParam.getClickType()) && !menuButtonParam.getEventClickType().name().equalsIgnoreCase(menuButtonParam.getClickType())) {
             return true;
         }
-        // 判断点击金钱是否满足
-        int money = menuButtonParam.getMoney();
-        if (money > 0 && VaultUtil.getPlayerVault(player) < money) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMoney"));
-            return true;
-        }
-        // 判断点击点券是否满足
-        int point = menuButtonParam.getPoint();
-        if (point > 0 && PlayerPointsUtil.getPlayerPoints(player) < point) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noPoint"));
-            return true;
-        }
         // 判断点击自定义条件是否满足
         if (CollUtil.isNotEmpty(menuButtonParam.getConditions())) {
             for (String condition : menuButtonParam.getConditions()) {
@@ -275,16 +263,39 @@ public class MenuCore {
                 }
             }
         }
+        return false;
+    }
+
+    /**
+     * 金钱菜单校验
+     *
+     * @param player          玩家
+     * @param menuButtonParam 菜单
+     * @return true 不满足
+     * @since 1.2.0
+     */
+    private static boolean priceCheck(Player player, MenuButtonParam menuButtonParam) {
+        String input = MenuConstants.PLAYER_INPUT_MAP.getOrDefault(player.getUniqueId(), "");
+        // 判断点击金钱是否满足
+        int money = getShopPrice(menuButtonParam.getMoney(), input);
+        if (money > 0 && VaultUtil.getPlayerVault(player) < money) {
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMoney"));
+            return true;
+        }
+        // 判断点击点券是否满足
+        int point = getShopPrice(menuButtonParam.getPoint(), input);
+        if (point > 0 && PlayerPointsUtil.getPlayerPoints(player) < point) {
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noPoint"));
+            return true;
+        }
         // 多货币处理
         int currencyPrice = 0;
         String currencyType = null;
-        String input = MenuConstants.PLAYER_INPUT_MAP.getOrDefault(player.getUniqueId(), "");
         if (StrUtil.isNotEmpty(menuButtonParam.getPly())) {
             List<String> shopCurrencyList = StrUtil.strToStrList(menuButtonParam.getPly(), ":");
             currencyType = shopCurrencyList.get(0).trim();
             currencyPrice = getShopPrice(shopCurrencyList.get(1).trim(), input);
         }
-
         // 金币扣除处理
         if (money > 0) {
             if (!VaultUtil.buy(player, money)) {
@@ -308,7 +319,6 @@ public class MenuCore {
                 return true;
             }
         }
-        // 商店判断
         return false;
     }
 

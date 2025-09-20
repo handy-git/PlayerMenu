@@ -87,12 +87,12 @@ public class InventoryCloseEventListener implements Listener {
             Optional<String> persistentDataOpt = ItemStackUtil.getPersistentData(item, MenuConstants.PREFIX);
             if (persistentDataOpt.isPresent()) {
                 MenuButtonParam menuButtonParam = JsonUtil.toBean(persistentDataOpt.get(), MenuButtonParam.class);
-                int money = menuButtonParam.getMoney();
-                if (money > 0) {
+                String money = menuButtonParam.getMoney();
+                if (StrUtil.isNotEmpty(money)) {
                     createMenuItem.put("money", money);
                 }
-                int point = menuButtonParam.getPoint();
-                if (point > 0) {
+                String point = menuButtonParam.getPoint();
+                if (StrUtil.isNotEmpty(point)) {
                     createMenuItem.put("point", point);
                 }
                 String ply = menuButtonParam.getPly();

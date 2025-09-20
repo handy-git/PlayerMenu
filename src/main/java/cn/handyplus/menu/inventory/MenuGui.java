@@ -193,9 +193,9 @@ public class MenuGui {
         boolean isEnchant = memorySection.getBoolean("isEnchant", false);
         boolean hideFlag = memorySection.getBoolean("hideFlag", true);
         boolean hideEnchant = memorySection.getBoolean("hideEnchant", true);
-        int point = memorySection.getInt("point");
+        String point = memorySection.getString("point");
         String ply = memorySection.getString("ply");
-        int money = memorySection.getInt("money");
+        String money = memorySection.getString("money");
         int limit = memorySection.getInt("limit");
         int limitHide = memorySection.getInt("limitHide");
         int cd = memorySection.getInt("cd");
