@@ -232,5 +232,17 @@ public class MenuButtonParam {
      * @since 1.5.0
      */
     private ClickType eventClickType;
+    /**
+     * 工具提示样式
+     *
+     * @since 1.7.4
+     */
+    private String tooltipStyle;
+    /**
+     * 自定义模型
+     *
+     * @since 1.7.4
+     */
+    private String itemModel;
 
 }

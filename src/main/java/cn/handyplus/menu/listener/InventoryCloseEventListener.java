@@ -80,9 +80,17 @@ public class InventoryCloseEventListener implements Listener {
             createMenuItem.put("name", BaseUtil.getDisplayName(item));
             createMenuItem.put("material", item.getType().name());
             createMenuItem.put("lore", itemMeta.getLore());
-            // 材质id
+            // 材质包相关
             if (VersionCheckEnum.getEnum().getVersionId() > VersionCheckEnum.V_1_13.getVersionId() && itemMeta.hasCustomModelData()) {
                 createMenuItem.put("custom-model-data", itemMeta.getCustomModelData());
+            }
+            if (VersionCheckEnum.getEnum().getVersionId() > VersionCheckEnum.V_1_21_1.getVersionId()) {
+                if (itemMeta.hasItemModel() && itemMeta.getItemModel() != null) {
+                    createMenuItem.put("itemModel", itemMeta.getItemModel().getNamespace() + ":" + itemMeta.getItemModel().getKey());
+                }
+                if (itemMeta.hasTooltipStyle() && itemMeta.getTooltipStyle() != null) {
+                    createMenuItem.put("tooltipStyle", itemMeta.getTooltipStyle().getNamespace() + ":" + itemMeta.getTooltipStyle().getKey());
+                }
             }
             Optional<String> persistentDataOpt = ItemStackUtil.getPersistentData(item, MenuConstants.PREFIX);
             if (persistentDataOpt.isPresent()) {

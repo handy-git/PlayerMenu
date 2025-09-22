@@ -102,7 +102,8 @@ public class ViewGui {
                         menuButtonParam.getMaterial(), menuButtonParam.getName(),
                         menuButtonParam.getLoreList(), menuButtonParam.getIsEnchant(),
                         menuButtonParam.getCustomModelDataId(), menuButtonParam.getHideFlag(),
-                        null, menuButtonParam.getHideEnchant());
+                        null, menuButtonParam.getHideEnchant(), null,
+                        menuButtonParam.getTooltipStyle(), menuButtonParam.getItemModel());
                 // 根据id进行特殊处理
                 itemStack = MenuGui.getItemStackById(menuButtonParam, itemStack);
                 // 处理头颅物品

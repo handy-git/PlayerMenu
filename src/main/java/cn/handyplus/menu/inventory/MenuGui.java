@@ -147,7 +147,8 @@ public class MenuGui {
                         menuButtonParam.getMaterial(), menuButtonParam.getName(),
                         menuButtonParam.getLoreList(), menuButtonParam.getIsEnchant(),
                         menuButtonParam.getCustomModelDataId(), menuButtonParam.getHideFlag(),
-                        null, menuButtonParam.getHideEnchant());
+                        null, menuButtonParam.getHideEnchant(), null,
+                        menuButtonParam.getTooltipStyle(), menuButtonParam.getItemModel());
                 // 根据id进行特殊处理
                 itemStack = getItemStackById(menuButtonParam, itemStack);
                 itemStack.setAmount(amount);
@@ -181,6 +182,8 @@ public class MenuGui {
         List<Integer> indexList = StrUtil.strToIntList(indexStrList);
         String material = memorySection.getString("material");
         int customModelDataId = memorySection.getInt("custom-model-data");
+        String tooltipStyle = memorySection.getString("tooltipStyle");
+        String itemModel = memorySection.getString("itemModel");
         int priority = memorySection.getInt("priority");
         List<String> commands = memorySection.getStringList("commands");
         List<String> leftActions = memorySection.getStringList("actions.left");
@@ -212,6 +215,7 @@ public class MenuGui {
         int amount = memorySection.getInt("amount");
         String dynamicAmount = memorySection.getString("dynamicAmount");
         String input = memorySection.getString("input");
+
         // 构建类型
         MenuButtonParam menuButtonParam = new MenuButtonParam();
         // 基础属性
@@ -219,9 +223,12 @@ public class MenuGui {
         menuButtonParam.setLoreList(loreList);
         menuButtonParam.setIndexList(indexList);
         menuButtonParam.setMaterial(material);
-        menuButtonParam.setCustomModelDataId(customModelDataId);
         menuButtonParam.setSound(sound);
         menuButtonParam.setFailSound(failSound);
+        // 材质包属性
+        menuButtonParam.setCustomModelDataId(customModelDataId);
+        menuButtonParam.setTooltipStyle(tooltipStyle);
+        menuButtonParam.setItemModel(itemModel);
         // 扩展属性
         menuButtonParam.setCommands(commands);
         menuButtonParam.setConditions(conditions);
@@ -284,7 +291,10 @@ public class MenuGui {
         // 基础属性
         newItemMeta.setDisplayName(oldItemMeta.getDisplayName());
         newItemMeta.setLore(oldItemMeta.getLore());
+        // 材质包属性
         ItemMetaUtil.setCustomModelData(newItemMeta, menuButtonParam.getCustomModelDataId());
+        ItemMetaUtil.setTooltipStyle(newItemMeta, menuButtonParam.getTooltipStyle());
+        ItemMetaUtil.setItemModel(newItemMeta, menuButtonParam.getItemModel());
         // 扩展属性
         if (menuButtonParam.getIsEnchant()) {
             ItemMetaUtil.setEnchant(newItemMeta);

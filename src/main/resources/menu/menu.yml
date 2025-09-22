@@ -33,6 +33,10 @@ menu:
     isEnchant: false
     # 按钮的自定义材质
     custom-model-data: 0
+    # 工具提示样式 1.21.2+
+    tooltipStyle: ""
+    # 自定义模型 1.21.2+
+    itemModel: ""
     commands:
       - '[message] 你好'
       - '[title] 大标题:小标题'
