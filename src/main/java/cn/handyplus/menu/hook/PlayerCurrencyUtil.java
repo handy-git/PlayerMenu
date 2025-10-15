@@ -49,7 +49,7 @@ public class PlayerCurrencyUtil {
             return;
         }
         // 给予余额
-        player.getUniqueId();
+        PlayerCurrencyApi.give(player.getUniqueId(), type, price, "PlayerMenu", operatorReason);
     }
 
     /**
