@@ -26,7 +26,7 @@ clock:
   # Click type: ALL for all, LEFT for left click, RIGHT for right click
   action: ALL
 
-# 动作打开菜单(Action to open the menu)
+# 动作打开菜单1.9+ (Action to open the menu)
 shift:
   F:
     # 是否开启(Whether to enable)

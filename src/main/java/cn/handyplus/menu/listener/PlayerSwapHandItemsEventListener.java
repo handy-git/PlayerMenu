@@ -2,6 +2,7 @@ package cn.handyplus.menu.listener;
 
 import cn.handyplus.lib.annotation.HandyListener;
 import cn.handyplus.lib.constants.BaseConstants;
+import cn.handyplus.lib.constants.VersionCheckEnum;
 import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,7 +15,7 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
  * @author handy
  * @since 1.1.3
  */
-@HandyListener
+@HandyListener(version = VersionCheckEnum.V_1_9)
 public class PlayerSwapHandItemsEventListener implements Listener {
 
     /**
