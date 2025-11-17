@@ -2,6 +2,7 @@ package cn.handyplus.menu.service;
 
 import cn.handyplus.lib.core.SecureUtil;
 import cn.handyplus.lib.db.Db;
+import cn.handyplus.lib.db.Page;
 import cn.handyplus.menu.enter.MenuItem;
 
 import java.util.List;
@@ -86,6 +87,30 @@ public class MenuItemService {
         use.update().set(MenuItem::getItemStack, itemStack)
                 .set(MenuItem::getMd5, SecureUtil.md5Str(itemStack));
         use.execution().updateById(id);
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param pageNum  页数
+     * @param pageSize 条数
+     * @return MenuItem
+     * @since 1.7.7
+     */
+    public Page<MenuItem> page(Integer pageNum, Integer pageSize) {
+        Db<MenuItem> db = Db.use(MenuItem.class);
+        db.where().limit(pageNum, pageSize).orderByDesc(MenuItem::getId);
+        return db.execution().page();
+    }
+
+    /**
+     * 根据id删除
+     *
+     * @param id ID
+     * @since 1.7.7
+     */
+    public void delById(Integer id) {
+        Db.use(MenuItem.class).execution().deleteById(id);
     }
 
 }

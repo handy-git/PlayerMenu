@@ -1,6 +1,6 @@
 name: PlayerMenu
 main: cn.handyplus.menu.PlayerMenu
-version: 1.7.6
+version: 1.7.7
 author: handy
 api-version: 1.13
 website: https://ricedoc.handyplus.cn/wiki/PlayerMenu/log/
@@ -27,6 +27,7 @@ permissions:
       playerMenu.getItem: true
       playerMenu.addItem: true
       playerMenu.convert: true
+      playerMenu.item: true
   playerMenu.reload:
     description: 重新加载配置
     default: op
@@ -62,4 +63,7 @@ permissions:
     default: op
   playerMenu.convert:
     description: 转化数据库
+    default: op
+  playerMenu.item:
+    description: 查看物品库
     default: op
