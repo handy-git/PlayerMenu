@@ -343,14 +343,7 @@ public class MenuCore {
             return false;
         }
         // 判断是否左右键模式
-        if (MenuConstants.LEFT_BUY_RIGHT_SELL.equalsIgnoreCase(shopType) || MenuConstants.LEFT_SELL_RIGHT_BUY.equalsIgnoreCase(shopType)) {
-            boolean left = ClickType.LEFT.equals(menuButtonParam.getEventClickType());
-            if (MenuConstants.LEFT_BUY_RIGHT_SELL.equalsIgnoreCase(shopType)) {
-                shopType = left ? MenuConstants.BUY : MenuConstants.SELL;
-            } else {
-                shopType = left ? MenuConstants.SELL : MenuConstants.BUY;
-            }
-        }
+        shopType = getShopType(menuButtonParam);
         // 金币处理
         String input = MenuConstants.PLAYER_INPUT_MAP.getOrDefault(player.getUniqueId(), "");
         int shopMoney = getShopPrice(menuButtonParam.getShopMoney(), input);
@@ -458,6 +451,26 @@ public class MenuCore {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("sellMsg", replaceMap));
         }
         return false;
+    }
+
+    /**
+     * 判断是否左右键模式
+     *
+     * @param menuButtonParam 菜单属性
+     * @return 商店类型
+     * @since 1.7.7
+     */
+    private static @Nullable String getShopType(MenuButtonParam menuButtonParam) {
+        String shopType = menuButtonParam.getShopType();
+        if (MenuConstants.LEFT_BUY_RIGHT_SELL.equalsIgnoreCase(shopType) || MenuConstants.LEFT_SELL_RIGHT_BUY.equalsIgnoreCase(shopType)) {
+            boolean left = ClickType.LEFT.equals(menuButtonParam.getEventClickType());
+            if (MenuConstants.LEFT_BUY_RIGHT_SELL.equalsIgnoreCase(shopType)) {
+                shopType = left ? MenuConstants.BUY : MenuConstants.SELL;
+            } else {
+                shopType = left ? MenuConstants.SELL : MenuConstants.BUY;
+            }
+        }
+        return shopType;
     }
 
     /**
