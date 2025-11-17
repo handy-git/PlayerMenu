@@ -342,6 +342,15 @@ public class MenuCore {
         if (StrUtil.isEmpty(shopType) || StrUtil.isEmpty(shopMaterial)) {
             return false;
         }
+        // 判断是否左右键模式
+        if (MenuConstants.LEFT_BUY_RIGHT_SELL.equalsIgnoreCase(shopType) || MenuConstants.LEFT_SELL_RIGHT_BUY.equalsIgnoreCase(shopType)) {
+            boolean left = ClickType.LEFT.equals(menuButtonParam.getEventClickType());
+            if (MenuConstants.LEFT_BUY_RIGHT_SELL.equalsIgnoreCase(shopType)) {
+                shopType = left ? MenuConstants.BUY : MenuConstants.SELL;
+            } else {
+                shopType = left ? MenuConstants.SELL : MenuConstants.BUY;
+            }
+        }
         // 金币处理
         String input = MenuConstants.PLAYER_INPUT_MAP.getOrDefault(player.getUniqueId(), "");
         int shopMoney = getShopPrice(menuButtonParam.getShopMoney(), input);

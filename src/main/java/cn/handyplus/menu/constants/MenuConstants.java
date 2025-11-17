@@ -61,4 +61,14 @@ public class MenuConstants {
      */
     public static final Map<UUID, Boolean> ADMIN_OPEN_PLAYER = new ConcurrentHashMap<>();
 
+    /**
+     * 左键买右键卖
+     */
+    public static final String LEFT_BUY_RIGHT_SELL = "leftBuyRightSell";
+
+    /**
+     * 左键卖右键买
+     */
+    public static final String LEFT_SELL_RIGHT_BUY = "leftSellRightBuy";
+
 }
