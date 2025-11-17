@@ -15,6 +15,7 @@ import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.CommandTypeEnum;
 import cn.handyplus.menu.constants.MenuConstants;
+import cn.handyplus.menu.enter.MenuItem;
 import cn.handyplus.menu.enter.MenuLimit;
 import cn.handyplus.menu.hook.PlaceholderApiUtil;
 import cn.handyplus.menu.hook.PlayerCurrencyUtil;
@@ -22,11 +23,15 @@ import cn.handyplus.menu.hook.PlayerPointsUtil;
 import cn.handyplus.menu.hook.VaultUtil;
 import cn.handyplus.menu.inventory.MenuGui;
 import cn.handyplus.menu.param.MenuButtonParam;
+import cn.handyplus.menu.service.MenuItemService;
 import cn.handyplus.menu.service.MenuLimitService;
 import cn.handyplus.menu.util.MenuUtil;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -34,6 +39,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 菜单逻辑核心
@@ -384,7 +390,11 @@ public class MenuCore {
             String[] shopMaterialStr = shopMaterial.split(":");
             String material = shopMaterialStr[0];
             String number = replaceInput(player, shopMaterialStr[1]);
-            ItemStack itemStack = ItemStackUtil.getItemByMaterial(material);
+            // 获取物品
+            ItemStack itemStack = getItemStack(player, material);
+            if (itemStack == null) {
+                return true;
+            }
             // 多经济处理
             if (currencyPrice > 0) {
                 replaceMap.put("${price}", String.valueOf(currencyPrice));
@@ -408,7 +418,11 @@ public class MenuCore {
             String[] shopMaterialStr = shopMaterial.split(":");
             String material = shopMaterialStr[0];
             String number = replaceInput(player, shopMaterialStr[1]);
-            ItemStack itemStack = ItemStackUtil.getItemByMaterial(material);
+            // 获取物品
+            ItemStack itemStack = getItemStack(player, material);
+            if (itemStack == null) {
+                return true;
+            }
             Boolean rst = ItemStackUtil.removeItem(player, itemStack, Integer.valueOf(number), false);
             if (!rst) {
                 MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noItem"));
@@ -435,6 +449,34 @@ public class MenuCore {
             MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("sellMsg", replaceMap));
         }
         return false;
+    }
+
+    /**
+     * 获取物品
+     *
+     * @param player   玩家
+     * @param material 物品
+     * @return 物品
+     * @since 1.7.7
+     */
+    private static @Nullable ItemStack getItemStack(@NotNull Player player, @NotNull String material) {
+        ItemStack itemStack = null;
+        // 判断是否 物品库格式 [ID] 例如 [1]
+        if (material.startsWith("[") && material.endsWith("]")) {
+            String id = material.substring(1, material.length() - 1);
+            Optional<MenuItem> menuItem = MenuItemService.getInstance().findById(Integer.valueOf(id));
+            if (menuItem.isPresent()) {
+                itemStack = ItemStackUtil.itemStackDeserialize(menuItem.get().getItemStack());
+            }
+        } else {
+            itemStack = ItemStackUtil.getItemByMaterial(material);
+        }
+        // 判断是否为空
+        if (itemStack == null || Material.AIR.equals(itemStack.getType())) {
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("getMenuItemMsg", MapUtil.of("id", material)));
+            return null;
+        }
+        return itemStack;
     }
 
     /**

@@ -1,6 +1,7 @@
 package cn.handyplus.menu.command.admin;
 
 import cn.handyplus.lib.command.IHandyCommandEvent;
+import cn.handyplus.lib.core.MapUtil;
 import cn.handyplus.lib.util.AssertUtil;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
@@ -51,10 +52,10 @@ public class GetItemCommand implements IHandyCommandEvent {
         } else {
             player = AssertUtil.notPlayer(sender, BaseUtil.getMsgNotColor("noPlayerFailureMsg"));
         }
-        Integer id = AssertUtil.isNumericToInt(args[1], BaseUtil.getMsgNotColor("getMenuItemMsg"));
+        Integer id = AssertUtil.isNumericToInt(args[1], BaseUtil.getMsgNotColor("getMenuItemMsg", MapUtil.of("id", args[1])));
         Optional<MenuItem> menuItem = MenuItemService.getInstance().findById(id);
         if (!menuItem.isPresent()) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("getMenuItemMsg"));
+            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("getMenuItemMsg", MapUtil.of("id", String.valueOf(id))));
             return;
         }
         ItemStack itemStack = ItemStackUtil.itemStackDeserialize(menuItem.get().getItemStack());
