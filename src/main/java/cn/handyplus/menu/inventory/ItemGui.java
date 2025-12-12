@@ -68,7 +68,7 @@ public class ItemGui {
         // 1.刷新
         HandyInventoryUtil.refreshInventory(handyInventory.getInventory());
         // 2.设置数据
-        this.setDate(handyInventory);
+        this.setData(handyInventory);
         // 3.设置功能性菜单
         this.setFunctionMenu(handyInventory);
     }
@@ -78,7 +78,7 @@ public class ItemGui {
      *
      * @param handyInventory gui
      */
-    private void setDate(HandyInventory handyInventory) {
+    private void setData(HandyInventory handyInventory) {
         Inventory inventory = handyInventory.getInventory();
         Map<Integer, Integer> map = handyInventory.getIntMap();
         String guiIndexStr = ConfigUtil.ITEM_CONFIG.getString("item.index");
