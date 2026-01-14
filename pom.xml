@@ -7,20 +7,20 @@
     <groupId>cn.handyplus.menu</groupId>
     <name>PlayerMenu</name>
     <artifactId>PlayerMenu</artifactId>
-    <version>1.7.7</version>
+    <version>1.7.8</version>
     <description>一个有点好用的玩家菜单插件</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spigot-api.vesion>1.21.10-R0.1-SNAPSHOT</spigot-api.vesion>
+        <spigot-api.vesion>1.21.11-R0.1-SNAPSHOT</spigot-api.vesion>
         <lombok.version>1.18.38</lombok.version>
         <annotations.version>26.0.2</annotations.version>
-        <HandyLib.version>3.28.4</HandyLib.version>
+        <HandyLib.version>3.31.5</HandyLib.version>
         <VaultAPI.vesion>1.7</VaultAPI.vesion>
         <PlayerPoints.version>3.3.2</PlayerPoints.version>
-        <PlayerGuild.version>2.6.3</PlayerGuild.version>
-        <PlayerCurrency.version>1.1.8</PlayerCurrency.version>
-        <placeholderapi.version>2.11.6</placeholderapi.version>
+        <PlayerGuild.version>2.9.1</PlayerGuild.version>
+        <PlayerCurrency.version>1.2.0</PlayerCurrency.version>
+        <placeholderapi.version>2.11.7</placeholderapi.version>
     </properties>
 
     <dependencies>
@@ -96,7 +96,7 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
-            <!--将依赖的jar包打包到当前jar包-->
+            <!--将依赖的 jar包打包到当前jar包-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>

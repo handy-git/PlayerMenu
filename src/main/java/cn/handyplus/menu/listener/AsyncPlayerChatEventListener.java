@@ -2,7 +2,7 @@ package cn.handyplus.menu.listener;
 
 import cn.handyplus.lib.annotation.HandyListener;
 import cn.handyplus.lib.core.NumberUtil;
-import cn.handyplus.lib.expand.adapter.HandySchedulerUtil;
+import cn.handyplus.lib.internal.HandySchedulerUtil;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.constants.InputTypeEnum;

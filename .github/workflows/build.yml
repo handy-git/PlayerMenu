@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - master
+      - main
   pull_request:
     branches:
       - master
+      - main
 
 jobs:
   build:
@@ -34,17 +36,30 @@ jobs:
         run: echo "${{ secrets.MAVEN_SETTINGS_BASE64 }}" | base64 --decode > $HOME/.m2/settings.xml
 
       - name: Build with Maven
-        run: mvn --batch-mode clean install
+        run: mvn --batch-mode clean package
 
-      - name: Find built JAR
-        id: find-jar
+      - name: Extract artifact info
+        id: artifact
         run: |
-          JAR_PATH=$(find target -name '*.jar' | grep -v 'original' | head -n 1)
-          echo "JAR_PATH=$JAR_PATH" >> $GITHUB_ENV
+          ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          JAR_NAME="${ARTIFACT_ID}-${VERSION}.jar"
+          JAR_PATH="target/${JAR_NAME}"
+          echo "artifact_id=$ARTIFACT_ID" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "jar_name=$JAR_NAME" >> $GITHUB_OUTPUT
+          echo "jar_path=$JAR_PATH" >> $GITHUB_OUTPUT
 
-      - name: Upload JAR file
+      - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PlayerMenu Artifacts
-          path: ${{ env.JAR_PATH }}
+          name: ${{ steps.artifact.outputs.artifact_id }} Artifacts
+          path: ${{ steps.artifact.outputs.jar_path }}
           retention-days: 7
+
+      - name: Upload JAR to WebDAV
+        run: |
+          curl -T "${{ steps.artifact.outputs.jar_path }}" \
+            "${{ secrets.WEBDAV_URL }}/plugins/${{ steps.artifact.outputs.artifact_id }}/${{ steps.artifact.outputs.jar_name }}" \
+            -u "${{ secrets.WEBDAV_USER }}:${{ secrets.WEBDAV_PASS }}"
+          echo "Uploaded: ${{ steps.artifact.outputs.jar_name }}"

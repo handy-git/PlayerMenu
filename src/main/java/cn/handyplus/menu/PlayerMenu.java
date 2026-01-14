@@ -3,6 +3,7 @@ package cn.handyplus.menu;
 import cn.handyplus.lib.InitApi;
 import cn.handyplus.lib.constants.HookPluginEnum;
 import cn.handyplus.lib.util.BaseUtil;
+import cn.handyplus.lib.util.HookPluginUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.hook.PlaceholderUtil;
 import cn.handyplus.menu.util.ConfigUtil;
@@ -33,22 +34,21 @@ public class PlayerMenu extends JavaPlugin {
     public void onEnable() {
         INSTANCE = this;
         InitApi initApi = InitApi.getInstance(this);
-        // 加载配置文件
+        // 加载 配置文件
         ConfigUtil.init();
-        // 加载vault
+        // 加载 vault
         this.loadEconomy();
-        // 加载PlayerPoints
-        BaseUtil.hookToPlugin(HookPluginEnum.PLAYER_POINTS).ifPresent(value -> PLAYER_POINTS = (PlayerPoints) value);
-        // 加载PlaceholderApi
-        USE_PAPI = BaseUtil.hook(HookPluginEnum.PLACEHOLDER_API);
+        // 加载 PlayerPoints
+        HookPluginUtil.hookToPlugin(HookPluginEnum.PLAYER_POINTS).ifPresent(value -> PLAYER_POINTS = (PlayerPoints) value);
+        // 加载 PlaceholderApi
+        USE_PAPI = HookPluginUtil.hook(HookPluginEnum.PLACEHOLDER_API);
         if (USE_PAPI) {
             new PlaceholderUtil(this).register();
         }
-        // 加载PlayerGuild
-        USE_GUILD = BaseUtil.hook(HookPluginEnum.PLAYER_GUILD);
-        // 加载PlayerCurrency
-        USE_PLY = BaseUtil.hook(HookPluginEnum.PLAYER_CURRENCY);
-        // 打印logo
+        // 加载 PlayerGuild
+        USE_GUILD = HookPluginUtil.hook(HookPluginEnum.PLAYER_GUILD);
+        // 加载 PlayerCurrency
+        USE_PLY = HookPluginUtil.hook(HookPluginEnum.PLAYER_CURRENCY);
         List<String> lordList = Arrays.asList(
                 "",
                 "  ____  _                       __  __                  ",
@@ -81,7 +81,7 @@ public class PlayerMenu extends JavaPlugin {
     }
 
     /**
-     * 加载Vault
+     * 加载 Vault
      */
     private void loadEconomy() {
         if (getServer().getPluginManager().getPlugin(HookPluginEnum.VAULT.getName()) == null) {
