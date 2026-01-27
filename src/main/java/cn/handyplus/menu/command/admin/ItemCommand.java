@@ -1,7 +1,7 @@
 package cn.handyplus.menu.command.admin;
 
 import cn.handyplus.lib.command.IHandyCommandEvent;
-import cn.handyplus.lib.internal.HandySchedulerUtil;
+import cn.handyplus.lib.internal.PlayerSchedulerUtil;
 import cn.handyplus.lib.util.AssertUtil;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.menu.inventory.ItemGui;
@@ -39,7 +39,7 @@ public class ItemCommand implements IHandyCommandEvent {
         Player player = AssertUtil.notPlayer(sender, BaseUtil.getLangMsg("noPlayerFailureMsg"));
         // 创建gui
         Inventory inventory = ItemGui.getInstance().createGui(player);
-        HandySchedulerUtil.runTask(() -> player.openInventory(inventory));
+        PlayerSchedulerUtil.syncOpenInventory(player, inventory);
     }
 
 }

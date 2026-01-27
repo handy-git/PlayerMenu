@@ -1,10 +1,10 @@
 name: PlayerMenu
 main: cn.handyplus.menu.PlayerMenu
-version: 1.7.8
+version: 1.7.9
 author: handy
 api-version: 1.13
 website: https://ricedoc.handyplus.cn/wiki/PlayerMenu/log/
-softdepend: [ PlaceholderAPI,Vault,PlayerPoints,PlayerGuild,PlayerCurrency,LEconomy,CMI,AuthMe,CatSeedLogin,OauthLogin ]
+softdepend: [ PlaceholderAPI, Vault, PlayerPoints, PlayerGuild, PlayerCurrency, LEconomy, CMI, AuthMe, CatSeedLogin, OauthLogin ]
 description: 玩家菜单插件
 folia-supported: true
 commands:
