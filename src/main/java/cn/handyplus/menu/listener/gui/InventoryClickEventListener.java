@@ -50,7 +50,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             MenuConstants.INPUT_MENU_MAP.put(player.getUniqueId(), menuButtonParam);
             InputTypeEnum inputTypeEnum = InputTypeEnum.contains(menuButtonParam.getInput());
             MessageUtil.sendMessage(player, InputTypeEnum.replaceFirst(menuButtonParam.getInput(), inputTypeEnum));
-            player.closeInventory();
+            handyInventory.syncClose();
             return;
         }
         // 菜单执行

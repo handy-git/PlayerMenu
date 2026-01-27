@@ -156,7 +156,7 @@ public class MenuCore {
                 PlayerSchedulerUtil.dispatchCommand(content);
                 break;
             case CLOSE:
-                player.closeInventory();
+                handyInventory.syncClose();
                 break;
             case SERVER:
                 BcUtil.tpConnect(player, content);
