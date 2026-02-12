@@ -14,7 +14,9 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author handy
  */
-public class MenuConstants {
+public final class MenuConstants {
+    private MenuConstants() {
+    }
 
     /**
      * gui固定大小

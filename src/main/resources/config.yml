@@ -34,6 +34,15 @@ shift:
     # 使用Shift+F打开的菜单(Menu opened with Shift+F)
     menu: menu.yml
 
+# 按钮限制生效点击类型(Button restriction effective click type)
+action:
+  # cd 生效点击类型 ALL 全部 ，LEFT 左键，RIGHT 右键
+  # Effective click type for cd: ALL for all, LEFT for left click, RIGHT for right click
+  cd: ALL
+  # limit 生效点击类型 ALL 全部 ，LEFT 左键，RIGHT 右键
+  # Effective click type for limit: ALL for all, LEFT for left click, RIGHT for right click
+  limit: ALL
+
 # 是否开启更新提醒,建议开启(Whether to enable update reminders, recommended to enable)
 isCheckUpdate: true
 

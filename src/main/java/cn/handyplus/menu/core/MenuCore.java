@@ -1,5 +1,6 @@
 package cn.handyplus.menu.core;
 
+import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.core.FormulaUtil;
 import cn.handyplus.lib.core.MapUtil;
@@ -193,7 +194,13 @@ public class MenuCore {
         if (menuButtonParam.getId() == 0) {
             return;
         }
-        if (menuButtonParam.getCd() < 1 && menuButtonParam.getCdHide() < 1) {
+        boolean hasCd = menuButtonParam.getCd() > 0;
+        boolean hasCdHide = menuButtonParam.getCdHide() > 0;
+        if (!hasCd && !hasCdHide) {
+            return;
+        }
+        boolean shouldSetCd = hasCd && isActionMatch(BaseConstants.CONFIG.getString("action.cd", "ALL"), menuButtonParam.getEventClickType());
+        if (!shouldSetCd && !hasCdHide) {
             return;
         }
         MenuLimit menuLimit = new MenuLimit();
@@ -216,7 +223,13 @@ public class MenuCore {
         if (menuButtonParam.getId() == 0) {
             return;
         }
-        if (menuButtonParam.getLimit() < 1 && menuButtonParam.getLimitHide() < 1) {
+        boolean hasLimit = menuButtonParam.getLimit() > 0;
+        boolean hasLimitHide = menuButtonParam.getLimitHide() > 0;
+        if (!hasLimit && !hasLimitHide) {
+            return;
+        }
+        boolean shouldSetLimit = hasLimit && isActionMatch(BaseConstants.CONFIG.getString("action.limit", "ALL"), menuButtonParam.getEventClickType());
+        if (!shouldSetLimit && !hasLimitHide) {
             return;
         }
         MenuLimit menuLimit = new MenuLimit();
@@ -238,7 +251,8 @@ public class MenuCore {
      */
     public static boolean check(Player player, MenuButtonParam menuButtonParam) {
         // 判断点击次数处理
-        if (MenuUtil.clickLimit(player, menuButtonParam.getId(), menuButtonParam.getLimit(), true)) {
+        if (isActionMatch(BaseConstants.CONFIG.getString("action.limit", "ALL"), menuButtonParam.getEventClickType())
+                && MenuUtil.clickLimit(player, menuButtonParam.getId(), menuButtonParam.getLimit(), true)) {
             return true;
         }
         // 判断点击次数处理
@@ -246,7 +260,8 @@ public class MenuCore {
             return true;
         }
         // 判断点击时间
-        if (MenuUtil.clickCd(player, menuButtonParam.getId(), menuButtonParam.getCd(), true)) {
+        if (isActionMatch(BaseConstants.CONFIG.getString("action.cd", "ALL"), menuButtonParam.getEventClickType())
+                && MenuUtil.clickCd(player, menuButtonParam.getId(), menuButtonParam.getCd(), true)) {
             return true;
         }
         // 判断点击类型是否满足
@@ -271,6 +286,31 @@ public class MenuCore {
             }
         }
         return false;
+    }
+
+    /**
+     * 判断限制配置是否命中当前点击类型
+     *
+     * @param actionType 配置点击类型
+     * @param clickType  当前点击类型
+     * @return true 命中
+     */
+    private static boolean isActionMatch(String actionType, ClickType clickType) {
+        if (clickType == null) {
+            return true;
+        }
+        if (StrUtil.isEmpty(actionType)) {
+            return true;
+        }
+        switch (actionType.toUpperCase()) {
+            case "LEFT":
+                return ClickType.LEFT.equals(clickType);
+            case "RIGHT":
+                return ClickType.RIGHT.equals(clickType);
+            case "ALL":
+            default:
+                return true;
+        }
     }
 
     /**
