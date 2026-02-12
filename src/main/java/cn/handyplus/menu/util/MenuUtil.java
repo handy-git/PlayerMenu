@@ -9,7 +9,6 @@ import cn.handyplus.lib.core.YmlUtil;
 import cn.handyplus.lib.internal.HandySchedulerUtil;
 import cn.handyplus.lib.internal.PlayerSchedulerUtil;
 import cn.handyplus.lib.util.BaseUtil;
-import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.MenuConstants;
@@ -18,7 +17,6 @@ import cn.handyplus.menu.service.MenuLimitService;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -31,20 +29,6 @@ import java.util.Optional;
  * @author handy
  */
 public class MenuUtil {
-
-    /**
-     * 获取唯一菜单
-     *
-     * @return 菜单
-     */
-    public static ItemStack getClock() {
-        String material = BaseConstants.CONFIG.getString("clock.material");
-        String name = BaseConstants.CONFIG.getString("clock.name");
-        List<String> loreList = BaseConstants.CONFIG.getStringList("clock.lore");
-        boolean isEnchant = BaseConstants.CONFIG.getBoolean("clock.isEnchant");
-        int customModelDataId = BaseConstants.CONFIG.getInt("clock.custom-model-data");
-        return ItemStackUtil.getItemStack(material, name, loreList, isEnchant, customModelDataId);
-    }
 
     /**
      * 打开菜单

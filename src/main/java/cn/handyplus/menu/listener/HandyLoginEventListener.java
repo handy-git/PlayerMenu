@@ -6,7 +6,7 @@ import cn.handyplus.lib.internal.HandyLoginEvent;
 import cn.handyplus.lib.internal.HandySchedulerUtil;
 import cn.handyplus.lib.util.HandyHttpUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
-import cn.handyplus.menu.util.MenuUtil;
+import cn.handyplus.menu.constants.MenuConstants;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -38,7 +38,7 @@ public class HandyLoginEventListener implements Listener {
         }
         HandySchedulerUtil.runTaskAsynchronously(() -> {
             PlayerInventory inventory = player.getInventory();
-            ItemStack itemStack = MenuUtil.getClock();
+            ItemStack itemStack = MenuConstants.CLOCK;
             for (ItemStack stack : inventory) {
                 if (ItemStackUtil.isSimilar(itemStack, stack)) {
                     return;

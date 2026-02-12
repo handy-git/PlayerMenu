@@ -5,11 +5,14 @@ import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.core.MapUtil;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.util.HandyConfigUtil;
+import cn.handyplus.lib.util.ItemStackUtil;
+import cn.handyplus.menu.constants.MenuConstants;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -67,6 +70,8 @@ public class ConfigUtil {
         ITEM_CONFIG = HandyConfigUtil.load("gui/item.yml");
         // 升级节点处理
         upConfig();
+        // 初始化唯一菜单
+        initClock();
     }
 
     /**
@@ -122,6 +127,19 @@ public class ConfigUtil {
         HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "tabHelp.id", "请输入ID", null, language);
         HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "tabHelp.number", "请输入数量", null, language);
         HandyConfigUtil.loadLangConfig(true);
+    }
+
+    /**
+     * 初始化唯一菜单
+     *
+     */
+    private static void initClock() {
+        String material = BaseConstants.CONFIG.getString("clock.material");
+        String name = BaseConstants.CONFIG.getString("clock.name");
+        List<String> loreList = BaseConstants.CONFIG.getStringList("clock.lore");
+        boolean isEnchant = BaseConstants.CONFIG.getBoolean("clock.isEnchant");
+        int customModelDataId = BaseConstants.CONFIG.getInt("clock.custom-model-data");
+        MenuConstants.CLOCK = ItemStackUtil.getItemStack(material, name, loreList, isEnchant, customModelDataId);
     }
 
 }

@@ -4,6 +4,7 @@ import cn.handyplus.lib.annotation.HandyListener;
 import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
+import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.Material;
@@ -61,7 +62,7 @@ public class PlayerInteractEventListener implements Listener {
                     return;
             }
             // 物品不对处理
-            if (!ItemStackUtil.isSimilar(item, MenuUtil.getClock())) {
+            if (!ItemStackUtil.isSimilar(item, MenuConstants.CLOCK)) {
                 return;
             }
         } else {

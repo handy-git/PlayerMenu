@@ -5,7 +5,7 @@ import cn.handyplus.lib.util.AssertUtil;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.lib.util.MessageUtil;
-import cn.handyplus.menu.util.MenuUtil;
+import cn.handyplus.menu.constants.MenuConstants;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -37,7 +37,7 @@ public class ClockCommand implements IHandyCommandEvent {
         // 是否为玩家
         Player player = AssertUtil.notPlayer(sender, BaseUtil.getLangMsg("noPlayerFailureMsg"));
         PlayerInventory inventory = player.getInventory();
-        ItemStack itemStack = MenuUtil.getClock();
+        ItemStack itemStack = MenuConstants.CLOCK;
         for (ItemStack stack : inventory) {
             if (ItemStackUtil.isSimilar(itemStack, stack)) {
                 MessageUtil.sendMessage(sender, BaseUtil.getLangMsg("clockFailureMsg"));
