@@ -61,7 +61,7 @@ public class MenuGui {
         }
         String title = fileConfiguration.getString("title", menu);
         title = PlaceholderApiUtil.set(player, title);
-        HandyInventory handyInventory = new HandyInventory(GuiTypeEnum.MENU.getType(), BaseUtil.replaceChatColor(title), fileConfiguration.getInt("size", BaseConstants.GUI_SIZE_54));
+        HandyInventory handyInventory = new HandyInventory(GuiTypeEnum.MENU.getType(), title, fileConfiguration.getInt("size", BaseConstants.GUI_SIZE_54));
         handyInventory.setPlayer(player);
         handyInventory.setObj(fileConfiguration);
         handyInventory.setSearchType(papiName);

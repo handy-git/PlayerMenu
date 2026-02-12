@@ -12,6 +12,7 @@ import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.BcUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.lib.util.MessageUtil;
+import cn.handyplus.lib.util.RgbTextUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.CommandTypeEnum;
 import cn.handyplus.menu.constants.MenuConstants;
@@ -141,10 +142,10 @@ public class MenuCore {
                 MessageUtil.sendAllTitle(allSplit[0], allSplit.length > 1 ? allSplit[1] : "");
                 break;
             case ACTIONBAR:
-                MessageUtil.sendActionbar(player, content);
+                RgbTextUtil.init(content).sendActionBar(player);
                 break;
             case ALL_ACTIONBAR:
-                MessageUtil.sendAllActionbar(content);
+                RgbTextUtil.init(content).sendAllActionBar();
                 break;
             case COMMAND:
                 PlayerSchedulerUtil.performCommand(player, content);
@@ -257,12 +258,12 @@ public class MenuCore {
             for (String condition : menuButtonParam.getConditions()) {
                 if (!condition.contains("=") && !condition.contains(">") && !condition.contains("<") &&
                         !condition.contains("!=") && !condition.contains(">=") && !condition.contains("<=")) {
-                    MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("errorCondition"));
+                    MessageUtil.sendMessage(player, BaseUtil.getLangMsg("errorCondition"));
                     return true;
                 }
                 // 判断条件
                 if (!checkCondition(player, condition)) {
-                    String noOpenCondition = BaseUtil.getMsgNotColor("noOpenCondition");
+                    String noOpenCondition = BaseUtil.getLangMsg("noOpenCondition");
                     String conditionNotMet = StrUtil.isNotEmpty(menuButtonParam.getConditionNotMet()) ? menuButtonParam.getConditionNotMet() : noOpenCondition;
                     MessageUtil.sendMessage(player, conditionNotMet);
                     return true;
@@ -285,13 +286,13 @@ public class MenuCore {
         // 判断点击金钱是否满足
         int money = getShopPrice(menuButtonParam.getMoney(), input);
         if (money > 0 && VaultUtil.getPlayerVault(player) < money) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMoney"));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMoney"));
             return true;
         }
         // 判断点击点券是否满足
         int point = getShopPrice(menuButtonParam.getPoint(), input);
         if (point > 0 && PlayerPointsUtil.getPlayerPoints(player) < point) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noPoint"));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noPoint"));
             return true;
         }
         // 多货币处理
@@ -305,23 +306,23 @@ public class MenuCore {
         // 金币扣除处理
         if (money > 0) {
             if (!VaultUtil.buy(player, money)) {
-                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMoney"));
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMoney"));
                 return true;
             }
         }
         // 点券扣除处理
         if (point > 0) {
             if (!PlayerPointsUtil.buy(player, point)) {
-                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noPoint"));
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noPoint"));
                 return true;
             }
         }
         // ply处理
         if (currencyPrice > 0) {
-            String buyOperatorReason = BaseUtil.getMsgNotColor("clickOperatorReason", MapUtil.of("${name}", menuButtonParam.getName()));
+            String buyOperatorReason = BaseUtil.getLangMsg("clickOperatorReason", MapUtil.of("${name}", menuButtonParam.getName()));
             if (!PlayerCurrencyUtil.buy(player, currencyType, currencyPrice, buyOperatorReason)) {
                 HashMap<String, String> map = MapUtil.of("${type}", PlayerCurrencyUtil.getDesc(currencyType));
-                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noBalance", map));
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noBalance", map));
                 return true;
             }
         }
@@ -362,29 +363,29 @@ public class MenuCore {
         if (MenuConstants.BUY.equalsIgnoreCase(shopType)) {
             // 金钱是否满足
             if (shopMoney > 0 && VaultUtil.getPlayerVault(player) < shopMoney) {
-                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMoney"));
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMoney"));
                 return true;
             }
             // 点券是否满足
             if (shopPoint > 0 && PlayerPointsUtil.getPlayerPoints(player) < shopPoint) {
-                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noPoint"));
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noPoint"));
                 return true;
             }
             // 金币扣除处理
             if (shopMoney > 0) {
                 replaceMap.put("${price}", String.valueOf(shopMoney));
-                replaceMap.put("${type}", BaseUtil.getMsgNotColor("money"));
+                replaceMap.put("${type}", BaseUtil.getLangMsg("money"));
                 if (!VaultUtil.buy(player, shopMoney)) {
-                    MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMoney"));
+                    MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMoney"));
                     return true;
                 }
             }
             // 点券扣除处理
             if (shopPoint > 0) {
                 replaceMap.put("${price}", String.valueOf(shopPoint));
-                replaceMap.put("${type}", BaseUtil.getMsgNotColor("point"));
+                replaceMap.put("${type}", BaseUtil.getLangMsg("point"));
                 if (!PlayerPointsUtil.buy(player, shopPoint)) {
-                    MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noPoint"));
+                    MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noPoint"));
                     return true;
                 }
             }
@@ -401,18 +402,18 @@ public class MenuCore {
             if (currencyPrice > 0) {
                 replaceMap.put("${price}", String.valueOf(currencyPrice));
                 replaceMap.put("${type}", PlayerCurrencyUtil.getDesc(currencyType));
-                String buyOperatorReason = BaseUtil.getMsgNotColor("buyOperatorReason", MapUtil.of("${name}", BaseUtil.getDisplayName(itemStack), "${number}", number));
+                String buyOperatorReason = BaseUtil.getLangMsg("buyOperatorReason", MapUtil.of("${name}", BaseUtil.getDisplayName(itemStack), "${number}", number));
                 if (!PlayerCurrencyUtil.buy(player, currencyType, currencyPrice, buyOperatorReason)) {
                     HashMap<String, String> map = MapUtil.of("${type}", PlayerCurrencyUtil.getDesc(currencyType));
-                    MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noBalance", map));
+                    MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noBalance", map));
                     return true;
                 }
             }
             // 发送物品
             replaceMap.put("${number}", String.valueOf(number));
             replaceMap.put("${name}", BaseUtil.getDisplayName(itemStack));
-            ItemStackUtil.addItem(player, itemStack, Integer.parseInt(number), BaseUtil.getMsgNotColor("addItemMsg"));
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("buyMsg", replaceMap));
+            ItemStackUtil.addItem(player, itemStack, Integer.parseInt(number), BaseUtil.getLangMsg("addItemMsg"));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("buyMsg", replaceMap));
             return false;
         }
         // 玩家出售物品
@@ -427,28 +428,28 @@ public class MenuCore {
             }
             Boolean rst = ItemStackUtil.removeItem(player, itemStack, Integer.valueOf(number), false);
             if (!rst) {
-                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noItem"));
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noItem"));
                 return true;
             }
             if (shopMoney > 0) {
                 replaceMap.put("${price}", String.valueOf(shopMoney));
-                replaceMap.put("${type}", BaseUtil.getMsgNotColor("money"));
+                replaceMap.put("${type}", BaseUtil.getLangMsg("money"));
                 VaultUtil.give(player, shopMoney);
             }
             if (shopPoint > 0) {
                 replaceMap.put("${price}", String.valueOf(shopPoint));
-                replaceMap.put("${type}", BaseUtil.getMsgNotColor("point"));
+                replaceMap.put("${type}", BaseUtil.getLangMsg("point"));
                 PlayerPointsUtil.give(player, shopPoint);
             }
             if (currencyPrice > 0) {
                 replaceMap.put("${price}", String.valueOf(currencyPrice));
                 replaceMap.put("${type}", PlayerCurrencyUtil.getDesc(currencyType));
-                String sellOperatorReason = BaseUtil.getMsgNotColor("sellOperatorReason", MapUtil.of("${name}", BaseUtil.getDisplayName(itemStack), "${number}", number));
+                String sellOperatorReason = BaseUtil.getLangMsg("sellOperatorReason", MapUtil.of("${name}", BaseUtil.getDisplayName(itemStack), "${number}", number));
                 PlayerCurrencyUtil.give(player, currencyType, currencyPrice, sellOperatorReason);
             }
             replaceMap.put("${number}", number);
             replaceMap.put("${name}", BaseUtil.getDisplayName(itemStack));
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("sellMsg", replaceMap));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("sellMsg", replaceMap));
         }
         return false;
     }
@@ -495,7 +496,7 @@ public class MenuCore {
         }
         // 判断是否为空
         if (itemStack == null || Material.AIR.equals(itemStack.getType())) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("getMenuItemMsg", MapUtil.of("id", material)));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("getMenuItemMsg", MapUtil.of("id", material)));
             return null;
         }
         return itemStack;

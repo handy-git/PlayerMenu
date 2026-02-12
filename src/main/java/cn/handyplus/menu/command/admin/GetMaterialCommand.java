@@ -38,15 +38,15 @@ public class GetMaterialCommand implements IHandyCommandEvent {
     @Override
     public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // 是否为玩家
-        Player player = AssertUtil.notPlayer(sender, BaseUtil.getMsgNotColor("noPlayerFailureMsg"));
+        Player player = AssertUtil.notPlayer(sender, BaseUtil.getLangMsg("noPlayerFailureMsg"));
         // 物品
         ItemStack itemInMainHand = ItemStackUtil.getItemInMainHand(player.getInventory());
         String name = itemInMainHand.getType().name();
         // 玩家执行并且是高版本
         if (BaseUtil.isPlayer(sender) && BaseConstants.VERSION_ID >= VersionCheckEnum.V_1_15.getVersionId()) {
-            RgbTextUtil.getInstance().init(name).addExtra(
-                    RgbTextUtil.getInstance().init(BaseUtil.getMsgNotColor("copy", "&r   &8[&a点击复制&8]")).addClickCopyToClipboard(name).build()
-            ).send((Player) sender);
+            RgbTextUtil.init(name).addExtra(
+                    RgbTextUtil.init(BaseUtil.getLangMsg("copy", "&r   &8[&a点击复制&8]")).addClickCopyToClipboard(name)
+            ).send(sender);
             return;
         }
         MessageUtil.sendMessage(sender, name);

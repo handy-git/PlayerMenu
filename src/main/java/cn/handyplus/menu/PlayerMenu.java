@@ -85,16 +85,16 @@ public class PlayerMenu extends JavaPlugin {
      */
     private void loadEconomy() {
         if (getServer().getPluginManager().getPlugin(HookPluginEnum.VAULT.getName()) == null) {
-            MessageUtil.sendConsoleMessage(BaseUtil.getMsgNotColor(HookPluginEnum.VAULT.getFailMsg()));
+            MessageUtil.sendConsoleMessage(BaseUtil.getLangMsg(HookPluginEnum.VAULT.getFailMsg()));
             return;
         }
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
-            MessageUtil.sendConsoleMessage(BaseUtil.getMsgNotColor(HookPluginEnum.VAULT.getFailMsg()));
+            MessageUtil.sendConsoleMessage(BaseUtil.getLangMsg(HookPluginEnum.VAULT.getFailMsg()));
             return;
         }
         ECON = rsp.getProvider();
-        MessageUtil.sendConsoleMessage(BaseUtil.getMsgNotColor(HookPluginEnum.VAULT.getSuccessMsg()));
+        MessageUtil.sendConsoleMessage(BaseUtil.getLangMsg(HookPluginEnum.VAULT.getSuccessMsg()));
     }
 
 }

@@ -22,7 +22,7 @@ public class PlayerPointsUtil {
     public static boolean buy(Player player, int price) {
         // 点券是否加载
         if (PlayerMenu.PLAYER_POINTS == null) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor(HookPluginEnum.PLAYER_POINTS.getFailMsg()));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg(HookPluginEnum.PLAYER_POINTS.getFailMsg()));
             return false;
         }
         // 扣除点券
@@ -41,7 +41,7 @@ public class PlayerPointsUtil {
         }
         // 点券是否加载
         if (PlayerMenu.PLAYER_POINTS == null) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor(HookPluginEnum.PLAYER_POINTS.getFailMsg()));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg(HookPluginEnum.PLAYER_POINTS.getFailMsg()));
             return;
         }
         // 给予点券

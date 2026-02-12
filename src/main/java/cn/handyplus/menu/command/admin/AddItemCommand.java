@@ -38,7 +38,7 @@ public class AddItemCommand implements IHandyCommandEvent {
     @Override
     public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // 是否为玩家
-        Player player = AssertUtil.notPlayer(sender, BaseUtil.getMsgNotColor("noPlayerFailureMsg"));
+        Player player = AssertUtil.notPlayer(sender, BaseUtil.getLangMsg("noPlayerFailureMsg"));
         // 物品
         ItemStack itemInMainHand = ItemStackUtil.getItemInMainHand(player.getInventory());
         ItemStack clone = itemInMainHand.clone();
@@ -46,7 +46,7 @@ public class AddItemCommand implements IHandyCommandEvent {
         MenuItem menuItem = new MenuItem();
         menuItem.setItemStack(ItemStackUtil.itemStackSerialize(clone));
         int id = MenuItemService.getInstance().add(menuItem);
-        MessageUtil.sendMessage(sender, BaseUtil.getMsgNotColor("addMenuItemMsg", MapUtil.of("${id}", id + "")));
+        MessageUtil.sendMessage(sender, BaseUtil.getLangMsg("addMenuItemMsg", MapUtil.of("${id}", id + "")));
     }
 
 }

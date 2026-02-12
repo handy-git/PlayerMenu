@@ -7,7 +7,7 @@ import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.db.Page;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.inventory.HandyInventoryUtil;
-import cn.handyplus.lib.util.BaseUtil;
+import cn.handyplus.lib.util.ItemMetaUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.menu.constants.GuiTypeEnum;
 import cn.handyplus.menu.enter.MenuItem;
@@ -100,7 +100,7 @@ public class ItemGui {
             List<String> newLoreList = CollUtil.isNotEmpty(itemMeta.getLore()) ? itemMeta.getLore() : new ArrayList<>();
             newLoreList.addAll(loreList);
             newLoreList = ItemStackUtil.loreReplaceMap(newLoreList, this.replaceMap(record));
-            itemMeta.setLore(BaseUtil.replaceChatColor(newLoreList));
+            ItemMetaUtil.setLore(itemMeta, newLoreList);
             itemStack.setItemMeta(itemMeta);
             inventory.setItem(index, itemStack);
             map.put(index, record.getId());

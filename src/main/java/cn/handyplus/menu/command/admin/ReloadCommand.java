@@ -36,7 +36,7 @@ public class ReloadCommand implements IHandyCommandEvent {
         ConfigUtil.init();
         // 同步关闭当前打开的gui
         HandyInventoryUtil.closeHandyInventory();
-        MessageUtil.sendMessage(sender, BaseUtil.getMsgNotColor("reloadMsg"));
+        MessageUtil.sendMessage(sender, BaseUtil.getLangMsg("reloadMsg"));
     }
 
 }

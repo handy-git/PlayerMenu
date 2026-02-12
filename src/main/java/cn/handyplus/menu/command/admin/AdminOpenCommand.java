@@ -33,11 +33,11 @@ public class AdminOpenCommand implements IHandyCommandEvent {
     @Override
     public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // 参数是否正常
-        AssertUtil.notTrue(args.length < 3, BaseUtil.getMsgNotColor("paramFailureMsg"));
+        AssertUtil.notTrue(args.length < 3, BaseUtil.getLangMsg("paramFailureMsg"));
         String playerName = args[2];
         Optional<Player> onlinePlayerOpt = BaseUtil.getOnlinePlayer(playerName);
         if (!onlinePlayerOpt.isPresent()) {
-            MessageUtil.sendMessage(sender, BaseUtil.getMsgNotColor("playerNotOnline"));
+            MessageUtil.sendMessage(sender, BaseUtil.getLangMsg("playerNotOnline"));
             return;
         }
         // 是否为玩家

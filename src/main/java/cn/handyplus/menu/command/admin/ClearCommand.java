@@ -37,13 +37,13 @@ public class ClearCommand implements IHandyCommandEvent {
     @Override
     public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // 参数是否正常
-        AssertUtil.notTrue(args.length < 2, BaseUtil.getMsgNotColor("paramFailureMsg"));
+        AssertUtil.notTrue(args.length < 2, BaseUtil.getLangMsg("paramFailureMsg"));
         // 获取要清理的数据ID
         List<Integer> menuItemIds = StrUtil.strToIntList(args[1]);
         // 开始清理
         MenuLimitService.getInstance().deleteByMenuItemIds(menuItemIds);
         // 发送提醒
-        String clearSucceedMsg = BaseUtil.getMsgNotColor("clearSucceedMsg", MapUtil.of("${id}", menuItemIds.toString()));
+        String clearSucceedMsg = BaseUtil.getLangMsg("clearSucceedMsg", MapUtil.of("${id}", menuItemIds.toString()));
         MessageUtil.sendMessage(sender, clearSucceedMsg);
     }
 

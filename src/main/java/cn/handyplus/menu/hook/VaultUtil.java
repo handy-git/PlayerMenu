@@ -22,7 +22,7 @@ public class VaultUtil {
     public static boolean buy(Player player, int price) {
         // 查询是否开启经济系统
         if (PlayerMenu.ECON == null) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("vaultFailureMsg"));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("vaultFailureMsg"));
             return false;
         }
         EconomyResponse economyResponse = PlayerMenu.ECON.withdrawPlayer(player, price);
@@ -41,7 +41,7 @@ public class VaultUtil {
         }
         // 查询是否开启经济系统
         if (PlayerMenu.ECON == null) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("vaultFailureMsg"));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("vaultFailureMsg"));
             return;
         }
         EconomyResponse economyResponse = PlayerMenu.ECON.depositPlayer(player, price);

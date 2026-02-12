@@ -35,17 +35,17 @@ public class ClockCommand implements IHandyCommandEvent {
     @Override
     public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // 是否为玩家
-        Player player = AssertUtil.notPlayer(sender, BaseUtil.getMsgNotColor("noPlayerFailureMsg"));
+        Player player = AssertUtil.notPlayer(sender, BaseUtil.getLangMsg("noPlayerFailureMsg"));
         PlayerInventory inventory = player.getInventory();
         ItemStack itemStack = MenuUtil.getClock();
         for (ItemStack stack : inventory) {
             if (ItemStackUtil.isSimilar(itemStack, stack)) {
-                MessageUtil.sendMessage(sender, BaseUtil.getMsgNotColor("clockFailureMsg"));
+                MessageUtil.sendMessage(sender, BaseUtil.getLangMsg("clockFailureMsg"));
                 return;
             }
         }
-        ItemStackUtil.addItem(player, itemStack, BaseUtil.getMsgNotColor("addItemMsg"));
-        MessageUtil.sendMessage(sender, BaseUtil.getMsgNotColor("clockSucceedMsg"));
+        ItemStackUtil.addItem(player, itemStack, BaseUtil.getLangMsg("addItemMsg"));
+        MessageUtil.sendMessage(sender, BaseUtil.getLangMsg("clockSucceedMsg"));
     }
 
 }

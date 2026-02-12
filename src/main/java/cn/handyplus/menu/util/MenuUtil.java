@@ -68,7 +68,7 @@ public class MenuUtil {
         HandySchedulerUtil.runTaskAsynchronously(() -> {
             // 判断是否在公会战
             if (PlayerMenu.USE_GUILD && PlayerGuildApi.isPvp(player)) {
-                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noOpenPvpPermission"));
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noOpenPvpPermission"));
                 return;
             }
             String finalMenu = YmlUtil.setYml(menu);
@@ -83,7 +83,7 @@ public class MenuUtil {
             // 生成菜单
             Inventory inventory = MenuGui.getInstance().createGui(player, finalMenu, papiName);
             if (inventory == null) {
-                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMenu", "").replace("${menu}", menu));
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMenu", "").replace("${menu}", menu));
                 return;
             }
             // 打开菜单
@@ -130,7 +130,7 @@ public class MenuUtil {
         if (clickTime != null) {
             long time = DateUtil.offset(clickTime, Calendar.SECOND, cd).getTime() - System.currentTimeMillis();
             if (time > 0) {
-                String noTimeLimit = BaseUtil.getMsgNotColor("noTimeLimit", "");
+                String noTimeLimit = BaseUtil.getLangMsg("noTimeLimit", "");
                 MessageUtil.sendMessage(msgTip, player, StrUtil.replace(noTimeLimit, "time", String.valueOf(time / 1000)));
                 return true;
             }
@@ -153,7 +153,7 @@ public class MenuUtil {
         }
         Integer count = MenuLimitService.getInstance().findCountByPlayerUuid(player.getUniqueId(), menuItemId);
         if (count >= limit) {
-            MessageUtil.sendMessage(msgTip, player, BaseUtil.getMsgNotColor("noLimit"));
+            MessageUtil.sendMessage(msgTip, player, BaseUtil.getLangMsg("noLimit"));
             return true;
         }
         return false;
@@ -179,7 +179,7 @@ public class MenuUtil {
         // 玩家是否有权限
         String openPermission = "playerMenu.open." + finalMenu;
         if (!player.hasPermission(openPermission)) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noOpenPermission", "").replace("${permission}", openPermission));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noOpenPermission", "").replace("${permission}", openPermission));
             return false;
         }
         return true;
@@ -193,7 +193,7 @@ public class MenuUtil {
     private static boolean checkWorld(Player player) {
         List<String> noWorld = BaseConstants.CONFIG.getStringList("noWorld");
         if (CollUtil.isNotEmpty(noWorld) && noWorld.contains(player.getWorld().getName())) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noOpenWorldPermission"));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noOpenWorldPermission"));
             return false;
         }
         return true;

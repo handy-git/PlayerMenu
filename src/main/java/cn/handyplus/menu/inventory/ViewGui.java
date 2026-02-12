@@ -4,7 +4,6 @@ import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.core.JsonUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.inventory.HandyInventoryUtil;
-import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.GuiTypeEnum;
@@ -51,7 +50,7 @@ public class ViewGui {
         String title = fileConfiguration.getString("title", menu);
         title = PlaceholderApiUtil.set(player, title);
         int size = fileConfiguration.getInt("size", BaseConstants.GUI_SIZE_54);
-        HandyInventory handyInventory = new HandyInventory(GuiTypeEnum.CREATE.getType(), BaseUtil.replaceChatColor(title), size);
+        HandyInventory handyInventory = new HandyInventory(GuiTypeEnum.CREATE.getType(), title, size);
         handyInventory.setPlayer(player);
         handyInventory.setSearchType(PlayerMenu.INSTANCE.getDataFolder() + "/menu/" + menu);
         handyInventory.setObj(fileConfiguration);

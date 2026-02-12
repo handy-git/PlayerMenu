@@ -25,7 +25,7 @@ public class PlayerCurrencyUtil {
     public static boolean buy(Player player, String type, long price, String operatorReason) {
         // 多经济是否加载
         if (!PlayerMenu.USE_PLY) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("playerCurrencyFailureMsg"));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("playerCurrencyFailureMsg"));
             return false;
         }
         // 扣除余额
@@ -45,7 +45,7 @@ public class PlayerCurrencyUtil {
         }
         // 多经济是否加载
         if (!PlayerMenu.USE_PLY) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("playerCurrencyFailureMsg"));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("playerCurrencyFailureMsg"));
             return;
         }
         // 给予余额

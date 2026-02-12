@@ -39,29 +39,29 @@ public class GetItemCommand implements IHandyCommandEvent {
 
     @Override
     public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        AssertUtil.notTrue(args.length < 2, BaseUtil.getMsgNotColor("paramFailureMsg"));
+        AssertUtil.notTrue(args.length < 2, BaseUtil.getLangMsg("paramFailureMsg"));
         // 获取玩家
         Player player;
         if (args.length > 3) {
             Optional<Player> onlinePlayer = BaseUtil.getOnlinePlayer(args[3]);
             if (!onlinePlayer.isPresent()) {
-                MessageUtil.sendMessage(sender, BaseUtil.getMsgNotColor("noPlayerFailureMsg"));
+                MessageUtil.sendMessage(sender, BaseUtil.getLangMsg("noPlayerFailureMsg"));
                 return;
             }
             player = onlinePlayer.get();
         } else {
-            player = AssertUtil.notPlayer(sender, BaseUtil.getMsgNotColor("noPlayerFailureMsg"));
+            player = AssertUtil.notPlayer(sender, BaseUtil.getLangMsg("noPlayerFailureMsg"));
         }
-        Integer id = AssertUtil.isNumericToInt(args[1], BaseUtil.getMsgNotColor("getMenuItemMsg", MapUtil.of("id", args[1])));
+        Integer id = AssertUtil.isNumericToInt(args[1], BaseUtil.getLangMsg("getMenuItemMsg", MapUtil.of("id", args[1])));
         Optional<MenuItem> menuItem = MenuItemService.getInstance().findById(id);
         if (!menuItem.isPresent()) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("getMenuItemMsg", MapUtil.of("id", String.valueOf(id))));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("getMenuItemMsg", MapUtil.of("id", String.valueOf(id))));
             return;
         }
         ItemStack itemStack = ItemStackUtil.itemStackDeserialize(menuItem.get().getItemStack());
         int number = 1;
         if (args.length > 2) {
-            number = AssertUtil.isNumericToInt(args[2], BaseUtil.getMsgNotColor("paramFailureMsg"));
+            number = AssertUtil.isNumericToInt(args[2], BaseUtil.getLangMsg("paramFailureMsg"));
         }
         ItemStackUtil.addItem(player, itemStack, number);
     }

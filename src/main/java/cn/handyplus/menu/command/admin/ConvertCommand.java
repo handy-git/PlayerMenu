@@ -45,10 +45,10 @@ public class ConvertCommand implements IHandyCommandEvent {
     @Override
     public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // 参数是否正常
-        AssertUtil.notTrue(args.length < 2, BaseUtil.getMsgNotColor("paramFailureMsg"));
+        AssertUtil.notTrue(args.length < 2, BaseUtil.getLangMsg("paramFailureMsg"));
         String storageMethod = args[1];
         if (!DbTypeEnum.MySQL.getType().equalsIgnoreCase(storageMethod) && !DbTypeEnum.SQLite.getType().equalsIgnoreCase(storageMethod)) {
-            MessageUtil.sendMessage(sender, BaseUtil.getMsgNotColor("paramFailureMsg"));
+            MessageUtil.sendMessage(sender, BaseUtil.getLangMsg("paramFailureMsg"));
             return;
         }
         if (storageMethod.equalsIgnoreCase(BaseConstants.STORAGE_CONFIG.getString(SqlManagerUtil.STORAGE_METHOD))) {

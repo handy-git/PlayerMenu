@@ -43,20 +43,20 @@ public class AsyncPlayerChatEventListener implements Listener {
         String message = event.getMessage();
         // 禁止输入%
         if (message.contains("%")) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noInput"));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noInput"));
             return;
         }
         // 输入T退出
         if ("T".equals(message)) {
             MenuConstants.INPUT_MENU_MAP.remove(player.getUniqueId());
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("exitInput", "&8[&a✔&8] &7成功退出输入"));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("exitInput", "&8[&a✔&8] &7成功退出输入"));
             return;
         }
         // 数字校验
         if (InputTypeEnum.NUMBER.equals(inputTypeEnum)) {
             Optional<BigDecimal> numericOpt = NumberUtil.isNumericToBigDecimal(message);
             if (!numericOpt.isPresent()) {
-                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noNumber"));
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noNumber"));
                 return;
             }
         }

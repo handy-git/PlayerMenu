@@ -38,12 +38,12 @@ public class CreateCommand implements IHandyCommandEvent {
     @Override
     public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // 是否为玩家
-        Player player = AssertUtil.notPlayer(sender, BaseUtil.getMsgNotColor("noPlayerFailureMsg"));
+        Player player = AssertUtil.notPlayer(sender, BaseUtil.getLangMsg("noPlayerFailureMsg"));
         Integer size = BaseConstants.GUI_SIZE_54;
         if (args.length > 1) {
-            size = AssertUtil.isNumericToInt(args[1], BaseUtil.getMsgNotColor("noSize"));
+            size = AssertUtil.isNumericToInt(args[1], BaseUtil.getLangMsg("noSize"));
             if (!MenuConstants.GUI_SIZE.contains(size)) {
-                MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noSize"));
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noSize"));
                 return;
             }
         }

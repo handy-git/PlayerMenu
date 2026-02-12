@@ -39,17 +39,17 @@ public class ViewCommand implements IHandyCommandEvent {
     @Override
     public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (BaseConstants.VERSION_ID < VersionCheckEnum.V_1_14.getVersionId()) {
-            MessageUtil.sendMessage(sender, BaseUtil.getMsgNotColor("versionFailureMsg", "&8[&c✘&8] &4服务端版本小于1.14,无法使用该指令"));
+            MessageUtil.sendMessage(sender, BaseUtil.getLangMsg("versionFailureMsg", "&8[&c✘&8] &4服务端版本小于1.14,无法使用该指令"));
             return;
         }
         // 参数是否正常
-        AssertUtil.notTrue(args.length < 2, BaseUtil.getMsgNotColor("paramFailureMsg"));
+        AssertUtil.notTrue(args.length < 2, BaseUtil.getLangMsg("paramFailureMsg"));
         // 是否为玩家
-        Player player = AssertUtil.notPlayer(sender, BaseUtil.getMsgNotColor("noPlayerFailureMsg"));
+        Player player = AssertUtil.notPlayer(sender, BaseUtil.getLangMsg("noPlayerFailureMsg"));
         String menu = YmlUtil.setYml(args[1]);
         Inventory inventory = ViewGui.getInstance().createGui(player, menu);
         if (inventory == null) {
-            MessageUtil.sendMessage(player, BaseUtil.getMsgNotColor("noMenu", "").replace("${menu}", args[1]));
+            MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMenu", "").replace("${menu}", args[1]));
             return;
         }
         PlayerSchedulerUtil.syncOpenInventory(player, inventory);
