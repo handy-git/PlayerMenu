@@ -1,6 +1,7 @@
 package cn.handyplus.menu.constants;
 
 import cn.handyplus.lib.core.PatternUtil;
+import cn.handyplus.lib.core.StrUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -25,7 +26,7 @@ public enum InputTypeEnum {
 
     public static InputTypeEnum contains(String input) {
         for (InputTypeEnum commandTypeEnum : InputTypeEnum.values()) {
-            if (PatternUtil.contains(input, commandTypeEnum.getType())) {
+            if (StrUtil.contains(input, commandTypeEnum.getType())) {
                 return commandTypeEnum;
             }
         }

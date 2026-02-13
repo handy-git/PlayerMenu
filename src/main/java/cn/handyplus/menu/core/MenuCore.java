@@ -323,14 +323,16 @@ public class MenuCore {
      */
     private static boolean priceCheck(Player player, MenuButtonParam menuButtonParam) {
         String input = MenuConstants.PLAYER_INPUT_MAP.getOrDefault(player.getUniqueId(), "");
+        boolean moneyAction = isActionMatch(BaseConstants.CONFIG.getString("action.money", "ALL"), menuButtonParam.getEventClickType());
+        boolean pointAction = isActionMatch(BaseConstants.CONFIG.getString("action.point", "ALL"), menuButtonParam.getEventClickType());
         // 判断点击金钱是否满足
-        int money = getShopPrice(menuButtonParam.getMoney(), input);
+        int money = moneyAction ? getShopPrice(menuButtonParam.getMoney(), input) : 0;
         if (money > 0 && VaultUtil.getPlayerVault(player) < money) {
             MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMoney"));
             return true;
         }
         // 判断点击点券是否满足
-        int point = getShopPrice(menuButtonParam.getPoint(), input);
+        int point = pointAction ? getShopPrice(menuButtonParam.getPoint(), input) : 0;
         if (point > 0 && PlayerPointsUtil.getPlayerPoints(player) < point) {
             MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noPoint"));
             return true;
