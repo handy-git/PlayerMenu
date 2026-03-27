@@ -403,6 +403,10 @@ public class MenuCore {
         Map<String, String> replaceMap = MapUtil.newHashMapWithExpectedSize(4);
         // 玩家购买物品
         if (MenuConstants.BUY.equalsIgnoreCase(shopType)) {
+            String[] shopMaterialInfo = getShopMaterialInfo(player, shopMaterial, "shopMaterial");
+            if (shopMaterialInfo == null) {
+                return true;
+            }
             // 金钱是否满足
             if (shopMoney > 0 && VaultUtil.getPlayerVault(player) < shopMoney) {
                 MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMoney"));
@@ -432,9 +436,8 @@ public class MenuCore {
                 }
             }
             // 先获取购买的物品
-            String[] shopMaterialStr = shopMaterial.split(":");
-            String material = shopMaterialStr[0];
-            String number = replaceInput(player, shopMaterialStr[1]);
+            String material = shopMaterialInfo[0];
+            String number = shopMaterialInfo[1];
             // 获取物品
             ItemStack itemStack = getItemStack(player, material);
             if (itemStack == null) {
@@ -460,13 +463,31 @@ public class MenuCore {
         }
         // 玩家出售物品
         if (MenuConstants.SELL.equalsIgnoreCase(shopType)) {
-            String[] shopMaterialStr = shopMaterial.split(":");
-            String material = shopMaterialStr[0];
-            String number = replaceInput(player, shopMaterialStr[1]);
+            String[] shopMaterialInfo = getShopMaterialInfo(player, shopMaterial, "shopMaterial");
+            if (shopMaterialInfo == null) {
+                return true;
+            }
+            String material = shopMaterialInfo[0];
+            String number = shopMaterialInfo[1];
             // 获取物品
             ItemStack itemStack = getItemStack(player, material);
             if (itemStack == null) {
                 return true;
+            }
+            // 先校验出售奖励物品，避免配置异常时先扣物品
+            String shopGiveMaterial = menuButtonParam.getShopGiveMaterial();
+            ItemStack rewardItemStack = null;
+            String rewardNumber = null;
+            if (StrUtil.isNotEmpty(shopGiveMaterial)) {
+                String[] rewardMaterialInfo = getShopMaterialInfo(player, shopGiveMaterial, "shopGiveMaterial");
+                if (rewardMaterialInfo == null) {
+                    return true;
+                }
+                rewardNumber = rewardMaterialInfo[1];
+                rewardItemStack = getItemStack(player, rewardMaterialInfo[0]);
+                if (rewardItemStack == null) {
+                    return true;
+                }
             }
             Boolean rst = ItemStackUtil.removeItem(player, itemStack, Integer.valueOf(number), false);
             if (!rst) {
@@ -488,6 +509,12 @@ public class MenuCore {
                 replaceMap.put("${type}", PlayerCurrencyUtil.getDesc(currencyType));
                 String sellOperatorReason = BaseUtil.getLangMsg("sellOperatorReason", MapUtil.of("${name}", BaseUtil.getDisplayName(itemStack), "${number}", number));
                 PlayerCurrencyUtil.give(player, currencyType, currencyPrice, sellOperatorReason);
+            }
+            // 支持出售后直接发放物品
+            if (rewardItemStack != null && rewardNumber != null) {
+                replaceMap.put("${price}", rewardNumber);
+                replaceMap.put("${type}", BaseUtil.getDisplayName(rewardItemStack));
+                ItemStackUtil.addItem(player, rewardItemStack, Integer.parseInt(rewardNumber), BaseUtil.getLangMsg("addItemMsg"));
             }
             replaceMap.put("${number}", number);
             replaceMap.put("${name}", BaseUtil.getDisplayName(itemStack));
@@ -542,6 +569,26 @@ public class MenuCore {
             return null;
         }
         return itemStack;
+    }
+
+    /**
+     * 获取商店物品配置
+     *
+     * @param player      玩家
+     * @param shopMaterial 商店物品配置
+     * @param configKey   配置节点
+     * @return [0] 物品材质 [1] 数量
+     * @since 1.8.2
+     */
+    private static @Nullable String[] getShopMaterialInfo(@NotNull Player player, @NotNull String shopMaterial, @NotNull String configKey) {
+        int index = shopMaterial.lastIndexOf(":");
+        if (index <= 0 || index >= shopMaterial.length() - 1) {
+            MessageUtil.sendConsoleMessage("配置异常:节点" + configKey + "格式错误:" + shopMaterial);
+            return null;
+        }
+        String material = shopMaterial.substring(0, index).trim();
+        String number = replaceInput(player, shopMaterial.substring(index + 1).trim());
+        return new String[]{material, number};
     }
 
     /**

@@ -10,6 +10,7 @@ import cn.handyplus.lib.internal.HandySchedulerUtil;
 import cn.handyplus.lib.internal.PlayerSchedulerUtil;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
+import cn.handyplus.lib.util.XSeriesUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.inventory.MenuGui;
@@ -87,7 +88,7 @@ public class MenuUtil {
         }
         List<String> soundStrList = StrUtil.strToStrList(soundStr, ":");
         String sound = soundStrList.get(0);
-        Optional<Sound> soundOpt = BaseUtil.getSound(sound);
+        Optional<Sound> soundOpt = XSeriesUtil.getSound(sound);
         if (!soundOpt.isPresent()) {
             MessageUtil.sendMessage(player, "没有 " + sound + " 音效");
             return;

@@ -185,6 +185,13 @@ public class MenuButtonParam {
     private String shopCurrency;
 
     /**
+     * 商店出售后给予的物品 格式 物品材质:数量
+     *
+     * @since 1.8.2
+     */
+    private String shopGiveMaterial;
+
+    /**
      * 显示数量
      *
      * @since 1.2.4
