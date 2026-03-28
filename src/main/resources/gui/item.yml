@@ -41,7 +41,7 @@ custom:
   # 分隔板
   pane:
     enable: true
-    index: 0,1,2,3,4,5,6,7,8,9,18,27,36,44,17,26,35,46,48,49,50,52
+    index: 0,1,2,3,4,5,6,7,8,9,18,27,36,44,17,26,35,45,46,48,49,50,52,53
     material: black_stained_glass_pane
     isEnchant: false
     name: "        &8[&7分割板&8]"
