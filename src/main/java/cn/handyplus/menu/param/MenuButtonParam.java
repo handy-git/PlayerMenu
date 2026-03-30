@@ -1,5 +1,6 @@
 package cn.handyplus.menu.param;
 
+import cn.handyplus.lib.core.Pair;
 import lombok.Data;
 import org.bukkit.event.inventory.ClickType;
 
@@ -251,5 +252,20 @@ public class MenuButtonParam {
      * @since 1.7.4
      */
     private String itemModel;
+
+    /**
+     * 是否开启二次确认
+     *
+     * @since 1.8.3
+     */
+    private Boolean confirm;
+
+    /**
+     * 当前菜单
+     * key menu value papiName
+     *
+     * @since 1.8.3
+     */
+    private transient Pair<String, String> sourceMenu;
 
 }

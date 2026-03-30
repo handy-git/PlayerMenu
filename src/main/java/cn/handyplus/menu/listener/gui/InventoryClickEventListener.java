@@ -1,6 +1,8 @@
 package cn.handyplus.menu.listener.gui;
 
+import cn.handyplus.lib.core.Pair;
 import cn.handyplus.lib.core.StrUtil;
+import cn.handyplus.lib.internal.PlayerSchedulerUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.inventory.IHandyClickEvent;
 import cn.handyplus.lib.util.MessageUtil;
@@ -8,10 +10,12 @@ import cn.handyplus.menu.constants.GuiTypeEnum;
 import cn.handyplus.menu.constants.InputTypeEnum;
 import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.core.MenuCore;
+import cn.handyplus.menu.inventory.ConfirmGui;
 import cn.handyplus.menu.param.MenuButtonParam;
 import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
 
 import java.util.Map;
 
@@ -39,6 +43,10 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         MenuButtonParam menuButtonParam = (MenuButtonParam) obj;
         // 注入点击类型
         menuButtonParam.setEventClickType(event.getClick());
+        // 注入源菜单
+        String menu = handyInventory.getStrMap().get(0);
+        String papiName = handyInventory.getSearchType();
+        menuButtonParam.setSourceMenu(Pair.of(menu, papiName));
         // 检查点击条件是否满足
         if (MenuCore.check(player, menuButtonParam)) {
             // 播放未满足条件的声音
@@ -51,6 +59,12 @@ public class InventoryClickEventListener implements IHandyClickEvent {
             InputTypeEnum inputTypeEnum = InputTypeEnum.contains(menuButtonParam.getInput());
             MessageUtil.sendMessage(player, InputTypeEnum.replaceFirst(menuButtonParam.getInput(), inputTypeEnum));
             handyInventory.syncClose();
+            return;
+        }
+        // 二次确认
+        if (Boolean.TRUE.equals(menuButtonParam.getConfirm())) {
+            Inventory gui = ConfirmGui.getInstance().createGui(player, menuButtonParam);
+            PlayerSchedulerUtil.syncOpenInventory(player, gui);
             return;
         }
         // 菜单执行

@@ -17,6 +17,7 @@ public enum GuiTypeEnum {
     CREATE("create", "创建菜单"),
     MENU("menu", "查看菜单"),
     ITEM("item", "物品库"),
+    CONFIRM("confirm", "确认菜单"),
     ;
 
     private final String type;

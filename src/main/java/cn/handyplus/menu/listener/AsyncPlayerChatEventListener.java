@@ -3,11 +3,13 @@ package cn.handyplus.menu.listener;
 import cn.handyplus.lib.annotation.HandyListener;
 import cn.handyplus.lib.core.NumberUtil;
 import cn.handyplus.lib.internal.HandySchedulerUtil;
+import cn.handyplus.lib.internal.PlayerSchedulerUtil;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.constants.InputTypeEnum;
 import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.core.MenuCore;
+import cn.handyplus.menu.inventory.ConfirmGui;
 import cn.handyplus.menu.param.MenuButtonParam;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -63,7 +65,13 @@ public class AsyncPlayerChatEventListener implements Listener {
         MenuConstants.PLAYER_INPUT_MAP.put(player.getUniqueId(), message);
         MenuConstants.INPUT_MENU_MAP.remove(player.getUniqueId());
         // 继续执行菜单逻辑
-        HandySchedulerUtil.runTask(() -> MenuCore.executeMenu(player, menuButtonParam));
+        HandySchedulerUtil.runTask(() -> {
+            if (Boolean.TRUE.equals(menuButtonParam.getConfirm())) {
+                PlayerSchedulerUtil.syncOpenInventory(player, ConfirmGui.getInstance().createGui(player, menuButtonParam));
+                return;
+            }
+            MenuCore.executeMenu(player, menuButtonParam);
+        });
     }
 
 }

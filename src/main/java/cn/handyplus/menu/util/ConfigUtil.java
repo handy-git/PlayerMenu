@@ -26,7 +26,7 @@ public class ConfigUtil {
     public static Map<String, String> COMMAND_MAP;
     public static Map<String, String> ITEM_MAP;
     public static Map<String, Boolean> PERMISSION_MAP;
-    public static FileConfiguration ITEM_CONFIG;
+    public static FileConfiguration ITEM_CONFIG, CONFIRM_CONFIG;
 
     /**
      * 加载全部配置
@@ -68,6 +68,7 @@ public class ConfigUtil {
         }
         // 物品库
         ITEM_CONFIG = HandyConfigUtil.load("gui/item.yml");
+        CONFIRM_CONFIG = HandyConfigUtil.load("gui/confirm.yml");
         // 升级节点处理
         upConfig();
         // 初始化唯一菜单

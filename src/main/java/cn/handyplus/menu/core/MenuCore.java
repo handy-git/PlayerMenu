@@ -574,9 +574,9 @@ public class MenuCore {
     /**
      * 获取商店物品配置
      *
-     * @param player      玩家
+     * @param player       玩家
      * @param shopMaterial 商店物品配置
-     * @param configKey   配置节点
+     * @param configKey    配置节点
      * @return [0] 物品材质 [1] 数量
      * @since 1.8.2
      */

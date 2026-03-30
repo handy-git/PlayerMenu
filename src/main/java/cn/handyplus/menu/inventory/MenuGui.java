@@ -2,6 +2,7 @@ package cn.handyplus.menu.inventory;
 
 import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.core.CollUtil;
+import cn.handyplus.lib.core.MapUtil;
 import cn.handyplus.lib.core.NumberUtil;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
@@ -62,6 +63,7 @@ public class MenuGui {
         String title = fileConfiguration.getString("title", menu);
         title = PlaceholderApiUtil.set(player, title);
         HandyInventory handyInventory = new HandyInventory(GuiTypeEnum.MENU.getType(), title, fileConfiguration.getInt("size", BaseConstants.GUI_SIZE_54));
+        handyInventory.setStrMap(MapUtil.of(0, menu));
         handyInventory.setPlayer(player);
         handyInventory.setObj(fileConfiguration);
         handyInventory.setSearchType(papiName);
@@ -216,6 +218,7 @@ public class MenuGui {
         int amount = memorySection.getInt("amount");
         String dynamicAmount = memorySection.getString("dynamicAmount");
         String input = memorySection.getString("input");
+        boolean confirm = memorySection.getBoolean("confirm", false);
 
         // 构建类型
         MenuButtonParam menuButtonParam = new MenuButtonParam();
@@ -269,6 +272,7 @@ public class MenuGui {
         menuButtonParam.setShopCurrency(shopCurrency);
         menuButtonParam.setShopGiveMaterial(shopGiveMaterial);
         menuButtonParam.setInput(input);
+        menuButtonParam.setConfirm(confirm);
         return menuButtonParam;
     }
 

@@ -1,0 +1,63 @@
+# gui标题
+title: "&0操作确定"
+size: 27
+sound: ""
+
+# 确定
+confirm:
+  # 是否使用
+  enable: true
+  # 在gui中的坐标
+  index: 11
+  # 在gui中的材质名称
+  material: WHITE_WOOL
+  isEnchant: false
+  # 在gui中的名称
+  name: "   &8[&c确定操作&8]"
+  # 自定义模型材质 1.14+生效 0为不生效
+  custom-model-data: 0
+  # 在gui中的lore
+  lore:
+    - ''
+    - '&8▪ &7确定您的操作'
+    - '&8▪ &7本操作不可逆'
+    - ''
+    - '&8[&a✔&8] &7点击继续操作'
+
+# 取消
+cancel:
+  enable: true
+  index: 15
+  material: BLACK_WOOL
+  isEnchant: false
+  name: "   &8[&a取消操作&8]"
+  custom-model-data: 0
+  lore:
+    - ''
+    - '&8▪ &7将取消您的操作'
+    - '&8▪ &7点击关闭当前界面'
+    - ''
+    - '&8[&a✔&8] &7点击关闭'
+
+# 返回按钮
+back:
+  enable: true
+  index: 22
+  name: "   &8[&a返回&8]"
+  material: PLAYER_HEAD
+  headBase: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjllYTFkODYyNDdmNGFmMzUxZWQxODY2YmNhNmEzMDQwYTA2YzY4MTc3Yzc4ZTQyMzE2YTEwOThlNjBmYjdkMyJ9fX0="
+  isEnchant: false
+  lore:
+    - '&f- &7点击关闭'
+  custom-model-data: 0
+
+# 分隔板
+pane:
+  enable: true
+  index: 0,1,2,3,4,5,6,7,8,9,17,18,19,20,21,23,24,25,26
+  material: BLACK_STAINED_GLASS_PANE
+  isEnchant: false
+  name: "        &8[&7分割板&8]"
+  lore:
+    - "&7哎呀,不要随便戳人家啦"
+  custom-model-data: 0

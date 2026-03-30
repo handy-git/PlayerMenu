@@ -220,6 +220,10 @@ public class InventoryCloseEventListener implements Listener {
                 if (StrUtil.isNotEmpty(input)) {
                     createMenuItem.put("input", input);
                 }
+                Boolean confirm = menuButtonParam.getConfirm();
+                if (confirm != null && confirm) {
+                    createMenuItem.put("confirm", confirm);
+                }
                 String clickType = menuButtonParam.getClickType();
                 if (StrUtil.isNotEmpty(clickType)) {
                     createMenuItem.put("clickType", clickType);
