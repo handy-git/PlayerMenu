@@ -7,11 +7,14 @@ import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.util.AssertUtil;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
+import cn.handyplus.menu.enter.MenuItem;
+import cn.handyplus.menu.service.MenuItemService;
 import cn.handyplus.menu.service.MenuLimitService;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 清理数据
@@ -37,7 +40,8 @@ public class ClearCommand implements IHandyCommandEvent {
 
     @Override
     public void tab(HandyTab handyTab) {
-        handyTab.next(n -> MenuLimitService.getInstance().selectMenuItemIds());
+        handyTab.next(n -> MenuItemService.getInstance().page(1, 10)
+                .getRecords().stream().map(MenuItem::getId).map(String::valueOf).collect(Collectors.toList()));
     }
 
     @Override
