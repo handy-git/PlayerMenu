@@ -148,6 +148,19 @@ menu:
     custom-model-data: 0
     commands:
       - '[message] say Congratulations! You found the permission button'
+  '33':
+    index: 33
+    name: '   &8[&cConfirm Menu&8]'
+    material: EMERALD
+    lore:
+      - "&f- &7Click to open the confirmation menu first"
+      - "&f- &7Execute the command after confirming"
+    isEnchant: false
+    custom-model-data: 0
+    # Enable click confirmation
+    confirm: true
+    commands:
+      - '[command] say Execute the command after confirmation'
   '38':
     index: 38
     name: '   &8[&cSell Item for Coins&8]'

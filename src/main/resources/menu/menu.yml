@@ -160,6 +160,19 @@ menu:
     custom-model-data: 0
     commands:
       - '[message] say 恭喜你发现了权限按钮'
+  '33':
+    index: 33
+    name: '   &8[&c确认菜单&8]'
+    material: EMERALD
+    lore:
+      - "&f- &7点击后先弹出确认菜单"
+      - "&f- &7确认后再继续执行"
+    isEnchant: false
+    custom-model-data: 0
+    # 开启点击后确认
+    confirm: true
+    commands:
+      - '[command] say 确认后执行命令'
   '38':
     index: 38
     name: '   &8[&c金币出售物品&8]'

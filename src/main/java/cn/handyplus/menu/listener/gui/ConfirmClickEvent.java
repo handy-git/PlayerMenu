@@ -54,7 +54,10 @@ public class ConfirmClickEvent implements IHandyClickEvent {
             return;
         }
         MenuButtonParam menuButtonParam = (MenuButtonParam) handyInventory.getObj();
+        // 执行菜单逻辑
         MenuCore.executeMenu(player, menuButtonParam);
+        // 返回菜单
+        back(player, handyInventory);
     }
 
     /**
