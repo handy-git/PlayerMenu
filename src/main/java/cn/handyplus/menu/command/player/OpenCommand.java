@@ -1,12 +1,16 @@
 package cn.handyplus.menu.command.player;
 
+import cn.handyplus.lib.command.HandyTab;
 import cn.handyplus.lib.command.IHandyCommandEvent;
 import cn.handyplus.lib.util.AssertUtil;
 import cn.handyplus.lib.util.BaseUtil;
+import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
 
 /**
  * 打开菜单
@@ -23,6 +27,12 @@ public class OpenCommand implements IHandyCommandEvent {
     @Override
     public String permission() {
         return "playerMenu.open";
+    }
+
+    @Override
+    public void tab(HandyTab handyTab) {
+        handyTab.next(n -> new ArrayList<>(ConfigUtil.MENU_CONFIG_MAP.keySet()))
+                .nextNull();
     }
 
     @Override

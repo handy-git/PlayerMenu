@@ -1,16 +1,19 @@
 package cn.handyplus.menu.command.admin;
 
+import cn.handyplus.lib.command.HandyTab;
 import cn.handyplus.lib.command.IHandyCommandEvent;
 import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.util.AssertUtil;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.constants.MenuConstants;
+import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -28,6 +31,13 @@ public class AdminOpenCommand implements IHandyCommandEvent {
     @Override
     public String permission() {
         return "playerMenu.adminOpen";
+    }
+
+    @Override
+    public void tab(HandyTab handyTab) {
+        handyTab.next(n -> new ArrayList<>(ConfigUtil.MENU_CONFIG_MAP.keySet()))
+                .nextNull()
+                .nextNull();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package cn.handyplus.menu.command.admin;
 
+import cn.handyplus.lib.command.HandyTab;
 import cn.handyplus.lib.command.IHandyCommandEvent;
 import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.db.Db;
@@ -40,6 +41,11 @@ public class ConvertCommand implements IHandyCommandEvent {
     @Override
     public boolean isAsync() {
         return true;
+    }
+
+    @Override
+    public void tab(HandyTab handyTab) {
+        handyTab.next(DbTypeEnum.getEnum());
     }
 
     @Override

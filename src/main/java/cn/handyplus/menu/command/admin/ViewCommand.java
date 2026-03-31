@@ -1,5 +1,6 @@
 package cn.handyplus.menu.command.admin;
 
+import cn.handyplus.lib.command.HandyTab;
 import cn.handyplus.lib.command.IHandyCommandEvent;
 import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.constants.VersionCheckEnum;
@@ -9,10 +10,13 @@ import cn.handyplus.lib.util.AssertUtil;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.inventory.ViewGui;
+import cn.handyplus.menu.util.ConfigUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+
+import java.util.ArrayList;
 
 /**
  * 编辑菜单
@@ -34,6 +38,11 @@ public class ViewCommand implements IHandyCommandEvent {
     @Override
     public boolean isAsync() {
         return true;
+    }
+
+    @Override
+    public void tab(HandyTab handyTab) {
+        handyTab.next(n -> new ArrayList<>(ConfigUtil.MENU_CONFIG_MAP.keySet()));
     }
 
     @Override

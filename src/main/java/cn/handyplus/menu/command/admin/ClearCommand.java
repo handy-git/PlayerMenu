@@ -1,5 +1,6 @@
 package cn.handyplus.menu.command.admin;
 
+import cn.handyplus.lib.command.HandyTab;
 import cn.handyplus.lib.command.IHandyCommandEvent;
 import cn.handyplus.lib.core.MapUtil;
 import cn.handyplus.lib.core.StrUtil;
@@ -32,6 +33,11 @@ public class ClearCommand implements IHandyCommandEvent {
     @Override
     public boolean isAsync() {
         return true;
+    }
+
+    @Override
+    public void tab(HandyTab handyTab) {
+        handyTab.next(n -> MenuLimitService.getInstance().selectMenuItemIds());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package cn.handyplus.menu.command.admin;
 
+import cn.handyplus.lib.command.HandyTab;
 import cn.handyplus.lib.command.IHandyCommandEvent;
 import cn.handyplus.lib.core.MapUtil;
 import cn.handyplus.lib.util.AssertUtil;
@@ -35,6 +36,13 @@ public class GetItemCommand implements IHandyCommandEvent {
     @Override
     public boolean isAsync() {
         return true;
+    }
+
+    @Override
+    public void tab(HandyTab handyTab) {
+        handyTab.nextLang("tabHelp.id")
+                .nextLang("tabHelp.number")
+                .nextNull();
     }
 
     @Override

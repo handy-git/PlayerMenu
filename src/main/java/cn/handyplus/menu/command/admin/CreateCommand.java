@@ -1,5 +1,6 @@
 package cn.handyplus.menu.command.admin;
 
+import cn.handyplus.lib.command.HandyTab;
 import cn.handyplus.lib.command.IHandyCommandEvent;
 import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.internal.PlayerSchedulerUtil;
@@ -12,6 +13,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+
+import java.util.Arrays;
 
 /**
  * 创建菜单
@@ -33,6 +36,11 @@ public class CreateCommand implements IHandyCommandEvent {
     @Override
     public boolean isAsync() {
         return true;
+    }
+
+    @Override
+    public void tab(HandyTab handyTab) {
+        handyTab.next(Arrays.asList("9", "18", "27", "36", "45", "54"));
     }
 
     @Override

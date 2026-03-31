@@ -5,15 +5,11 @@ import cn.handyplus.lib.command.HandyCommandWrapper;
 import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.MessageUtil;
-import cn.handyplus.menu.constants.TabListEnum;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
-import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -42,15 +38,7 @@ public class PlayerMenuCommand implements TabExecutor {
 
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
-        List<String> completions = new ArrayList<>();
-        List<String> commands;
-        commands = TabListEnum.returnList(args, args.length);
-        if (commands == null) {
-            return null;
-        }
-        StringUtil.copyPartialMatches(args[args.length - 1].toLowerCase(), commands, completions);
-        Collections.sort(completions);
-        return completions;
+        return HandyCommandWrapper.onTabComplete(sender, cmd, label, args);
     }
 
     /**
