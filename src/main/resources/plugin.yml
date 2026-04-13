@@ -4,7 +4,7 @@ version: 1.9.2
 author: handy
 api-version: 1.13
 website: https://ricedoc.handyplus.cn/wiki/PlayerMenu/log/
-softdepend: [ PlaceholderAPI, Vault, PlayerPoints, PlayerGuild, PlayerCurrency, LEconomy, CMI, AuthMe, CatSeedLogin, OauthLogin ]
+softdepend: [ PlaceholderAPI, Vault, PlayerPoints, PlayerGuild, PlayerCurrency, LEconomy, CMI, AuthMe, CatSeedLogin, OauthLogin, CraftEngine ]
 description: 玩家菜单插件
 folia-supported: true
 commands:

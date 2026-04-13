@@ -29,6 +29,7 @@ public class PlayerMenu extends JavaPlugin {
     public static PlayerPoints PLAYER_POINTS;
     public static boolean USE_GUILD;
     public static boolean USE_PLY;
+    public static boolean USE_CE;
 
     @Override
     public void onEnable() {
@@ -49,6 +50,8 @@ public class PlayerMenu extends JavaPlugin {
         USE_GUILD = HookPluginUtil.hook(HookPluginEnum.PLAYER_GUILD);
         // 加载 PlayerCurrency
         USE_PLY = HookPluginUtil.hook(HookPluginEnum.PLAYER_CURRENCY);
+        // 加载 CraftEngine
+        USE_CE = HookPluginUtil.hook(HookPluginEnum.CRAFT_ENGINE);
         List<String> lordList = Arrays.asList(
                 "",
                 "  ____  _                       __  __                  ",

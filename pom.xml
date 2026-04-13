@@ -14,6 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <HandyLib.version>3.37.8</HandyLib.version>
         <PlayerGuild.version>2.9.1</PlayerGuild.version>
+        <craft-engine.version>0.0.63</craft-engine.version>
     </properties>
 
     <dependencies>
@@ -47,6 +48,18 @@
             <groupId>cn.handyplus.guild</groupId>
             <artifactId>PlayerGuild</artifactId>
             <version>${PlayerGuild.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.momirealms</groupId>
+            <artifactId>craft-engine-core</artifactId>
+            <version>${craft-engine.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.momirealms</groupId>
+            <artifactId>craft-engine-bukkit</artifactId>
+            <version>${craft-engine.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

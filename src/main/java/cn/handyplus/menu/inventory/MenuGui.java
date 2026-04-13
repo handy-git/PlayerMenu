@@ -10,7 +10,9 @@ import cn.handyplus.lib.inventory.HandyInventoryUtil;
 import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.ItemMetaUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
+import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.GuiTypeEnum;
+import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.core.MenuCore;
 import cn.handyplus.menu.enter.MenuItem;
 import cn.handyplus.menu.hook.PlaceholderApiUtil;
@@ -18,6 +20,10 @@ import cn.handyplus.menu.param.MenuButtonParam;
 import cn.handyplus.menu.service.MenuItemService;
 import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.MenuUtil;
+import net.momirealms.craftengine.bukkit.api.CraftEngineItems;
+import net.momirealms.craftengine.core.item.CustomItem;
+import net.momirealms.craftengine.core.util.Key;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
@@ -27,6 +33,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -150,17 +157,24 @@ public class MenuGui {
                         continue;
                     }
                 }
-                ItemStack itemStack = ItemStackUtil.getItemStack(
-                        menuButtonParam.getMaterial(), menuButtonParam.getName(),
-                        menuButtonParam.getLoreList(), menuButtonParam.getIsEnchant(),
-                        menuButtonParam.getCustomModelDataId(), menuButtonParam.getHideFlag(),
-                        null, menuButtonParam.getHideEnchant(), null,
-                        menuButtonParam.getTooltipStyle(), menuButtonParam.getItemModel());
-                // 根据id进行特殊处理
-                itemStack = getItemStackById(menuButtonParam, itemStack);
+                ItemStack itemStack;
+                if (menuButtonParam.getMaterial().contains(MenuConstants.CE)) {
+                    // CE 物品
+                    itemStack = getCraftEngine(menuButtonParam.getMaterial(), MenuConstants.CE);
+                } else {
+                    // 普通物品
+                    itemStack = ItemStackUtil.getItemStack(
+                            menuButtonParam.getMaterial(), menuButtonParam.getName(),
+                            menuButtonParam.getLoreList(), menuButtonParam.getIsEnchant(),
+                            menuButtonParam.getCustomModelDataId(), menuButtonParam.getHideFlag(),
+                            null, menuButtonParam.getHideEnchant(), null,
+                            menuButtonParam.getTooltipStyle(), menuButtonParam.getItemModel());
+                    // 根据id进行特殊处理
+                    itemStack = getItemStackById(menuButtonParam, itemStack);
+                    // 处理头颅物品
+                    setHead(menuButtonParam, itemStack);
+                }
                 itemStack.setAmount(amount);
-                // 处理头颅物品
-                setHead(menuButtonParam, itemStack);
                 inventory.setItem(index, itemStack);
                 objMap.put(index, menuButtonParam);
             }
@@ -369,6 +383,28 @@ public class MenuGui {
             ItemMetaUtil.setSkull(skullMeta, menuButtonParam.getHeadBase());
             itemStack.setItemMeta(skullMeta);
         }
+    }
+
+    /**
+     * CE插件物品
+     *
+     * @param item       物品配置
+     * @param replaceStr 物品标识
+     * @return CE插件物品
+     */
+    public static @NotNull ItemStack getCraftEngine(@NotNull String item, @NotNull String replaceStr) {
+        if (!PlayerMenu.USE_CE) {
+            throw new RuntimeException("not fount CE");
+        }
+        item = item.replace(replaceStr, "");
+        String[] itemStr = item.split(":");
+        String namespace = itemStr[0].trim();
+        String value = itemStr[1].trim();
+        CustomItem<ItemStack> customItem = CraftEngineItems.byId(Key.of(namespace, value));
+        if (customItem == null) {
+            return new ItemStack(Material.AIR);
+        }
+        return customItem.buildItemStack();
     }
 
 }
