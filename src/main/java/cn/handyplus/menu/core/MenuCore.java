@@ -277,7 +277,7 @@ public class MenuCore {
                     return true;
                 }
                 // 判断条件
-                if (!checkCondition(player, condition)) {
+                if (checkCondition(player, condition)) {
                     String noOpenCondition = BaseUtil.getLangMsg("noOpenCondition");
                     String conditionNotMet = StrUtil.isNotEmpty(menuButtonParam.getConditionNotMet()) ? menuButtonParam.getConditionNotMet() : noOpenCondition;
                     MessageUtil.sendMessage(player, conditionNotMet);
@@ -617,34 +617,34 @@ public class MenuCore {
      *
      * @param player    玩家
      * @param condition 条件
-     * @return true 满足
+     * @return true 不满足
      */
-    private static boolean checkCondition(Player player, String condition) {
+    public static boolean checkCondition(Player player, String condition) {
         if (condition.contains(">=")) {
             List<Long> number = getNumber(player, condition, ">=");
-            return number.get(0) >= number.get(1);
+            return number.get(0) < number.get(1);
         }
         if (condition.contains("<=")) {
             List<Long> number = getNumber(player, condition, "<=");
-            return number.get(0) <= number.get(1);
+            return number.get(0) > number.get(1);
         }
         if (condition.contains("!=")) {
             List<String> number = getStr(player, condition, "!=");
-            return !number.get(0).equals(number.get(1));
+            return number.get(0).equals(number.get(1));
         }
         if (condition.contains("=")) {
             List<String> number = getStr(player, condition, "=");
-            return number.get(0).equals(number.get(1));
+            return !number.get(0).equals(number.get(1));
         }
         if (condition.contains(">")) {
             List<Long> number = getNumber(player, condition, ">");
-            return number.get(0) > number.get(1);
+            return number.get(0) <= number.get(1);
         }
         if (condition.contains("<")) {
             List<Long> number = getNumber(player, condition, "<");
-            return number.get(0) < number.get(1);
+            return number.get(0) >= number.get(1);
         }
-        return false;
+        return true;
     }
 
     /**

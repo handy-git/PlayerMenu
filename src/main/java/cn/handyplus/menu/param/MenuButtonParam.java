@@ -92,6 +92,13 @@ public class MenuButtonParam {
     private String conditionNotMet;
 
     /**
+     * 自定义显示条件，条件不满足时隐藏按钮
+     *
+     * @since 1.9.2
+     */
+    private List<String> conditionsHide;
+
+    /**
      * 点击播放声音
      */
     private String sound;

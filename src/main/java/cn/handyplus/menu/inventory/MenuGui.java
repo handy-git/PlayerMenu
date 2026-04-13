@@ -11,6 +11,7 @@ import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.ItemMetaUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.menu.constants.GuiTypeEnum;
+import cn.handyplus.menu.core.MenuCore;
 import cn.handyplus.menu.enter.MenuItem;
 import cn.handyplus.menu.hook.PlaceholderApiUtil;
 import cn.handyplus.menu.param.MenuButtonParam;
@@ -130,6 +131,10 @@ public class MenuGui {
             if (MenuUtil.clickCd(player, menuButtonParam.getId(), menuButtonParam.getCdHide(), false)) {
                 continue;
             }
+            // 判断自定义显示条件是否满足
+            if (checkConditionsHide(menuButtonParam, player)) {
+                continue;
+            }
             // 物品显示数量
             int amount = menuButtonParam.getAmount() > 0 ? menuButtonParam.getAmount() : 1;
             if (StrUtil.isNotEmpty(menuButtonParam.getDynamicAmount())) {
@@ -163,6 +168,32 @@ public class MenuGui {
     }
 
     /**
+     * 判断自定义显示条件是否满足
+     *
+     * @param menuButtonParam 按钮参数
+     * @param player          玩家
+     * @return 是否满足条件
+     */
+    private static boolean checkConditionsHide(MenuButtonParam menuButtonParam, Player player) {
+        if (CollUtil.isEmpty(menuButtonParam.getConditionsHide())) {
+            return false;
+        }
+        boolean shouldHide = false;
+        for (String condition : menuButtonParam.getConditionsHide()) {
+            if (!condition.contains("=") && !condition.contains(">") && !condition.contains("<") &&
+                    !condition.contains("!=") && !condition.contains(">=") && !condition.contains("<=")) {
+                continue;
+            }
+            // 判断条件，条件不满足则隐藏按钮
+            if (MenuCore.checkCondition(player, condition)) {
+                shouldHide = true;
+                break;
+            }
+        }
+        return shouldHide;
+    }
+
+    /**
      * 获取 按钮参数
      *
      * @param memorySection 节点
@@ -192,6 +223,7 @@ public class MenuGui {
         List<String> rightActions = memorySection.getStringList("actions.right");
         List<String> conditions = memorySection.getStringList("conditions");
         String conditionNotMet = memorySection.getString("conditionNotMet");
+        List<String> conditionsHide = memorySection.getStringList("conditionsHide");
         String sound = memorySection.getString("sound");
         String clickType = memorySection.getString("clickType");
         String failSound = memorySection.getString("failSound");
@@ -237,6 +269,7 @@ public class MenuGui {
         menuButtonParam.setCommands(commands);
         menuButtonParam.setConditions(conditions);
         menuButtonParam.setConditionNotMet(conditionNotMet);
+        menuButtonParam.setConditionsHide(conditionsHide);
         menuButtonParam.setIsEnchant(isEnchant);
         menuButtonParam.setHideEnchant(hideEnchant);
         menuButtonParam.setHideFlag(hideFlag);
