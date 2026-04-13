@@ -7,17 +7,13 @@
     <groupId>cn.handyplus.menu</groupId>
     <name>PlayerMenu</name>
     <artifactId>PlayerMenu</artifactId>
-    <version>1.9.1</version>
+    <version>1.9.2</version>
     <description>一个有点好用的玩家菜单插件</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <HandyLib.version>3.37.1</HandyLib.version>
-        <VaultAPI.vesion>1.7</VaultAPI.vesion>
-        <PlayerPoints.version>3.3.2</PlayerPoints.version>
+        <HandyLib.version>3.37.8</HandyLib.version>
         <PlayerGuild.version>2.9.1</PlayerGuild.version>
-        <PlayerCurrency.version>1.2.0</PlayerCurrency.version>
-        <placeholderapi.version>2.11.7</placeholderapi.version>
     </properties>
 
     <dependencies>
@@ -30,19 +26,21 @@
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
-            <version>${placeholderapi.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>VaultAPI</artifactId>
-            <version>${VaultAPI.vesion}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.black_ixx</groupId>
             <artifactId>PlayerPoints</artifactId>
-            <version>${PlayerPoints.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.handyplus.currency</groupId>
+            <artifactId>PlayerCurrency</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -51,13 +49,19 @@
             <version>${PlayerGuild.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>cn.handyplus.currency</groupId>
-            <artifactId>PlayerCurrency</artifactId>
-            <version>${PlayerCurrency.version}</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>cn.handyplus.lib</groupId>
+                <artifactId>HandyBom</artifactId>
+                <version>1.0.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
@@ -67,8 +71,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.15.0</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <release>8</release>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
