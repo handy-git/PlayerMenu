@@ -8,6 +8,7 @@ import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.GuiTypeEnum;
 import cn.handyplus.menu.constants.MenuConstants;
+import cn.handyplus.menu.core.MenuItemCore;
 import cn.handyplus.menu.hook.PlaceholderApiUtil;
 import cn.handyplus.menu.param.MenuButtonParam;
 import cn.handyplus.menu.util.ConfigUtil;
@@ -97,16 +98,7 @@ public class ViewGui {
             }
             MenuButtonParam menuButtonParam = MenuGui.getMenuButtonParam(memorySection, null);
             for (Integer index : menuButtonParam.getIndexList()) {
-                ItemStack itemStack = ItemStackUtil.getItemStack(
-                        menuButtonParam.getMaterial(), menuButtonParam.getName(),
-                        menuButtonParam.getLoreList(), menuButtonParam.getIsEnchant(),
-                        menuButtonParam.getCustomModelDataId(), menuButtonParam.getHideFlag(),
-                        null, menuButtonParam.getHideEnchant(), null,
-                        menuButtonParam.getTooltipStyle(), menuButtonParam.getItemModel());
-                // 根据id进行特殊处理
-                itemStack = MenuGui.getItemStackById(menuButtonParam, itemStack);
-                // 处理头颅物品
-                MenuGui.setHead(menuButtonParam, itemStack);
+                ItemStack itemStack = MenuItemCore.getMenuItem(menuButtonParam);
                 ItemStackUtil.setPersistentData(itemStack, JsonUtil.toJson(menuButtonParam), MenuConstants.PREFIX);
                 inventory.setItem(index, itemStack);
             }
