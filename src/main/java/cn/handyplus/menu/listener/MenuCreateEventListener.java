@@ -1,0 +1,127 @@
+package cn.handyplus.menu.listener;
+
+import cn.handyplus.lib.annotation.HandyListener;
+import cn.handyplus.lib.constants.BaseConstants;
+import cn.handyplus.lib.constants.VersionCheckEnum;
+import cn.handyplus.lib.core.StrUtil;
+import cn.handyplus.lib.inventory.HandyInventory;
+import cn.handyplus.lib.util.BaseUtil;
+import cn.handyplus.lib.util.ItemStackUtil;
+import cn.handyplus.lib.util.MessageUtil;
+import cn.handyplus.menu.constants.GuiTypeEnum;
+import cn.handyplus.menu.enter.MenuItem;
+import cn.handyplus.menu.service.MenuItemService;
+import cn.handyplus.menu.util.ConfigUtil;
+import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+/**
+ * 关闭编辑菜单保存数据
+ *
+ * @author handy
+ */
+@HandyListener
+public class MenuCreateEventListener implements Listener {
+
+    /**
+     * 关闭gui事件
+     *
+     * @param event 事件
+     */
+    @EventHandler
+    public void onEvent(InventoryCloseEvent event) throws IOException {
+        // 校验
+        Inventory inventory = event.getInventory();
+        InventoryHolder holder = inventory.getHolder();
+        if (!(holder instanceof HandyInventory)) {
+            return;
+        }
+        HandyInventory handyInventory = (HandyInventory) holder;
+        if (!GuiTypeEnum.CREATE.getType().equals(handyInventory.getGuiType())) {
+            return;
+        }
+        HumanEntity humanEntity = event.getPlayer();
+        if (!(humanEntity instanceof Player)) {
+            return;
+        }
+        Player player = (Player) humanEntity;
+        int size = handyInventory.getId();
+
+        Map<String, Map<String, Object>> createMenuItemMap = new LinkedHashMap<>();
+        for (int i = 0; i < size; i++) {
+            ItemStack item = inventory.getItem(i);
+            if (item == null || Material.AIR.equals(item.getType())) {
+                continue;
+            }
+            ItemMeta itemMeta = ItemStackUtil.getItemMeta(item);
+            // 基础信息
+            Map<String, Object> createMenuItem = new LinkedHashMap<>();
+            createMenuItem.put("index", i);
+            createMenuItem.put("name", BaseUtil.getDisplayName(item));
+            createMenuItem.put("material", item.getType().name());
+            createMenuItem.put("lore", itemMeta.getLore());
+            // 材质包相关
+            if (VersionCheckEnum.getEnum().getVersionId() > VersionCheckEnum.V_1_13.getVersionId() && itemMeta.hasCustomModelData()) {
+                createMenuItem.put("custom-model-data", itemMeta.getCustomModelData());
+            }
+            if (VersionCheckEnum.getEnum().getVersionId() > VersionCheckEnum.V_1_21_1.getVersionId()) {
+                if (itemMeta.hasItemModel() && itemMeta.getItemModel() != null) {
+                    createMenuItem.put("itemModel", itemMeta.getItemModel().getNamespace() + ":" + itemMeta.getItemModel().getKey());
+                }
+                if (itemMeta.hasTooltipStyle() && itemMeta.getTooltipStyle() != null) {
+                    createMenuItem.put("tooltipStyle", itemMeta.getTooltipStyle().getNamespace() + ":" + itemMeta.getTooltipStyle().getKey());
+                }
+            }
+            // 自动创建id
+            if (createMenuItem.get("id") == null && BaseConstants.CONFIG.getBoolean("autoCreateId")) {
+                MenuItem menuItem = new MenuItem();
+                menuItem.setItemStack(ItemStackUtil.itemStackSerialize(item));
+                int menuItemId = MenuItemService.getInstance().add(menuItem);
+                createMenuItem.put("id", menuItemId);
+            }
+            createMenuItemMap.put(String.valueOf(i), createMenuItem);
+        }
+        String fileName = handyInventory.getSearchType();
+        File file = new File(fileName);
+        if (!file.exists()) {
+            boolean mkdir = file.createNewFile();
+            file = new File(fileName);
+        }
+        YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(file);
+        if (StrUtil.isEmpty(yamlConfiguration.getString("title"))) {
+            yamlConfiguration.set("title", "&7Title");
+        }
+        if (StrUtil.isEmpty(yamlConfiguration.getString("openCommand"))) {
+            yamlConfiguration.set("openCommand", "");
+        }
+        if (StrUtil.isEmpty(yamlConfiguration.getString("openItem"))) {
+            yamlConfiguration.set("openItem", "");
+        }
+        if (StrUtil.isEmpty(yamlConfiguration.getString("permission"))) {
+            yamlConfiguration.set("permission", true);
+        }
+        if (StrUtil.isEmpty(yamlConfiguration.getString("sound"))) {
+            yamlConfiguration.set("sound", "");
+        }
+        yamlConfiguration.set("size", size);
+        yamlConfiguration.set("menu", createMenuItemMap);
+        yamlConfiguration.save(new File(fileName));
+        ConfigUtil.init();
+        MessageUtil.sendMessage(player, BaseUtil.getLangMsg("createMsg"));
+    }
+
+}

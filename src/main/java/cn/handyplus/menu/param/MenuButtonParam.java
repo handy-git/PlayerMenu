@@ -130,11 +130,6 @@ public class MenuButtonParam {
     private List<Integer> indexList;
 
     /**
-     * 菜单配置key
-     */
-    private String menuKey;
-
-    /**
      * 头颅材质
      *
      * @since 1.1.8

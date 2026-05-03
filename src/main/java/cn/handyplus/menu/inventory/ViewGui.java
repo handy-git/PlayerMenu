@@ -1,7 +1,6 @@
 package cn.handyplus.menu.inventory;
 
 import cn.handyplus.lib.constants.BaseConstants;
-import cn.handyplus.lib.core.JsonUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.inventory.HandyInventoryUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
@@ -97,10 +96,9 @@ public class ViewGui {
                 continue;
             }
             MenuButtonParam menuButtonParam = MenuGui.getMenuButtonParam(memorySection, null);
-            menuButtonParam.setMenuKey(key);
             for (Integer index : menuButtonParam.getIndexList()) {
                 ItemStack itemStack = MenuItemCore.getMenuItem(menuButtonParam);
-                ItemStackUtil.setPersistentData(itemStack, JsonUtil.toJson(menuButtonParam), MenuConstants.PREFIX);
+                ItemStackUtil.setPersistentData(itemStack, key, MenuConstants.PREFIX);
                 inventory.setItem(index, itemStack);
             }
         }
