@@ -51,7 +51,7 @@ public class ViewGui {
         String title = fileConfiguration.getString("title", menu);
         title = PlaceholderApiUtil.set(player, title);
         int size = fileConfiguration.getInt("size", BaseConstants.GUI_SIZE_54);
-        HandyInventory handyInventory = new HandyInventory(GuiTypeEnum.CREATE.getType(), title, size);
+        HandyInventory handyInventory = new HandyInventory(GuiTypeEnum.VIEW.getType(), title, size);
         handyInventory.setPlayer(player);
         handyInventory.setSearchType(PlayerMenu.INSTANCE.getDataFolder() + "/menu/" + menu);
         handyInventory.setObj(fileConfiguration);
@@ -68,7 +68,7 @@ public class ViewGui {
      */
     public void setInventoryDate(HandyInventory handyInventory) {
         // 基础设置
-        handyInventory.setGuiType(GuiTypeEnum.CREATE.getType());
+        handyInventory.setGuiType(GuiTypeEnum.VIEW.getType());
         // 1. 刷新
         HandyInventoryUtil.refreshInventory(handyInventory.getInventory());
         // 2.设置功能性菜单
@@ -97,6 +97,7 @@ public class ViewGui {
                 continue;
             }
             MenuButtonParam menuButtonParam = MenuGui.getMenuButtonParam(memorySection, null);
+            menuButtonParam.setMenuKey(key);
             for (Integer index : menuButtonParam.getIndexList()) {
                 ItemStack itemStack = MenuItemCore.getMenuItem(menuButtonParam);
                 ItemStackUtil.setPersistentData(itemStack, JsonUtil.toJson(menuButtonParam), MenuConstants.PREFIX);

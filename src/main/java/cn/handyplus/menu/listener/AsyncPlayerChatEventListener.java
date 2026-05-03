@@ -67,7 +67,7 @@ public class AsyncPlayerChatEventListener implements Listener {
         // 继续执行菜单逻辑
         HandySchedulerUtil.runTask(() -> {
             if (Boolean.TRUE.equals(menuButtonParam.getConfirm())) {
-                PlayerSchedulerUtil.syncOpenInventory(player, ConfirmGui.getInstance().createGui(player, menuButtonParam));
+                PlayerSchedulerUtil.openInventory(player, ConfirmGui.getInstance().createGui(player, menuButtonParam));
                 return;
             }
             MenuCore.executeMenu(player, menuButtonParam);
