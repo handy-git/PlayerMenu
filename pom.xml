@@ -7,12 +7,12 @@
     <groupId>cn.handyplus.menu</groupId>
     <name>PlayerMenu</name>
     <artifactId>PlayerMenu</artifactId>
-    <version>1.9.2</version>
+    <version>1.9.3</version>
     <description>一个有点好用的玩家菜单插件</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <HandyLib.version>3.37.8</HandyLib.version>
+        <HandyLib.version>3.38.8</HandyLib.version>
         <PlayerGuild.version>2.9.1</PlayerGuild.version>
         <craft-engine.version>0.0.63</craft-engine.version>
     </properties>
@@ -69,7 +69,7 @@
             <dependency>
                 <groupId>cn.handyplus.lib</groupId>
                 <artifactId>HandyBom</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.5</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

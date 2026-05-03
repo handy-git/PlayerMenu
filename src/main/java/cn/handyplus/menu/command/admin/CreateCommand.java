@@ -56,7 +56,7 @@ public class CreateCommand implements IHandyCommandEvent {
             }
         }
         Inventory inventory = CreateGui.getInstance().createGui(player, size);
-        PlayerSchedulerUtil.syncOpenInventory(player, inventory);
+        PlayerSchedulerUtil.openInventory(player, inventory);
     }
 
 }

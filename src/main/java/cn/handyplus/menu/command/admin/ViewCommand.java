@@ -61,7 +61,7 @@ public class ViewCommand implements IHandyCommandEvent {
             MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noMenu", "").replace("${menu}", args[1]));
             return;
         }
-        PlayerSchedulerUtil.syncOpenInventory(player, inventory);
+        PlayerSchedulerUtil.openInventory(player, inventory);
     }
 
 }

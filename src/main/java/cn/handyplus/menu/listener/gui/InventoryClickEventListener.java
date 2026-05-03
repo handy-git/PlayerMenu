@@ -64,7 +64,7 @@ public class InventoryClickEventListener implements IHandyClickEvent {
         // 二次确认
         if (Boolean.TRUE.equals(menuButtonParam.getConfirm())) {
             Inventory gui = ConfirmGui.getInstance().createGui(player, menuButtonParam);
-            PlayerSchedulerUtil.syncOpenInventory(player, gui);
+            PlayerSchedulerUtil.openInventory(player, gui);
             return;
         }
         // 菜单执行

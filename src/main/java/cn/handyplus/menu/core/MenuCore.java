@@ -172,10 +172,10 @@ public class MenuCore {
                 }
                 break;
             case PERFORM_COMMAND:
-                PlayerSchedulerUtil.playerPerformCommand(player, content);
+                PlayerSchedulerUtil.performCommand(player, content, false);
                 break;
             case OP_PERFORM_COMMAND:
-                PlayerSchedulerUtil.playerPerformOpCommand(player, content);
+                PlayerSchedulerUtil.performOpCommand(player, content, false);
                 break;
             default:
                 break;

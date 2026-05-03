@@ -72,7 +72,7 @@ public class MenuUtil {
                 return;
             }
             // 打开菜单
-            PlayerSchedulerUtil.syncOpenInventory(player, inventory);
+            PlayerSchedulerUtil.openInventory(player, inventory);
         });
     }
 

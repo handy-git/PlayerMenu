@@ -39,7 +39,7 @@ public class ItemCommand implements IHandyCommandEvent {
         Player player = AssertUtil.notPlayer(sender, BaseUtil.getLangMsg("noPlayerFailureMsg"));
         // 创建gui
         Inventory inventory = ItemGui.getInstance().createGui(player);
-        PlayerSchedulerUtil.syncOpenInventory(player, inventory);
+        PlayerSchedulerUtil.openInventory(player, inventory);
     }
 
 }

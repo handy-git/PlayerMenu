@@ -30,7 +30,7 @@ public class CloseCommand implements IHandyCommandEvent {
     public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         // 是否为玩家
         Player player = AssertUtil.notPlayer(sender, BaseUtil.getLangMsg("noPlayerFailureMsg"));
-        PlayerSchedulerUtil.syncCloseInventory(player);
+        PlayerSchedulerUtil.closeInventory(player);
     }
 
 }
