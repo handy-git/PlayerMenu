@@ -46,7 +46,6 @@ helps:
 
 succeedMsg: '&aCommand executed successfully.'
 failureMsg: '&cCommand execution failed.'
-versionFailureMsg: '&8[&c✘&8] &4Server version below 1.14, command unavailable'
 paramFailureMsg: '&8[&c✘&8] &4Incomplete parameters, please check documentation'
 noPlayerFailureMsg: '&cThis command can only be executed by players.'
 playerNotOnline: '&8[&c✘&8] &7Player &a${player} &7is offline'

@@ -2,8 +2,6 @@ package cn.handyplus.menu.command.admin;
 
 import cn.handyplus.lib.command.HandyTab;
 import cn.handyplus.lib.command.IHandyCommandEvent;
-import cn.handyplus.lib.constants.BaseConstants;
-import cn.handyplus.lib.constants.VersionCheckEnum;
 import cn.handyplus.lib.core.YmlUtil;
 import cn.handyplus.lib.internal.PlayerSchedulerUtil;
 import cn.handyplus.lib.util.AssertUtil;
@@ -47,10 +45,6 @@ public class ViewCommand implements IHandyCommandEvent {
 
     @Override
     public void onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (BaseConstants.VERSION_ID < VersionCheckEnum.V_1_14.getVersionId()) {
-            MessageUtil.sendMessage(sender, BaseUtil.getLangMsg("versionFailureMsg", "&8[&c✘&8] &4服务端版本小于1.14,无法使用该指令"));
-            return;
-        }
         // 参数是否正常
         AssertUtil.notTrue(args.length < 2, BaseUtil.getLangMsg("paramFailureMsg"));
         // 是否为玩家

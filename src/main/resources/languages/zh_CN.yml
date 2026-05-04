@@ -46,7 +46,6 @@ helps:
 
 succeedMsg: '&a命令执行成功.'
 failureMsg: '&c命令执行失败.'
-versionFailureMsg: '&8[&c✘&8] &4服务端版本小于1.14,无法使用该指令'
 paramFailureMsg: '&8[&c✘&8] &4参数不全,请查阅文档补全参数'
 noPlayerFailureMsg: '&c该命令只能玩家执行.'
 playerNotOnline: '&8[&c✘&8] &7玩家 &a${player} &7不在线'
