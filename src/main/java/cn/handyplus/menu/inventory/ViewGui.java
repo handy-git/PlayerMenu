@@ -1,8 +1,10 @@
 package cn.handyplus.menu.inventory;
 
 import cn.handyplus.lib.constants.BaseConstants;
+import cn.handyplus.lib.constants.VersionCheckEnum;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.inventory.HandyInventoryUtil;
+import cn.handyplus.lib.util.ItemMetaUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.GuiTypeEnum;
@@ -17,7 +19,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -98,10 +103,29 @@ public class ViewGui {
             MenuButtonParam menuButtonParam = MenuGui.getMenuButtonParam(memorySection, null);
             for (Integer index : menuButtonParam.getIndexList()) {
                 ItemStack itemStack = MenuItemCore.getMenuItem(menuButtonParam);
-                ItemStackUtil.setPersistentData(itemStack, key, MenuConstants.PREFIX);
+                this.setMenuKey(itemStack, key);
                 inventory.setItem(index, itemStack);
             }
         }
+    }
+
+    /**
+     * 设置编辑菜单key.
+     *
+     * @param itemStack 物品
+     * @param key       菜单key
+     */
+    @SuppressWarnings("deprecation")
+    private void setMenuKey(ItemStack itemStack, String key) {
+        if (BaseConstants.VERSION_ID >= VersionCheckEnum.V_1_14.getVersionId()) {
+            ItemStackUtil.setPersistentData(itemStack, key, MenuConstants.PREFIX);
+            return;
+        }
+        ItemMeta itemMeta = ItemStackUtil.getItemMeta(itemStack);
+        List<String> loreList = itemMeta.getLore() == null ? new ArrayList<>() : new ArrayList<>(itemMeta.getLore());
+        loreList.add(MenuConstants.VIEW_KEY_PREFIX + key);
+        ItemMetaUtil.setLore(itemMeta, loreList);
+        itemStack.setItemMeta(itemMeta);
     }
 
 }

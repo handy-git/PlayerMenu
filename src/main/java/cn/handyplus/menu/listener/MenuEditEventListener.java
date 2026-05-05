@@ -1,6 +1,8 @@
 package cn.handyplus.menu.listener;
 
 import cn.handyplus.lib.annotation.HandyListener;
+import cn.handyplus.lib.constants.BaseConstants;
+import cn.handyplus.lib.constants.VersionCheckEnum;
 import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
@@ -22,6 +24,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -90,11 +93,7 @@ public class MenuEditEventListener implements Listener {
             if (item == null || Material.AIR.equals(item.getType())) {
                 continue;
             }
-            Optional<String> persistentDataOpt = ItemStackUtil.getPersistentData(item, MenuConstants.PREFIX);
-            if (!persistentDataOpt.isPresent()) {
-                continue;
-            }
-            String menuKey = persistentDataOpt.get();
+            String menuKey = this.getMenuKey(item);
             if (StrUtil.isEmpty(menuKey) || !currentIndexMap.containsKey(menuKey)) {
                 continue;
             }
@@ -122,6 +121,30 @@ public class MenuEditEventListener implements Listener {
      * @param newIndexList 新index
      * @return 是否一致
      */
+    /**
+     * 获取编辑菜单key.
+     *
+     * @param itemStack 物品
+     * @return 菜单key
+     */
+    @SuppressWarnings("deprecation")
+    private String getMenuKey(ItemStack itemStack) {
+        if (BaseConstants.VERSION_ID >= VersionCheckEnum.V_1_14.getVersionId()) {
+            Optional<String> persistentDataOpt = ItemStackUtil.getPersistentData(itemStack, MenuConstants.PREFIX);
+            return persistentDataOpt.orElse(null);
+        }
+        ItemMeta itemMeta = ItemStackUtil.getItemMeta(itemStack);
+        List<String> loreList = itemMeta.getLore();
+        if (CollUtil.isEmpty(loreList)) {
+            return null;
+        }
+        String keyLore = BaseUtil.stripColor(loreList.get(loreList.size() - 1));
+        if (StrUtil.isEmpty(keyLore) || !keyLore.startsWith(MenuConstants.VIEW_KEY_PREFIX)) {
+            return null;
+        }
+        return keyLore.substring(MenuConstants.VIEW_KEY_PREFIX.length());
+    }
+
     private boolean isSameIndex(List<Integer> oldIndexList, List<Integer> newIndexList) {
         if (oldIndexList.size() != newIndexList.size()) {
             return false;

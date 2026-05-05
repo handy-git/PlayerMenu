@@ -30,6 +30,11 @@ public final class MenuConstants {
     public final static String PREFIX = "player_menu";
 
     /**
+     * view编辑菜单key前缀
+     */
+    public static final String VIEW_KEY_PREFIX = "PLAYER_MENU_KEY:";
+
+    /**
      * 输入类型
      *
      * @since 1.3.7
