@@ -1,17 +1,13 @@
 package cn.handyplus.menu.listener;
 
 import cn.handyplus.lib.annotation.HandyListener;
-import cn.handyplus.lib.constants.BaseConstants;
-import cn.handyplus.lib.constants.VersionCheckEnum;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.util.BaseUtil;
-import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.constants.GuiTypeEnum;
-import cn.handyplus.menu.enter.MenuItem;
-import cn.handyplus.menu.service.MenuItemService;
 import cn.handyplus.menu.util.ConfigUtil;
+import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.HumanEntity;
@@ -22,7 +18,6 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,33 +62,7 @@ public class MenuCreateEventListener implements Listener {
             if (item == null || Material.AIR.equals(item.getType())) {
                 continue;
             }
-            ItemMeta itemMeta = ItemStackUtil.getItemMeta(item);
-            // 基础信息
-            Map<String, Object> createMenuItem = new LinkedHashMap<>();
-            createMenuItem.put("index", i);
-            createMenuItem.put("name", BaseUtil.getDisplayName(item));
-            createMenuItem.put("material", item.getType().name());
-            createMenuItem.put("lore", itemMeta.getLore());
-            // 材质包相关
-            if (VersionCheckEnum.getEnum().getVersionId() > VersionCheckEnum.V_1_13.getVersionId() && itemMeta.hasCustomModelData()) {
-                createMenuItem.put("custom-model-data", itemMeta.getCustomModelData());
-            }
-            if (VersionCheckEnum.getEnum().getVersionId() > VersionCheckEnum.V_1_21_1.getVersionId()) {
-                if (itemMeta.hasItemModel() && itemMeta.getItemModel() != null) {
-                    createMenuItem.put("itemModel", itemMeta.getItemModel().getNamespace() + ":" + itemMeta.getItemModel().getKey());
-                }
-                if (itemMeta.hasTooltipStyle() && itemMeta.getTooltipStyle() != null) {
-                    createMenuItem.put("tooltipStyle", itemMeta.getTooltipStyle().getNamespace() + ":" + itemMeta.getTooltipStyle().getKey());
-                }
-            }
-            // 自动创建id
-            if (createMenuItem.get("id") == null && BaseConstants.CONFIG.getBoolean("autoCreateId")) {
-                MenuItem menuItem = new MenuItem();
-                menuItem.setItemStack(ItemStackUtil.itemStackSerialize(item));
-                int menuItemId = MenuItemService.getInstance().add(menuItem);
-                createMenuItem.put("id", menuItemId);
-            }
-            createMenuItemMap.put(String.valueOf(i), createMenuItem);
+            createMenuItemMap.put(String.valueOf(i), MenuUtil.createMenuItem(item, i));
         }
         String fileName = handyInventory.getSearchType();
         File file = new File(fileName);

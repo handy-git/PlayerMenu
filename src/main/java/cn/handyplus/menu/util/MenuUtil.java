@@ -2,6 +2,7 @@ package cn.handyplus.menu.util;
 
 import cn.handyplus.guild.api.PlayerGuildApi;
 import cn.handyplus.lib.constants.BaseConstants;
+import cn.handyplus.lib.constants.VersionCheckEnum;
 import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.core.DateUtil;
 import cn.handyplus.lib.core.StrUtil;
@@ -9,19 +10,27 @@ import cn.handyplus.lib.core.YmlUtil;
 import cn.handyplus.lib.internal.HandySchedulerUtil;
 import cn.handyplus.lib.internal.PlayerSchedulerUtil;
 import cn.handyplus.lib.util.BaseUtil;
+import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.lib.util.XSeriesUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.MenuConstants;
+import cn.handyplus.menu.enter.MenuItem;
 import cn.handyplus.menu.inventory.MenuGui;
+import cn.handyplus.menu.service.MenuItemService;
 import cn.handyplus.menu.service.MenuLimitService;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -142,6 +151,43 @@ public class MenuUtil {
             return true;
         }
         return false;
+    }
+
+    /**
+     * 创建菜单物品配置.
+     *
+     * @param itemStack 物品
+     * @param index     槽位
+     * @return 菜单物品配置
+     */
+    public static @NotNull Map<String, Object> createMenuItem(@NotNull ItemStack itemStack, int index) {
+        ItemMeta itemMeta = ItemStackUtil.getItemMeta(itemStack);
+        Map<String, Object> createMenuItem = new LinkedHashMap<>();
+        createMenuItem.put("index", index);
+        createMenuItem.put("name", BaseUtil.getDisplayName(itemStack));
+        createMenuItem.put("material", itemStack.getType().name());
+        if (CollUtil.isNotEmpty(itemMeta.getLore())) {
+            createMenuItem.put("lore", itemMeta.getLore());
+        }
+        if (VersionCheckEnum.getEnum().getVersionId() > VersionCheckEnum.V_1_13.getVersionId() && itemMeta.hasCustomModelData()) {
+            createMenuItem.put("custom-model-data", itemMeta.getCustomModelData());
+        }
+        if (VersionCheckEnum.getEnum().getVersionId() > VersionCheckEnum.V_1_21_1.getVersionId()) {
+            if (itemMeta.hasItemModel() && itemMeta.getItemModel() != null) {
+                createMenuItem.put("itemModel", itemMeta.getItemModel().getNamespace() + ":" + itemMeta.getItemModel().getKey());
+            }
+            if (itemMeta.hasTooltipStyle() && itemMeta.getTooltipStyle() != null) {
+                createMenuItem.put("tooltipStyle", itemMeta.getTooltipStyle().getNamespace() + ":" + itemMeta.getTooltipStyle().getKey());
+            }
+        }
+        boolean autoCreateId = BaseConstants.CONFIG.getBoolean("autoCreateId");
+        if (autoCreateId) {
+            MenuItem menuItem = new MenuItem();
+            menuItem.setItemStack(ItemStackUtil.itemStackSerialize(itemStack));
+            int menuItemId = MenuItemService.getInstance().add(menuItem);
+            createMenuItem.put("id", menuItemId);
+        }
+        return createMenuItem;
     }
 
     /**

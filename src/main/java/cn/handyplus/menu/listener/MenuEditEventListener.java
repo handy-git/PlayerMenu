@@ -7,12 +7,12 @@ import cn.handyplus.lib.core.CollUtil;
 import cn.handyplus.lib.core.StrUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.lib.util.BaseUtil;
-import cn.handyplus.lib.util.HandyConfigUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.constants.GuiTypeEnum;
 import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.util.ConfigUtil;
+import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -27,6 +27,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -48,7 +49,7 @@ public class MenuEditEventListener implements Listener {
      * @param event 事件
      */
     @EventHandler
-    public void onEvent(InventoryCloseEvent event) {
+    public void onEvent(InventoryCloseEvent event) throws IOException {
         Inventory inventory = event.getInventory();
         InventoryHolder holder = inventory.getHolder();
         if (!(holder instanceof HandyInventory)) {
@@ -78,49 +79,105 @@ public class MenuEditEventListener implements Listener {
      * @param file      菜单文件
      * @param size      GUI大小
      */
-    private void saveViewIndex(Inventory inventory, File file, int size) {
+    private void saveViewIndex(Inventory inventory, File file, int size) throws IOException {
         YamlConfiguration yamlConfiguration = YamlConfiguration.loadConfiguration(file);
         ConfigurationSection menuSection = yamlConfiguration.getConfigurationSection("menu");
-        if (menuSection == null) {
-            return;
-        }
         Map<String, List<Integer>> currentIndexMap = new LinkedHashMap<>();
-        for (String key : menuSection.getKeys(false)) {
-            currentIndexMap.put(key, new ArrayList<>());
+        if (menuSection != null) {
+            for (String key : menuSection.getKeys(false)) {
+                currentIndexMap.put(key, new ArrayList<>());
+            }
         }
+        Map<Integer, Map<String, Object>> newMenuItemMap = new LinkedHashMap<>();
         for (int i = 0; i < size; i++) {
             ItemStack item = inventory.getItem(i);
             if (item == null || Material.AIR.equals(item.getType())) {
                 continue;
             }
             String menuKey = this.getMenuKey(item);
-            if (StrUtil.isEmpty(menuKey) || !currentIndexMap.containsKey(menuKey)) {
+            if (StrUtil.isEmpty(menuKey)) {
+                newMenuItemMap.put(i, MenuUtil.createMenuItem(item, i));
+                continue;
+            }
+            if (!currentIndexMap.containsKey(menuKey)) {
+                newMenuItemMap.put(i, MenuUtil.createMenuItem(item, i));
                 continue;
             }
             currentIndexMap.get(menuKey).add(i);
         }
-        String child = "menu/" + file.getName();
+        Map<String, Map<String, Object>> createMenuItemMap = new LinkedHashMap<>();
+        for (Map.Entry<Integer, Map<String, Object>> entry : newMenuItemMap.entrySet()) {
+            String key = this.getCreateMenuKey(yamlConfiguration, currentIndexMap, createMenuItemMap, entry.getKey());
+            createMenuItemMap.put(key, entry.getValue());
+        }
+        boolean saveFlag = false;
         for (Map.Entry<String, List<Integer>> entry : currentIndexMap.entrySet()) {
             List<Integer> currentIndexList = entry.getValue();
+            String menuPath = "menu." + entry.getKey();
             if (CollUtil.isEmpty(currentIndexList)) {
+                yamlConfiguration.set(menuPath, null);
+                saveFlag = true;
                 continue;
             }
-            String indexPath = "menu." + entry.getKey() + ".index";
+            String indexPath = menuPath + ".index";
             List<Integer> oldIndexList = StrUtil.strToIntList(yamlConfiguration.getString(indexPath));
             if (this.isSameIndex(oldIndexList, currentIndexList)) {
                 continue;
             }
-            HandyConfigUtil.setPath(yamlConfiguration, indexPath, this.joinIndex(currentIndexList), child);
+            yamlConfiguration.set(indexPath, this.joinIndex(currentIndexList));
+            saveFlag = true;
+        }
+        for (Map.Entry<String, Map<String, Object>> entry : createMenuItemMap.entrySet()) {
+            yamlConfiguration.set("menu." + entry.getKey(), entry.getValue());
+            saveFlag = true;
+        }
+        if (saveFlag) {
+            yamlConfiguration.save(file);
         }
     }
 
     /**
-     * 判断index是否真实变化.
+     * 获取新增菜单物品key.
      *
-     * @param oldIndexList 原index
-     * @param newIndexList 新index
-     * @return 是否一致
+     * @param yamlConfiguration 菜单配置
+     * @param currentIndexMap   当前已有物品槽位
+     * @param createMenuItemMap 新增物品
+     * @param index             槽位
+     * @return 菜单物品key
      */
+    private String getCreateMenuKey(YamlConfiguration yamlConfiguration, Map<String, List<Integer>> currentIndexMap,
+                                    Map<String, Map<String, Object>> createMenuItemMap, int index) {
+        String key = String.valueOf(index);
+        if (this.canUseCreateMenuKey(yamlConfiguration, currentIndexMap, createMenuItemMap, key)) {
+            return key;
+        }
+        int next = 1;
+        while (!this.canUseCreateMenuKey(yamlConfiguration, currentIndexMap, createMenuItemMap, key + "_" + next)) {
+            next++;
+        }
+        return key + "_" + next;
+    }
+
+    /**
+     * 判断新增菜单物品key是否可用.
+     *
+     * @param yamlConfiguration 菜单配置
+     * @param currentIndexMap   当前已有物品槽位
+     * @param createMenuItemMap 新增物品
+     * @param key               菜单物品key
+     * @return 是否可用
+     */
+    private boolean canUseCreateMenuKey(YamlConfiguration yamlConfiguration, Map<String, List<Integer>> currentIndexMap,
+                                        Map<String, Map<String, Object>> createMenuItemMap, String key) {
+        if (createMenuItemMap.containsKey(key)) {
+            return false;
+        }
+        if (!yamlConfiguration.contains("menu." + key)) {
+            return true;
+        }
+        return currentIndexMap.containsKey(key) && CollUtil.isEmpty(currentIndexMap.get(key));
+    }
+
     /**
      * 获取编辑菜单key.
      *
@@ -145,6 +202,13 @@ public class MenuEditEventListener implements Listener {
         return keyLore.substring(MenuConstants.VIEW_KEY_PREFIX.length());
     }
 
+    /**
+     * 判断index是否真实变化.
+     *
+     * @param oldIndexList 原index
+     * @param newIndexList 新index
+     * @return 是否一致
+     */
     private boolean isSameIndex(List<Integer> oldIndexList, List<Integer> newIndexList) {
         if (oldIndexList.size() != newIndexList.size()) {
             return false;
