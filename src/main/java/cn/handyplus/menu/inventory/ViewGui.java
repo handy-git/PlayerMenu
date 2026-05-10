@@ -100,7 +100,7 @@ public class ViewGui {
             if (memorySection == null) {
                 continue;
             }
-            MenuButtonParam menuButtonParam = MenuGui.getMenuButtonParam(memorySection, null);
+            MenuButtonParam menuButtonParam = MenuGui.getMenuButtonParam(memorySection, handyInventory.getPlayer());
             for (Integer index : menuButtonParam.getIndexList()) {
                 ItemStack itemStack = MenuItemCore.getMenuItem(menuButtonParam);
                 this.setMenuKey(itemStack, key);
