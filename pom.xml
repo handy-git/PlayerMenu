@@ -7,14 +7,14 @@
     <groupId>cn.handyplus.menu</groupId>
     <name>PlayerMenu</name>
     <artifactId>PlayerMenu</artifactId>
-    <version>1.9.6</version>
+    <version>1.9.7</version>
     <description>一个有点好用的玩家菜单插件</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <HandyLib.version>3.38.8</HandyLib.version>
         <PlayerGuild.version>2.9.1</PlayerGuild.version>
-        <craft-engine.version>0.0.63</craft-engine.version>
+        <craft-engine.version>26.5</craft-engine.version>
     </properties>
 
     <dependencies>

@@ -9,7 +9,7 @@ import cn.handyplus.menu.enter.MenuItem;
 import cn.handyplus.menu.param.MenuButtonParam;
 import cn.handyplus.menu.service.MenuItemService;
 import net.momirealms.craftengine.bukkit.api.CraftEngineItems;
-import net.momirealms.craftengine.core.item.CustomItem;
+import net.momirealms.craftengine.bukkit.item.BukkitItemDefinition;
 import net.momirealms.craftengine.core.util.Key;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -140,12 +140,12 @@ public final class MenuItemCore {
         String[] itemStr = material.split(":");
         String namespace = itemStr[0].trim();
         String value = itemStr[1].trim();
-        CustomItem<ItemStack> customItem = CraftEngineItems.byId(Key.of(namespace, value));
+        BukkitItemDefinition customItem = CraftEngineItems.byId(Key.of(namespace, value));
         if (customItem == null) {
             return new ItemStack(Material.STONE);
         }
         // 创建CE物品
-        ItemStack itemStack = customItem.buildItemStack();
+        ItemStack itemStack = customItem.buildBukkitItem();
         ItemMeta newItemMeta = ItemStackUtil.getItemMeta(itemStack);
         // 设置基础属性
         itemStack.setItemMeta(baseParam(menuButtonParam, newItemMeta));
