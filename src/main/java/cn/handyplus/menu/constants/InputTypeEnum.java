@@ -19,6 +19,7 @@ public enum InputTypeEnum {
      * 全部节点
      */
     TEXT("[text]"),
+    POSITIVE_NUMBER("[number+]"),
     NUMBER("[number]"),
     ;
 

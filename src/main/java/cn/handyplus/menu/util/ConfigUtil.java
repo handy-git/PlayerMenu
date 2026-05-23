@@ -108,6 +108,7 @@ public class ConfigUtil {
         HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "playerNotOnline", "&8[&c✘&8] &7玩家 &a${player} &7不在线", null, language);
         // 1.3.7
         HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "noNumber", "&8[&c✘&8] &7请输入数字", null, language);
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "noPositiveNumber", "&8[&c✘&8] &7请输入大于0的数字", null, language);
         // 1.4.2
         HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "playerCurrencySucceedMsg", "&a已成功加载PlayerCurrency 启用多货币经济兼容", null, language);
         HandyConfigUtil.setPathIsNotContains(BaseConstants.LANG_CONFIG, "playerCurrencyFailureMsg", "&7你的服务端没有安装PlayerCurrency 未启用多货币经济兼容", null, language);

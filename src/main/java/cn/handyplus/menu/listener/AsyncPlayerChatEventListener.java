@@ -26,6 +26,7 @@ import java.util.Optional;
  * @author handy
  */
 @HandyListener
+@SuppressWarnings("deprecation")
 public class AsyncPlayerChatEventListener implements Listener {
 
     /**
@@ -55,10 +56,14 @@ public class AsyncPlayerChatEventListener implements Listener {
             return;
         }
         // 数字校验
-        if (InputTypeEnum.NUMBER.equals(inputTypeEnum)) {
+        if (InputTypeEnum.NUMBER.equals(inputTypeEnum) || InputTypeEnum.POSITIVE_NUMBER.equals(inputTypeEnum)) {
             Optional<BigDecimal> numericOpt = NumberUtil.isNumericToBigDecimal(message);
             if (!numericOpt.isPresent()) {
                 MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noNumber"));
+                return;
+            }
+            if (InputTypeEnum.POSITIVE_NUMBER.equals(inputTypeEnum) && numericOpt.get().compareTo(BigDecimal.ZERO) <= 0) {
+                MessageUtil.sendMessage(player, BaseUtil.getLangMsg("noPositiveNumber"));
                 return;
             }
         }
