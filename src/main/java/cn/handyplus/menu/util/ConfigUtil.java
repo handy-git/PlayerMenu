@@ -89,11 +89,11 @@ public class ConfigUtil {
         // 1.6.7 adminOpenPermission
         HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "adminOpenPermission", true, Collections.singletonList("adminOpen指令打开菜单是否免权限"), "config.yml");
         // 1.8.0 action.cd/action.limit
-        HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "action.cd", "ALL", Collections.singletonList("cd生效点击类型 ALL 全部 ，LEFT 左键，RIGHT 右键"), "config.yml");
-        HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "action.limit", "ALL", Collections.singletonList("limit生效点击类型 ALL 全部 ，LEFT 左键，RIGHT 右键"), "config.yml");
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "action.cd", "ALL", Collections.singletonList("cd生效点击类型 ALL 全部 ，LEFT 左键，RIGHT 右键，MIDDLE 中键"), "config.yml");
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "action.limit", "ALL", Collections.singletonList("limit生效点击类型 ALL 全部 ，LEFT 左键，RIGHT 右键，MIDDLE 中键"), "config.yml");
         // 1.8.1 action.money/action.point
-        HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "action.money", "ALL", Collections.singletonList("money生效点击类型 ALL 全部 ，LEFT 左键，RIGHT 右键"), "config.yml");
-        HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "action.point", "ALL", Collections.singletonList("point生效点击类型 ALL 全部 ，LEFT 左键，RIGHT 右键"), "config.yml");
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "action.money", "ALL", Collections.singletonList("money生效点击类型 ALL 全部 ，LEFT 左键，RIGHT 右键，MIDDLE 中键"), "config.yml");
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "action.point", "ALL", Collections.singletonList("point生效点击类型 ALL 全部 ，LEFT 左键，RIGHT 右键，MIDDLE 中键"), "config.yml");
         HandyConfigUtil.loadConfig();
         // 1.1.7
         String language = "languages/" + BaseConstants.CONFIG.getString("language") + ".yml";

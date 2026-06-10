@@ -206,6 +206,7 @@ public class MenuGui {
         List<String> commands = memorySection.getStringList("commands");
         List<String> leftActions = memorySection.getStringList("actions.left");
         List<String> rightActions = memorySection.getStringList("actions.right");
+        List<String> middleActions = memorySection.getStringList("actions.middle");
         List<String> conditions = memorySection.getStringList("conditions");
         String conditionNotMet = memorySection.getString("conditionNotMet");
         List<String> conditionsHide = memorySection.getStringList("conditionsHide");
@@ -279,6 +280,9 @@ public class MenuGui {
         }
         if (CollUtil.isNotEmpty(rightActions)) {
             actions.put("right", rightActions);
+        }
+        if (CollUtil.isNotEmpty(middleActions)) {
+            actions.put("middle", middleActions);
         }
         menuButtonParam.setActions(actions);
         menuButtonParam.setClickType(clickType);

@@ -91,6 +91,10 @@ public class MenuCore {
         if (ClickType.LEFT.equals(menuButtonParam.getEventClickType())) {
             executeCommand(player, menuButtonParam.getActions().get("left"), handyInventory, 0);
         }
+        // 执行中键命令
+        if (ClickType.MIDDLE.equals(menuButtonParam.getEventClickType())) {
+            executeCommand(player, menuButtonParam.getActions().get("middle"), handyInventory, 0);
+        }
     }
 
     /**
@@ -307,6 +311,8 @@ public class MenuCore {
                 return ClickType.LEFT.equals(clickType);
             case "RIGHT":
                 return ClickType.RIGHT.equals(clickType);
+            case "MIDDLE":
+                return ClickType.MIDDLE.equals(clickType);
             case "ALL":
             default:
                 return true;
@@ -387,6 +393,9 @@ public class MenuCore {
         }
         // 判断是否左右键模式
         shopType = getShopType(menuButtonParam);
+        if (shopType == null) {
+            return false;
+        }
         // 金币处理
         String input = MenuConstants.PLAYER_INPUT_MAP.getOrDefault(player.getUniqueId(), "");
         int shopMoney = getShopPrice(menuButtonParam.getShopMoney(), input);
@@ -533,6 +542,9 @@ public class MenuCore {
     private static @Nullable String getShopType(MenuButtonParam menuButtonParam) {
         String shopType = menuButtonParam.getShopType();
         if (MenuConstants.LEFT_BUY_RIGHT_SELL.equalsIgnoreCase(shopType) || MenuConstants.LEFT_SELL_RIGHT_BUY.equalsIgnoreCase(shopType)) {
+            if (!ClickType.LEFT.equals(menuButtonParam.getEventClickType()) && !ClickType.RIGHT.equals(menuButtonParam.getEventClickType())) {
+                return null;
+            }
             boolean left = ClickType.LEFT.equals(menuButtonParam.getEventClickType());
             if (MenuConstants.LEFT_BUY_RIGHT_SELL.equalsIgnoreCase(shopType)) {
                 shopType = left ? MenuConstants.BUY : MenuConstants.SELL;
