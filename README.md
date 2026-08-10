@@ -39,7 +39,3 @@ Dev DownLoad:
 ## Usage Statistics
 
 ![Usage Statistics](https://bstats.org/signatures/bukkit/PlayerMenu.svg)
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=handy-git/PlayerMenu&type=Date)](https://star-history.com/#handy-git/PlayerMenu&Date)  

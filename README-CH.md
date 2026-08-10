@@ -36,8 +36,3 @@
 ## 使用统计
 
 ![使用统计](https://bstats.org/signatures/bukkit/PlayerMenu.svg)
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=handy-git/PlayerMenu&type=Date)](https://star-history.com/#handy-git/PlayerMenu&Date)
-
