@@ -1,14 +1,16 @@
 package cn.handyplus.menu.service;
 
 import cn.handyplus.lib.core.CollUtil;
+import cn.handyplus.lib.core.MapUtil;
 import cn.handyplus.lib.db.Db;
 import cn.handyplus.menu.enter.MenuLimit;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * 菜单点击限制
@@ -42,7 +44,7 @@ public class MenuLimitService {
      * @param menuLimit 入参
      */
     public void setClickTimeById(MenuLimit menuLimit) {
-        Optional<MenuLimit> limitOptional = this.findByPlayerUuid(UUID.fromString(menuLimit.getPlayerUuid()), menuLimit.getMenuItemId());
+        Optional<MenuLimit> limitOptional = this.findByPlayerUuid(menuLimit.getPlayerUuid(), menuLimit.getMenuItemId());
         if (!limitOptional.isPresent()) {
             this.add(menuLimit);
             return;
@@ -57,7 +59,7 @@ public class MenuLimitService {
      * @param menuLimit 入参
      */
     public void addNumberById(MenuLimit menuLimit) {
-        Optional<MenuLimit> limitOptional = this.findByPlayerUuid(UUID.fromString(menuLimit.getPlayerUuid()), menuLimit.getMenuItemId());
+        Optional<MenuLimit> limitOptional = this.findByPlayerUuid(menuLimit.getPlayerUuid(), menuLimit.getMenuItemId());
         if (!limitOptional.isPresent()) {
             this.add(menuLimit);
             return;
@@ -100,6 +102,28 @@ public class MenuLimitService {
         use.where().eq(MenuLimit::getPlayerUuid, playerUuid)
                 .eq(MenuLimit::getMenuItemId, menuItemId);
         return use.execution().selectOne();
+    }
+
+    /**
+     * 批量查询玩家菜单限制
+     *
+     * @param playerUuid  玩家uid
+     * @param menuItemIds 菜单id集合
+     * @return 菜单id与限制映射
+     */
+    public Map<Integer, MenuLimit> findMapByPlayerUuid(UUID playerUuid, List<Integer> menuItemIds) {
+        if (CollUtil.isEmpty(menuItemIds)) {
+            return Collections.emptyMap();
+        }
+        Db<MenuLimit> use = Db.use(MenuLimit.class);
+        use.where().eq(MenuLimit::getPlayerUuid, playerUuid)
+                .in(MenuLimit::getMenuItemId, menuItemIds);
+        List<MenuLimit> list = use.execution().list();
+        Map<Integer, MenuLimit> map = MapUtil.newHashMapWithExpectedSize(list.size());
+        for (MenuLimit menuLimit : list) {
+            map.put(menuLimit.getMenuItemId(), menuLimit);
+        }
+        return map;
     }
 
     /**
@@ -148,20 +172,6 @@ public class MenuLimitService {
         Db<MenuLimit> use = Db.use(MenuLimit.class);
         use.where().in(MenuLimit::getMenuItemId, menuItemIds);
         use.execution().delete();
-    }
-
-    /**
-     * 查询当前全部菜单id
-     *
-     * @return 菜单id
-     * @since 1.5.8
-     */
-    public List<String> selectMenuItemIds() {
-        Db<MenuLimit> use = Db.use(MenuLimit.class);
-        use.select(MenuLimit::getMenuItemId);
-        use.where().groupBy(MenuLimit::getMenuItemId);
-        List<MenuLimit> list = use.execution().list();
-        return list.stream().map(menuLimit -> String.valueOf(menuLimit.getMenuItemId())).collect(Collectors.toList());
     }
 
     /**

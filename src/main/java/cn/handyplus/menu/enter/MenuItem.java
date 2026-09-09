@@ -2,6 +2,7 @@ package cn.handyplus.menu.enter;
 
 import cn.handyplus.lib.annotation.TableField;
 import cn.handyplus.lib.annotation.TableName;
+import cn.handyplus.lib.db.IndexEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +22,7 @@ public class MenuItem {
     @TableField(value = "item_stack", comment = "物品", length = 20000, notNull = true)
     private String itemStack;
 
-    @TableField(value = "md5", comment = "md5")
+    @TableField(value = "md5", comment = "md5", indexEnum = IndexEnum.UNIQUE)
     private String md5;
 
 }

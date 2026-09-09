@@ -2,10 +2,12 @@ package cn.handyplus.menu.enter;
 
 import cn.handyplus.lib.annotation.TableField;
 import cn.handyplus.lib.annotation.TableName;
+import cn.handyplus.lib.db.IndexEnum;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * 菜单点击限制
@@ -23,10 +25,10 @@ public class MenuLimit {
     @TableField(value = "player_name", comment = "玩家名称", notNull = true)
     private String playerName;
 
-    @TableField(value = "player_uuid", comment = "玩家uuid", notNull = true)
-    private String playerUuid;
+    @TableField(value = "player_uuid", comment = "玩家uuid", notNull = true, indexEnum = IndexEnum.UNIQUE, uniqueGroup = "player_menu_item")
+    private UUID playerUuid;
 
-    @TableField(value = "menu_item_id", comment = "菜单id", notNull = true)
+    @TableField(value = "menu_item_id", comment = "菜单id", notNull = true, indexEnum = IndexEnum.UNIQUE, uniqueGroup = "player_menu_item")
     private Integer menuItemId;
 
     @TableField(value = "number", comment = "点击次数", notNull = true)

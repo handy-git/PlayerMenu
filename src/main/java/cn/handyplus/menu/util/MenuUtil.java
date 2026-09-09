@@ -16,6 +16,7 @@ import cn.handyplus.lib.util.XSeriesUtil;
 import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.enter.MenuItem;
+import cn.handyplus.menu.enter.MenuLimit;
 import cn.handyplus.menu.inventory.MenuGui;
 import cn.handyplus.menu.service.MenuItemService;
 import cn.handyplus.menu.service.MenuLimitService;
@@ -25,6 +26,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -121,6 +123,35 @@ public class MenuUtil {
             return false;
         }
         Date clickTime = MenuLimitService.getInstance().findTimeByPlayerUuid(player.getUniqueId(), menuItemId);
+        return clickCd(player, clickTime, cd, msgTip);
+    }
+
+    /**
+     * 点击CD判断
+     *
+     * @param player    玩家
+     * @param menuLimit 菜单限制
+     * @param cd        冷却
+     * @param msgTip    msg提醒
+     * @return true 不满足
+     */
+    public static boolean clickCd(Player player, @Nullable MenuLimit menuLimit, int cd, boolean msgTip) {
+        return clickCd(player, menuLimit == null ? null : menuLimit.getClickTime(), cd, msgTip);
+    }
+
+    /**
+     * 点击CD判断
+     *
+     * @param player    玩家
+     * @param clickTime 点击时间
+     * @param cd        冷却
+     * @param msgTip    msg提醒
+     * @return true 不满足
+     */
+    private static boolean clickCd(Player player, @Nullable Date clickTime, int cd, boolean msgTip) {
+        if (cd <= 0) {
+            return false;
+        }
         if (clickTime != null) {
             long time = DateUtil.offset(clickTime, Calendar.SECOND, cd).getTime() - System.currentTimeMillis();
             if (time > 0) {
@@ -146,6 +177,35 @@ public class MenuUtil {
             return false;
         }
         Integer count = MenuLimitService.getInstance().findCountByPlayerUuid(player.getUniqueId(), menuItemId);
+        return clickLimit(player, count, limit, msgTip);
+    }
+
+    /**
+     * 点击次数判断
+     *
+     * @param player    玩家
+     * @param menuLimit 菜单限制
+     * @param limit     次数
+     * @param msgTip    msg提醒
+     * @return true 不满足
+     */
+    public static boolean clickLimit(Player player, @Nullable MenuLimit menuLimit, int limit, boolean msgTip) {
+        return clickLimit(player, menuLimit == null ? 0 : menuLimit.getNumber(), limit, msgTip);
+    }
+
+    /**
+     * 点击次数判断
+     *
+     * @param player 玩家
+     * @param count  已点击次数
+     * @param limit  次数
+     * @param msgTip msg提醒
+     * @return true 不满足
+     */
+    private static boolean clickLimit(Player player, Integer count, int limit, boolean msgTip) {
+        if (limit <= 0) {
+            return false;
+        }
         if (count >= limit) {
             MessageUtil.sendMessage(msgTip, player, BaseUtil.getLangMsg("noLimit"));
             return true;

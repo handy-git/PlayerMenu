@@ -11,8 +11,12 @@ import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.menu.constants.GuiTypeEnum;
 import cn.handyplus.menu.core.MenuCore;
 import cn.handyplus.menu.core.MenuItemCore;
+import cn.handyplus.menu.enter.MenuItem;
+import cn.handyplus.menu.enter.MenuLimit;
 import cn.handyplus.menu.hook.PlaceholderApiUtil;
 import cn.handyplus.menu.param.MenuButtonParam;
+import cn.handyplus.menu.service.MenuItemService;
+import cn.handyplus.menu.service.MenuLimitService;
 import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.MenuUtil;
 import org.bukkit.OfflinePlayer;
@@ -23,9 +27,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 生成gui
@@ -102,6 +109,9 @@ public class MenuGui {
         }
         // 一级目录
         Map<String, Object> values = configurationSection.getValues(false);
+        List<MenuButtonParam> menuButtonParamList = new ArrayList<>();
+        Set<Integer> menuLimitIdSet = new HashSet<>();
+        Set<Integer> menuItemIdSet = new HashSet<>();
         for (String key : values.keySet()) {
             // 二级目录
             MemorySection memorySection = (MemorySection) values.get(key);
@@ -117,12 +127,24 @@ public class MenuGui {
             if (StrUtil.isNotEmpty(menuButtonParam.getNotPermission()) && player.hasPermission(menuButtonParam.getNotPermission())) {
                 continue;
             }
+            menuButtonParamList.add(menuButtonParam);
+            if (menuButtonParam.getId() > 0) {
+                menuItemIdSet.add(menuButtonParam.getId());
+            }
+            if (menuButtonParam.getId() != 0 && (menuButtonParam.getLimitHide() > 0 || menuButtonParam.getCdHide() > 0)) {
+                menuLimitIdSet.add(menuButtonParam.getId());
+            }
+        }
+        Map<Integer, MenuItem> menuItemMap = MenuItemService.getInstance().findMapByIds(new ArrayList<>(menuItemIdSet));
+        Map<Integer, MenuLimit> menuLimitMap = MenuLimitService.getInstance().findMapByPlayerUuid(player.getUniqueId(), new ArrayList<>(menuLimitIdSet));
+        for (MenuButtonParam menuButtonParam : menuButtonParamList) {
+            MenuLimit menuLimit = menuLimitMap.get(menuButtonParam.getId());
             // 判断是没次数隐藏
-            if (MenuUtil.clickLimit(player, menuButtonParam.getId(), menuButtonParam.getLimitHide(), false)) {
+            if (MenuUtil.clickLimit(player, menuLimit, menuButtonParam.getLimitHide(), false)) {
                 continue;
             }
             // 判断是CD中隐藏
-            if (MenuUtil.clickCd(player, menuButtonParam.getId(), menuButtonParam.getCdHide(), false)) {
+            if (MenuUtil.clickCd(player, menuLimit, menuButtonParam.getCdHide(), false)) {
                 continue;
             }
             // 判断自定义显示条件是否满足
@@ -136,6 +158,7 @@ public class MenuGui {
                 amount = NumberUtil.isNumericToInt(dynamicAmount, amount);
                 amount = amount != 0 ? amount : 1;
             }
+            ItemStack itemStack = null;
             for (Integer index : menuButtonParam.getIndexList()) {
                 // 判断优先级
                 if (objMap.containsKey(index)) {
@@ -144,9 +167,11 @@ public class MenuGui {
                         continue;
                     }
                 }
-                ItemStack itemStack = MenuItemCore.getMenuItem(menuButtonParam);
-                itemStack.setAmount(amount);
-                inventory.setItem(index, itemStack);
+                if (itemStack == null) {
+                    itemStack = MenuItemCore.getMenuItem(menuButtonParam, menuItemMap.get(menuButtonParam.getId()));
+                    itemStack.setAmount(amount);
+                }
+                inventory.setItem(index, itemStack.clone());
                 objMap.put(index, menuButtonParam);
             }
         }

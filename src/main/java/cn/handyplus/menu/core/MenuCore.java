@@ -209,7 +209,7 @@ public class MenuCore {
         }
         MenuLimit menuLimit = new MenuLimit();
         menuLimit.setPlayerName(player.getName());
-        menuLimit.setPlayerUuid(player.getUniqueId().toString());
+        menuLimit.setPlayerUuid(player.getUniqueId());
         menuLimit.setMenuItemId(menuButtonParam.getId());
         menuLimit.setNumber(0);
         menuLimit.setClickTime(new Date());
@@ -238,7 +238,7 @@ public class MenuCore {
         }
         MenuLimit menuLimit = new MenuLimit();
         menuLimit.setPlayerName(player.getName());
-        menuLimit.setPlayerUuid(player.getUniqueId().toString());
+        menuLimit.setPlayerUuid(player.getUniqueId());
         menuLimit.setMenuItemId(menuButtonParam.getId());
         menuLimit.setNumber(1);
         menuLimit.setClickTime(new Date());

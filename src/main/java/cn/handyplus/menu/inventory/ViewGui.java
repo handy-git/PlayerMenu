@@ -10,8 +10,10 @@ import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.GuiTypeEnum;
 import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.core.MenuItemCore;
+import cn.handyplus.menu.enter.MenuItem;
 import cn.handyplus.menu.hook.PlaceholderApiUtil;
 import cn.handyplus.menu.param.MenuButtonParam;
+import cn.handyplus.menu.service.MenuItemService;
 import cn.handyplus.menu.util.ConfigUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.MemorySection;
@@ -22,8 +24,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 编辑gui
@@ -94,6 +99,8 @@ public class ViewGui {
         }
         // 一级目录
         Map<String, Object> values = configurationSection.getValues(false);
+        Map<String, MenuButtonParam> menuButtonParamMap = new LinkedHashMap<>();
+        Set<Integer> menuItemIdSet = new HashSet<>();
         for (String key : values.keySet()) {
             // 二级目录
             MemorySection memorySection = (MemorySection) values.get(key);
@@ -101,10 +108,19 @@ public class ViewGui {
                 continue;
             }
             MenuButtonParam menuButtonParam = MenuGui.getMenuButtonParam(memorySection, handyInventory.getPlayer());
+            menuButtonParamMap.put(key, menuButtonParam);
+            if (menuButtonParam.getId() > 0) {
+                menuItemIdSet.add(menuButtonParam.getId());
+            }
+        }
+        Map<Integer, MenuItem> menuItemMap = MenuItemService.getInstance().findMapByIds(new ArrayList<>(menuItemIdSet));
+        for (Map.Entry<String, MenuButtonParam> entry : menuButtonParamMap.entrySet()) {
+            String key = entry.getKey();
+            MenuButtonParam menuButtonParam = entry.getValue();
+            ItemStack itemStack = MenuItemCore.getMenuItem(menuButtonParam, menuItemMap.get(menuButtonParam.getId()));
+            this.setMenuKey(itemStack, key);
             for (Integer index : menuButtonParam.getIndexList()) {
-                ItemStack itemStack = MenuItemCore.getMenuItem(menuButtonParam);
-                this.setMenuKey(itemStack, key);
-                inventory.setItem(index, itemStack);
+                inventory.setItem(index, itemStack.clone());
             }
         }
     }

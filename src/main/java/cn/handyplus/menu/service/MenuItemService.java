@@ -1,11 +1,15 @@
 package cn.handyplus.menu.service;
 
+import cn.handyplus.lib.core.CollUtil;
+import cn.handyplus.lib.core.MapUtil;
 import cn.handyplus.lib.core.SecureUtil;
 import cn.handyplus.lib.db.Db;
 import cn.handyplus.lib.db.Page;
 import cn.handyplus.menu.enter.MenuItem;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -50,6 +54,26 @@ public class MenuItemService {
      */
     public Optional<MenuItem> findById(Integer id) {
         return Db.use(MenuItem.class).execution().selectById(id);
+    }
+
+    /**
+     * 根据id批量查询
+     *
+     * @param ids id集合
+     * @return id与物品映射
+     */
+    public Map<Integer, MenuItem> findMapByIds(List<Integer> ids) {
+        if (CollUtil.isEmpty(ids)) {
+            return Collections.emptyMap();
+        }
+        Db<MenuItem> use = Db.use(MenuItem.class);
+        use.where().in(MenuItem::getId, ids);
+        List<MenuItem> list = use.execution().list();
+        Map<Integer, MenuItem> map = MapUtil.newHashMapWithExpectedSize(list.size());
+        for (MenuItem menuItem : list) {
+            map.put(menuItem.getId(), menuItem);
+        }
+        return map;
     }
 
     /**

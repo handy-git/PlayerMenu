@@ -7,7 +7,6 @@ import cn.handyplus.menu.PlayerMenu;
 import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.enter.MenuItem;
 import cn.handyplus.menu.param.MenuButtonParam;
-import cn.handyplus.menu.service.MenuItemService;
 import net.momirealms.craftengine.bukkit.api.CraftEngineItems;
 import net.momirealms.craftengine.bukkit.item.BukkitItemDefinition;
 import net.momirealms.craftengine.core.util.Key;
@@ -16,9 +15,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jspecify.annotations.NonNull;
-
-import java.util.Optional;
 
 /**
  * @author handy
@@ -32,13 +30,14 @@ public final class MenuItemCore {
      * 获取菜单物品
      *
      * @param menuButtonParam 菜单参数
+     * @param menuItem        预查询的菜单物品
      * @return 菜单物品
      */
-    public static ItemStack getMenuItem(@NotNull MenuButtonParam menuButtonParam) {
+    public static ItemStack getMenuItem(@NotNull MenuButtonParam menuButtonParam, @Nullable MenuItem menuItem) {
         ItemStack itemStack;
         if (menuButtonParam.getId() > 0) {
             // ID 物品
-            itemStack = getItemStackById(menuButtonParam);
+            itemStack = getItemStackById(menuButtonParam, menuItem);
         } else if (menuButtonParam.getMaterial().contains(MenuConstants.CE)) {
             // CE 物品
             itemStack = getCraftEngine(menuButtonParam);
@@ -60,13 +59,12 @@ public final class MenuItemCore {
      * 根据id进行替换
      *
      * @param menuButtonParam 菜单参数
+     * @param menuItem        菜单物品
      */
-    private static ItemStack getItemStackById(@NotNull MenuButtonParam menuButtonParam) {
-        Optional<MenuItem> menuItemOptional = MenuItemService.getInstance().findById(menuButtonParam.getId());
-        if (!menuItemOptional.isPresent()) {
+    private static ItemStack getItemStackById(@NotNull MenuButtonParam menuButtonParam, @Nullable MenuItem menuItem) {
+        if (menuItem == null) {
             return new ItemStack(Material.STONE);
         }
-        MenuItem menuItem = menuItemOptional.get();
         ItemStack itemStack = ItemStackUtil.itemStackDeserialize(menuItem.getItemStack());
         ItemMeta newItemMeta = ItemStackUtil.getItemMeta(itemStack);
         // 设置基础属性
