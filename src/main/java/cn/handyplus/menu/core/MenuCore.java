@@ -6,6 +6,7 @@ import cn.handyplus.lib.core.FormulaUtil;
 import cn.handyplus.lib.core.MapUtil;
 import cn.handyplus.lib.core.NumberUtil;
 import cn.handyplus.lib.core.StrUtil;
+import cn.handyplus.lib.item.ItemCompatUtil;
 import cn.handyplus.lib.internal.HandySchedulerUtil;
 import cn.handyplus.lib.internal.PlayerSchedulerUtil;
 import cn.handyplus.lib.inventory.HandyInventory;
@@ -564,15 +565,15 @@ public class MenuCore {
      * @since 1.7.7
      */
     private static @Nullable ItemStack getItemStack(@NotNull Player player, @NotNull String material) {
-        ItemStack itemStack = null;
+        ItemStack itemStack = ItemCompatUtil.getItemStack(material);
         // 判断是否 物品库格式 [ID] 例如 [1]
-        if (material.startsWith("[") && material.endsWith("]")) {
+        if (itemStack == null && material.startsWith("[") && material.endsWith("]")) {
             String id = material.substring(1, material.length() - 1);
             Optional<MenuItem> menuItem = MenuItemService.getInstance().findById(Integer.valueOf(id));
             if (menuItem.isPresent()) {
                 itemStack = ItemStackUtil.itemStackDeserialize(menuItem.get().getItemStack());
             }
-        } else {
+        } else if (itemStack == null) {
             itemStack = ItemStackUtil.getItemByMaterial(material);
         }
         // 判断是否为空

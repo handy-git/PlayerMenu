@@ -1,15 +1,11 @@
 package cn.handyplus.menu.core;
 
 import cn.handyplus.lib.core.StrUtil;
+import cn.handyplus.lib.item.ItemCompatUtil;
 import cn.handyplus.lib.util.ItemMetaUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
-import cn.handyplus.menu.PlayerMenu;
-import cn.handyplus.menu.constants.MenuConstants;
 import cn.handyplus.menu.enter.MenuItem;
 import cn.handyplus.menu.param.MenuButtonParam;
-import net.momirealms.craftengine.bukkit.api.CraftEngineItems;
-import net.momirealms.craftengine.bukkit.item.BukkitItemDefinition;
-import net.momirealms.craftengine.core.util.Key;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -38,10 +34,13 @@ public final class MenuItemCore {
         if (menuButtonParam.getId() > 0) {
             // ID 物品
             itemStack = getItemStackById(menuButtonParam, menuItem);
-        } else if (menuButtonParam.getMaterial().contains(MenuConstants.CE)) {
-            // CE 物品
-            itemStack = getCraftEngine(menuButtonParam);
         } else {
+            ItemStack compatItem = ItemCompatUtil.getItemStack(menuButtonParam.getMaterial());
+            if (compatItem != null) {
+                itemStack = compatItem;
+                itemStack.setItemMeta(baseParam(menuButtonParam, ItemStackUtil.getItemMeta(itemStack)));
+                return itemStack;
+            }
             // 普通物品
             itemStack = ItemStackUtil.getItemStack(
                     menuButtonParam.getMaterial(), menuButtonParam.getName(),
@@ -121,33 +120,6 @@ public final class MenuItemCore {
             ItemMetaUtil.setSkull(skullMeta, menuButtonParam.getHeadBase());
             itemStack.setItemMeta(skullMeta);
         }
-    }
-
-    /**
-     * CE插件物品
-     *
-     * @param menuButtonParam 物品配置
-     * @return CE插件物品
-     */
-    private static @NotNull ItemStack getCraftEngine(@NotNull MenuButtonParam menuButtonParam) {
-        if (!PlayerMenu.USE_CE) {
-            throw new RuntimeException("not fount CE");
-        }
-        String material = menuButtonParam.getMaterial();
-        material = material.replace(MenuConstants.CE, "");
-        String[] itemStr = material.split(":");
-        String namespace = itemStr[0].trim();
-        String value = itemStr[1].trim();
-        BukkitItemDefinition customItem = CraftEngineItems.byId(Key.of(namespace, value));
-        if (customItem == null) {
-            return new ItemStack(Material.STONE);
-        }
-        // 创建CE物品
-        ItemStack itemStack = customItem.buildBukkitItem();
-        ItemMeta newItemMeta = ItemStackUtil.getItemMeta(itemStack);
-        // 设置基础属性
-        itemStack.setItemMeta(baseParam(menuButtonParam, newItemMeta));
-        return itemStack;
     }
 
 }

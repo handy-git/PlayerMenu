@@ -4,10 +4,12 @@ import cn.handyplus.lib.command.HandyCommandWrapper;
 import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.core.MapUtil;
 import cn.handyplus.lib.core.StrUtil;
+import cn.handyplus.lib.item.ItemCompatUtil;
 import cn.handyplus.lib.util.HandyConfigUtil;
 import cn.handyplus.lib.util.ItemStackUtil;
 import cn.handyplus.menu.constants.MenuConstants;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -144,6 +146,11 @@ public class ConfigUtil {
         List<String> loreList = BaseConstants.CONFIG.getStringList("clock.lore");
         boolean isEnchant = BaseConstants.CONFIG.getBoolean("clock.isEnchant");
         int customModelDataId = BaseConstants.CONFIG.getInt("clock.custom-model-data");
+        ItemStack compatItem = ItemCompatUtil.getItemStack(material);
+        if (compatItem != null) {
+            MenuConstants.CLOCK = compatItem;
+            return;
+        }
         MenuConstants.CLOCK = ItemStackUtil.getItemStack(material, name, loreList, isEnchant, customModelDataId);
     }
 

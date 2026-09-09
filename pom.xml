@@ -14,7 +14,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <HandyLib.version>3.41.6</HandyLib.version>
         <PlayerGuild.version>2.14.0</PlayerGuild.version>
-        <craft-engine.version>26.5</craft-engine.version>
     </properties>
 
     <dependencies>
@@ -23,6 +22,10 @@
             <artifactId>HandyLib</artifactId>
             <version>${HandyLib.version}</version>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>cn.handyplus.lib.item</groupId>
+            <artifactId>ItemCompatLib</artifactId>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>
@@ -48,18 +51,6 @@
             <groupId>cn.handyplus.guild</groupId>
             <artifactId>PlayerGuild</artifactId>
             <version>${PlayerGuild.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.momirealms</groupId>
-            <artifactId>craft-engine-core</artifactId>
-            <version>${craft-engine.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.momirealms</groupId>
-            <artifactId>craft-engine-bukkit</artifactId>
-            <version>${craft-engine.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -109,6 +100,7 @@
                     <artifactSet>
                         <includes>
                             <include>cn.handyplus.lib:*:*:*</include>
+                            <include>cn.handyplus.lib.item:*:*:*</include>
                         </includes>
                     </artifactSet>
                     <relocations>

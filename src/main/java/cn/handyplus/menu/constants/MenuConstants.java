@@ -84,9 +84,4 @@ public final class MenuConstants {
      */
     public static ItemStack CLOCK;
 
-    /**
-     * CE插件物品前缀
-     */
-    public static final String CE = "[CE]";
-
 }
