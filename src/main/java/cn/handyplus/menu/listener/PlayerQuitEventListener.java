@@ -2,6 +2,7 @@ package cn.handyplus.menu.listener;
 
 import cn.handyplus.lib.annotation.HandyListener;
 import cn.handyplus.menu.constants.MenuConstants;
+import cn.handyplus.menu.hook.MenuInventoryHideUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -45,6 +46,7 @@ public class PlayerQuitEventListener implements Listener {
         MenuConstants.INPUT_MENU_MAP.remove(player.getUniqueId());
         MenuConstants.PLAYER_INPUT_MAP.remove(player.getUniqueId());
         MenuConstants.ADMIN_OPEN_PLAYER.remove(player.getUniqueId());
+        MenuInventoryHideUtil.show(player);
     }
 
 }

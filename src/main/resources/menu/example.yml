@@ -8,6 +8,8 @@ openItem: 'clock'
 permission: true
 # Menu size
 size: 54
+# Whether to hide inventory items when this menu is open. Uses global hide when omitted.
+# hideInventory: true
 # Sound played when opening this menu. Supported in 1.12+
 # Sound list: https://bukkit.windit.net/javadoc/org/bukkit/Sound.html
 sound: ""

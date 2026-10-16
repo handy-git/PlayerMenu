@@ -7,6 +7,7 @@ import cn.handyplus.lib.util.BaseUtil;
 import cn.handyplus.lib.util.HookPluginUtil;
 import cn.handyplus.lib.util.MessageUtil;
 import cn.handyplus.menu.hook.PlaceholderUtil;
+import cn.handyplus.menu.hook.ProtocolLibHook;
 import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.UpUtil;
 import net.milkbowl.vault.economy.Economy;
@@ -29,6 +30,7 @@ public class PlayerMenu extends JavaPlugin {
     public static PlayerPoints PLAYER_POINTS;
     public static boolean USE_GUILD;
     public static boolean USE_PLY;
+    public static boolean USE_PROTOCOL_LIB;
 
     @Override
     public void onEnable() {
@@ -50,6 +52,10 @@ public class PlayerMenu extends JavaPlugin {
         USE_GUILD = HookPluginUtil.hook(HookPluginEnum.PLAYER_GUILD);
         // 加载 PlayerCurrency
         USE_PLY = HookPluginUtil.hook(HookPluginEnum.PLAYER_CURRENCY);
+        USE_PROTOCOL_LIB = HookPluginUtil.hook(HookPluginEnum.PROTOCOL_LIB);
+        if (USE_PROTOCOL_LIB) {
+            ProtocolLibHook.enable();
+        }
         List<String> lordList = Arrays.asList(
                 "",
                 "  ____  _                       __  __                  ",
@@ -79,6 +85,9 @@ public class PlayerMenu extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if (USE_PROTOCOL_LIB) {
+            ProtocolLibHook.disable();
+        }
         InitApi.disable();
     }
 

@@ -90,6 +90,8 @@ public class ConfigUtil {
         HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "autoCreateId", true, Collections.singletonList("使用指令/plm create创建菜单是否自动生成ID"), "config.yml");
         // 1.6.7 adminOpenPermission
         HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "adminOpenPermission", true, Collections.singletonList("adminOpen指令打开菜单是否免权限"), "config.yml");
+        // 1.12.0 打开玩家菜单时隐藏背包物品
+        HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "hideInventory", false, Collections.singletonList("打开玩家菜单时隐藏背包物品"), "config.yml");
         // 1.8.0 action.cd/action.limit
         HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "action.cd", "ALL", Collections.singletonList("cd生效点击类型 ALL 全部 ，LEFT 左键，RIGHT 右键，MIDDLE 中键"), "config.yml");
         HandyConfigUtil.setPathIsNotContains(BaseConstants.CONFIG, "action.limit", "ALL", Collections.singletonList("limit生效点击类型 ALL 全部 ，LEFT 左键，RIGHT 右键，MIDDLE 中键"), "config.yml");

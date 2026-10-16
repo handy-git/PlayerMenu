@@ -8,6 +8,8 @@ openItem: 'clock'
 permission: true
 # 菜单大小
 size: 54
+# 是否隐藏本菜单打开时的背包物品，不填写则使用全局配置 hideInventory
+# hideInventory: true
 # 打开本菜单播放的声音1.12+支持
 # 音效列表 https://bukkit.windit.net/javadoc/org/bukkit/Sound.html
 sound: ""
