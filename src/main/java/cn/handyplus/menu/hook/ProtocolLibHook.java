@@ -1,6 +1,7 @@
 package cn.handyplus.menu.hook;
 
 import cn.handyplus.menu.PlayerMenu;
+import cn.handyplus.menu.core.HideInventoryUtil;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
@@ -38,13 +39,13 @@ public class ProtocolLibHook extends PacketAdapter {
      */
     public static void disable() {
         if (instance == null) {
-            MenuInventoryHideUtil.clear();
+            HideInventoryUtil.clear();
             return;
         }
         ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
         protocolManager.removePacketListener(instance);
         instance = null;
-        MenuInventoryHideUtil.clear();
+        HideInventoryUtil.clear();
     }
 
     /**
@@ -65,7 +66,7 @@ public class ProtocolLibHook extends PacketAdapter {
     @Override
     public void onPacketSending(PacketEvent event) {
         // 只改写当前玩家菜单底部的玩家背包槽位，顶部菜单内容保持不变。
-        Integer topSize = MenuInventoryHideUtil.getTopSize(event.getPlayer().getUniqueId());
+        Integer topSize = HideInventoryUtil.getTopSize(event.getPlayer().getUniqueId());
         if (topSize == null) {
             return;
         }

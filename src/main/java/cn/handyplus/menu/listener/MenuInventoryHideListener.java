@@ -4,7 +4,7 @@ import cn.handyplus.lib.annotation.HandyListener;
 import cn.handyplus.lib.constants.BaseConstants;
 import cn.handyplus.lib.inventory.HandyInventory;
 import cn.handyplus.menu.constants.GuiTypeEnum;
-import cn.handyplus.menu.hook.MenuInventoryHideUtil;
+import cn.handyplus.menu.core.HideInventoryUtil;
 import cn.handyplus.menu.util.ConfigUtil;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -35,7 +35,7 @@ public class MenuInventoryHideListener implements Listener {
         HandyInventory handyInventory = (HandyInventory) event.getInventory().getHolder();
         // 菜单配置优先于全局配置，未配置时继承全局值。
         if (this.isHideEnabled(handyInventory)) {
-            MenuInventoryHideUtil.hide((Player) event.getPlayer(), event.getInventory().getSize());
+            HideInventoryUtil.hide((Player) event.getPlayer(), event.getInventory().getSize());
         }
     }
 
@@ -49,7 +49,7 @@ public class MenuInventoryHideListener implements Listener {
         if (!(event.getPlayer() instanceof Player) || this.isPlayerMenu(event.getInventory().getHolder())) {
             return;
         }
-        MenuInventoryHideUtil.show((Player) event.getPlayer());
+        HideInventoryUtil.show((Player) event.getPlayer());
     }
 
     /**

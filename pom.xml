@@ -12,7 +12,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <HandyLib.version>3.44.8</HandyLib.version>
+        <HandyLib.version>3.44.9</HandyLib.version>
     </properties>
 
     <dependencies>
@@ -56,6 +56,11 @@
             <artifactId>ProtocolLib</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.retrooper</groupId>
+            <artifactId>packetevents-spigot</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -63,7 +68,7 @@
             <dependency>
                 <groupId>cn.handyplus.lib</groupId>
                 <artifactId>HandyBom</artifactId>
-                <version>1.2.4</version>
+                <version>1.2.5</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

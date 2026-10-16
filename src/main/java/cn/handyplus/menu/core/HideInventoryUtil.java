@@ -1,4 +1,4 @@
-package cn.handyplus.menu.hook;
+package cn.handyplus.menu.core;
 
 import cn.handyplus.lib.internal.HandySchedulerUtil;
 import org.bukkit.entity.Player;
@@ -12,16 +12,16 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * @author handy
  */
-public final class MenuInventoryHideUtil {
+public final class HideInventoryUtil {
     private static final Map<UUID, Integer> HIDDEN_MENU_MAP = new ConcurrentHashMap<>();
 
-    private MenuInventoryHideUtil() {
+    private HideInventoryUtil() {
     }
 
     /**
      * 记录菜单顶部容器大小.
      *
-     * @param player 玩家
+     * @param player  玩家
      * @param topSize 顶部容器大小
      */
     public static void hide(Player player, int topSize) {
