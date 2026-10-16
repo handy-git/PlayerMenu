@@ -65,6 +65,14 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- 统一 Paper API 与 PacketEvents 使用的 Adventure 版本，避免传递依赖冲突 -->
+            <dependency>
+                <groupId>net.kyori</groupId>
+                <artifactId>adventure-bom</artifactId>
+                <version>5.2.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>cn.handyplus.lib</groupId>
                 <artifactId>HandyBom</artifactId>
