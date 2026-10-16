@@ -58,5 +58,10 @@ isCheckUpdateToOpMsg: true
 # adminOpen指令打开菜单是否免权限(Whether to allow adminOpen command to open menu without permission)
 adminOpenPermission: true
 
+# 每日全量备份数据到 backUp 目录
+backUp: false
+# 备份时间
+backUpTime: "00:00"
+
 # 勿动!!!
 version: ""

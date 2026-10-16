@@ -11,7 +11,6 @@ import cn.handyplus.menu.util.ConfigUtil;
 import cn.handyplus.menu.util.UpUtil;
 import net.milkbowl.vault.economy.Economy;
 import org.black_ixx.playerpoints.PlayerPoints;
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -30,6 +29,7 @@ public class PlayerMenu extends JavaPlugin {
     public static PlayerPoints PLAYER_POINTS;
     public static boolean USE_GUILD;
     public static boolean USE_PLY;
+
     @Override
     public void onEnable() {
         INSTANCE = this;
@@ -60,9 +60,10 @@ public class PlayerMenu extends JavaPlugin {
                 "                |___/                                   "
         );
         for (String lord : lordList) {
-            MessageUtil.sendConsoleMessage(ChatColor.DARK_AQUA + lord);
+            MessageUtil.sendConsoleMessage("&3" + lord);
         }
         initApi.addMetrics(14034)
+                .enableSqlBackup()
                 .initCommand("cn.handyplus.menu.command")
                 .initListener("cn.handyplus.menu.listener")
                 .initClickEvent("cn.handyplus.menu.listener.gui")
@@ -72,8 +73,8 @@ public class PlayerMenu extends JavaPlugin {
 
         UpUtil.up();
 
-        MessageUtil.sendConsoleMessage(ChatColor.GREEN + "已成功载入服务器！");
-        MessageUtil.sendConsoleMessage(ChatColor.GREEN + "Author:handy WIKI: https://ricedoc.handyplus.cn/wiki/PlayerMenu/README/");
+        MessageUtil.sendConsoleMessage("&3已成功载入服务器！");
+        MessageUtil.sendConsoleMessage("&3Author:handy WIKI: https://ricedoc.handyplus.cn/wiki/PlayerMenu/README/");
     }
 
     @Override
